@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Untitled Document</title>
+<style type="text/css">
+
+
+.rightCol {padding: 0px 0px 0px 6px; float: left; width: 370px;}
+.leftCol {float: left; width: 370px; padding: 0px 0px 0px 12px;}
+
+/* out of town scoreboard */
+.oots {font-family: Verdana, Sans-serif; font-size: 10px; width: 740px;}
+.oots .scoreHead {padding: 0px 0px 5px 9px; }
+.oots .scoreHead a {color: #000;}
+.oots .game {position: relative; float: left; width: 114px; height: 29px; background-color: #EEE; border: 1px solid #CCC; padding: 2px 0px 0px 2px; margin: 1px; line-height: 11px; font-weight: bold; color: #3B3B3B;}
+.oots .game table {border-collapse: collapse;}
+.oots .game td {padding: 1px;}
+.oots .game .leftData {border-right: 1px solid #CCC; padding-right: 5px;}
+.oots .game .rightData {padding-left: 5px; color: #6B6B6B;}
+.leagueLabel {font-weight: bold; color: #333; padding-bottom: 4px; background-image: url(i/leagueLabelBG.gif); background-repeat: repeat-x;}
+.labelBG {padding: 0px 7px 0px 7px; background-color: #FFF;}
+.legend {margin:0 0 0 12px;}
+.justScoredWrapper {float: left; margin:0 5px 0 0;}
+.key {float:left;background:#EEE;margin:0 3px 0 0;width:13px;line-height:9px;height:8px;}
+.justScored {border:1px solid #299D00;}
+.redZone {border:1px solid #E30000;}
+/* end out of town scoreboard */
+
+/* begin game header */
+.gameHeader {border-collapse: collapse; width: 700px;}
+.gameHeader .score {font-family: Helvetica, Sans-serif; font-size: 36px; font-weight: bold; text-align: center;}
+.gameHeader .score img {padding: 10px 0px 0px 0px;}
+.gameHeadCenter {border: 1px solid orange; width: 414px;}
+.linescore {font-family: Verdana, Sans-serif; font-size: 11px; width: 400px; border-top: 1px solid #CCC;}
+.linescore td {text-align: center; border: 1px solid #CCC; background-color: #EEE; padding: 2px;}
+.linescore .teams {text-align: left; border: none; background-color: #FFF;}
+.linescore .score {font-weight: bold;}
+.linescore .innings td {border: none; background-color: #FFF;}
+.linescore .inn {font-weight: bold; font-size: 12px; border: none; background-color: #FFF; text-align: center;}
+.linescore .pitchers {border: none; background-color: #FFF; text-align:left; padding: 6px 2px 2px 2px; font-size: 10px; text-align:center;}
+.rule {border-bottom: 1px solid #CCC; height: 4px;}
+/* end game header */
+
+/* begin main page tabs */
+.tabber {width: 700px; font-family: Verdana, Sans-serif; font-size: 10px; padding: 8px 0px 9px 0px;}
+.tabOn {margin: 0px 2px 0px 0px; width: 90px; height: 15px; border: 1px solid #9B9B9B; border-bottom: 1px solid white; background-color: #FFF; float: left; font-weight: bold; text-align: center;}
+.tabOff {margin: 0px 2px 0px 0px; width: 90px; height: 15px; border-bottom: 1px solid #9B9B9B; border-top: 1px solid #FFF; background-color: #EEE; float: left; text-align: center;}
+.tabOff a {color: #444;}
+.tabOff a:hover {color: #000;}
+/* end main page tabs */
+.blankRule{height: 19px; position: absolute; top: -1px; z-index: 10; left:-15px; width: 772px; border-bottom: 1px solid #9C9A9C;}
+html>body .blankRule{top: 1px;}
+</style>
+</head>
+
+<body>
+<div class="oots">
+  <table width="100%" cellspacing="9" style="padding: 0px;">
+    <tr>
+      <td style="width:100%;" valign="top"><div>
+        <div id="263642294-box" class="game" style="border-color:#CCC" onmouseover="hiBox(this.id);" onmouseout="loBox(this.id);" onclick="loadGame('/ncf/boxscore?gameId=263642294&amp;confId=null&amp;date=20061230');">
+          <table>
+            <tr>
+              <td align="right" style="width:14px;" id="263642294-arc"> 18 </td>
+              <td class="" style="width: 50px;" id="263642294-ald">TEX</td>
+              <td class="leftData" style="width: 14px;" align="right" id="263642294-acd">10</td>
+              <td class="rightData" id="263642294-ard">H</td>
+            </tr>
+            <tr>
+              <td align="right" style="width:14px;" id="263642294-hrc"></td>
+              <td class="" style="width: 50px;" id="263642294-hld">IOWA</td>
+              <td class="leftData" style="width: 14px;" align="right" id="263642294-hcd">14</td>
+              <td class="rightData" id="263642294-hrd"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="263640259-box" class="game" style="border-color:#CCC" onmouseover="hiBox(this.id);" onmouseout="loBox(this.id);" onclick="loadGame('/ncf/preview?gameId=263640259&amp;confId=null&amp;date=20061230');">
+          <table>
+            <tr>
+              <td align="right" style="width:14px;" id="263640259-arc"></td>
+              <td class="leftData" style="width: 45px" id="263640259-ald">UGA</td>
+              <td class="rightData" style="" align="left" id="263640259-acd">8:00</td>
+              <td class="" id="263640259-ard"></td>
+            </tr>
+            <tr>
+              <td align="right" style="width:14px;" id="263640259-hrc"> 14 </td>
+              <td class="leftData" style="width: 45px" id="263640259-hld">VT</td>
+              <td class="rightData" style="" align="left" id="263640259-hcd"> PM ET</td>
+              <td class="" id="263640259-hrd"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="263640103-box" class="game" style="border-color:#CCC" onmouseover="hiBox(this.id);" onmouseout="loBox(this.id);" onclick="loadGame('/ncf/boxscore?gameId=263640103&amp;confId=null&amp;date=20061230');">
+          <table>
+            <tr>
+              <td align="right" style="width:14px;" id="263640103-arc"></td>
+              <td class="" style="width: 50px;" id="263640103-ald">NAVY</td>
+              <td class="leftData" style="width: 14px;" align="right" id="263640103-acd">24</td>
+              <td class="rightData" id="263640103-ard"></td>
+            </tr>
+            <tr>
+              <td align="right" style="width:14px;" id="263640103-hrc"> 23 </td>
+              <td class="" style="width: 50px;" id="263640103-hld">BC</td>
+              <td class="leftData" style="width: 14px;" align="right" id="263640103-hcd">25</td>
+              <td class="rightData" id="263640103-hrd"><img src="http://espn-ak.starwave.com/mlb/gameupdate/i/sbWinner.gif" alt="" /> F</td>
+            </tr>
+          </table>
+        </div>
+      </div></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

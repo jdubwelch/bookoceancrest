@@ -1,0 +1,236 @@
+.headerDays {
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+}
+.theMonth {
+	font-size: 36px;
+	font-weight: bold;
+	text-align: center;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+.headerDays td {
+	width: 85px;
+	font-size: 11px;
+}
+.headRow {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 11px;
+}
+#day {
+	text-align: right;
+	width: 20px;
+	float: right;
+	border-bottom-width: thin;
+	border-left-width: thin;
+	border-bottom-style: dotted;
+	border-left-style: dotted;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+	font-size: 11px;
+	font-weight: bold;
+	padding-right: 2px;
+	padding-bottom: 2px;
+}
+.oddrow {
+	color: #FF0000;
+}
+#event {
+	font-size: 9px;
+	height: 70px;
+	margin-top: 22px;
+	color: #000000;
+	text-align: center;
+}
+#beachcal {
+	text-align: center;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	clear: both;
+}
+.reserved {
+	background-color: #D8FFDC;
+}
+.evenrow #day a {
+	text-decoration: none;
+	color: #00CC00;
+}
+.oddrow #day a {
+	color: #0000FF;
+	text-decoration: none;
+}
+.oddrow #day a:hover {
+	text-decoration: underline;
+}
+.evenrow #day a:hover {
+	text-decoration: underline;
+}
+.evenrow {
+	color: #33FF00;
+}
+.otherMonth {
+	background-color: #ececec;
+}
+td {
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-top-color: #CCCCCC;
+	border-right-color: #CCCCCC;
+}
+table {
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #CCCCCC;
+}
+#container {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 700px;
+}
+#container #header {
+	margin: 0px;
+	padding: 0px;
+	margin-bottom: 15px;
+}
+#container #header h1 {
+	font-family: "Trebuchet MS", Tahoma;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 48px;
+	color: #0066CC;
+	background-color: #ececec;
+	text-align: center;
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+	padding-top: 0px;
+	padding-right: 15px;
+	padding-bottom: 0px;
+	padding-left: 15px;
+	border: 1px solid #999999;
+	letter-spacing: .3em;
+	text-transform: uppercase;
+}
+#header ul {
+	font-size: 12px;
+	margin-top: 0px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+	padding-top: 3px;
+	padding-right: 0px;
+	padding-bottom: 3px;
+	padding-left: 0px;
+}
+#header li {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+}
+#container #header a {
+	color: #0066CC;
+	text-decoration: none;
+	padding-top: 3px;
+	padding-right: 20px;
+	padding-bottom: 3px;
+	padding-left: 20px;
+	margin-top: 0px;
+	margin-right: -4px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	text-transform: capitalize;
+	font-weight: bold;
+}
+#container #header a:hover {
+	color: #0066CC;
+	text-decoration: none;
+	padding-top: 3px;
+	padding-right: 20px;
+	padding-bottom: 3px;
+	padding-left: 20px;
+	margin-top: 0px;
+	margin-right: -4px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	text-transform: capitalize;
+	font-weight: bold;
+	background-color: #ECECEC;
+}
+#container #left {
+	float: left;
+	width: 150px;
+}
+#container  #welch {
+	padding-left: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+	font-weight: bold;
+	color: #00CC00;
+	font-size: 12px;
+	float: left;
+}
+#container #schu {
+	margin: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	font-weight: bold;
+	color: #0000FF;
+	font-size: 12px;
+	float: left;
+	clear: left;
+}
+#container #content {
+	margin: 0px;
+	padding: 0px;
+	padding-right: 10px;
+	padding-left: 10px;
+	min-height: 600px;
+}
+#container #content h1 {
+	color: #333333;
+	font-size: 24px;
+	margin: 0px;
+	padding: 0px;
+	margin-bottom: 10px;
+}
+#container #content h3 {
+	color: #666666;
+	font-size: 16px;
+}
+#container #content p {
+	font-size: 12px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 7px;
+	margin-left: 0px;
+}
+#container #content small {
+	font-size: 10px;
+}
+#container #footer {
+	clear: both;
+	margin-top: 10px;
+	border-top-width: 1px;
+	border-top-style: dotted;
+	border-top-color: #CCCCCC;
+	font-size: 10px;
+	color: #999999;
+}
+#container #content #addEvent td {
+	font-size: 11px;
+}
+#container #footer a {
+	color: #999999;
+	text-decoration: underline;
+}

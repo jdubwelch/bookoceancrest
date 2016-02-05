@@ -1,0 +1,6 @@
+
+AddHandler php4-script .php
+
+# BEGIN (mt) controlled settings
+AddHandler php-stable .php
+# END (mt) controlled settings
