@@ -1,0 +1,21 @@
+{
+    "name": "welch/bookoceancrest",
+    "description": "Event calendar app for family beach cabin.",
+    "require-dev": {
+        "phpunit/phpunit": "^5.2"
+    },
+    "autoload": {
+        "classmap": [
+            
+        ],
+        "psr-4": {
+            "OceanCrest\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jason Welch",
+            "email": "jw@jwelchdesign.com"
+        }
+    ]
+}
