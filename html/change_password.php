@@ -1,5 +1,9 @@
-<?php # Script 13.11 - change_password.php
+<?php 
+
+# Script 13.11 - change_password.php
 // This page allows a logged-in user to change their password.
+
+use OceanCrest\DB;
 
 // Set the page title and include the HTML header.
 $page_title = 'O C E A N  C R E S T >> Change Your Password';
@@ -30,7 +34,7 @@ if (!isset($_SESSION['name'])) {
 		// Check for a new password and match against the confirmed password.
 		if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($_POST['password1'])))) {
 			if ($_POST['password1'] == $_POST['password2']) {
-				$p = escape_data($_POST['password1']);
+				$p = DB::escape_data($_POST['password1']);
 			} else {
 				$p = FALSE;
 				echo '<p><font color="red" size="+1">Your password did not match the confirmed password!</font></p>';

@@ -1,4 +1,6 @@
 <?php # Script 13.6 - register.php
+
+use OceanCrest\DB;
 // This is the registration page for the site.
 
 // Set the page title and include the HTML header.
@@ -23,7 +25,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
 
 		// Check for a first name.
 		if (stripslashes(trim($_POST['name']))) {
-			$name = escape_data($_POST['name']);
+			$name = DB::escape_data($_POST['name']);
 		} else {
 			$name = FALSE;
 			echo '<p><font color="red" size="+1">Please enter your name.</font></p>';
@@ -39,7 +41,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
 
 		// Check for an email address.
 		if (eregi ('^[[:alnum:]][a-z0-9_\.\-]*@[a-z0-9\.\-]+\.[a-z]{2,4}$', stripslashes(trim($_POST['email'])))) {
-			$e = escape_data($_POST['email']);
+			$e = DB::escape_data($_POST['email']);
 		} else {
 			$e = FALSE;
 			echo '<p><font color="red" size="+1">Please enter a valid email address.</font></p>';
@@ -48,7 +50,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
 		// Check for a password and match against the confirmed password.
 		if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($_POST['password1'])))) {
 			if ($_POST['password1'] == $_POST['password2']) {
-				$p = escape_data($_POST['password1']);
+				$p = DB::escape_data($_POST['password1']);
 			} else {
 				$p = FALSE;
 				echo '<p><font color="red" size="+1">Your password did not match the confirmed password!</font></p>';

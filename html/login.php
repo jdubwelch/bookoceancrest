@@ -1,4 +1,7 @@
 <?php # Script 13.8 - login.php
+
+use OceanCrest\DB;
+
 // This is the login page for the site.
 
 
@@ -12,7 +15,7 @@ if (isset($_POST['submitted'])) { // Check if the form has been submitted.
 
 	// Validate the email address.	
 	if (!empty($_POST['email'])) {
-		$e = escape_data($_POST['email']);
+		$e = DB::escape_data($_POST['email']);
 	} else {
 		echo '<p><font color="red" size="+1">You forgot to enter your email address!</font></p>';
 		$e = FALSE;
@@ -20,7 +23,7 @@ if (isset($_POST['submitted'])) { // Check if the form has been submitted.
 	
 	// Validate the password.
 	if (!empty($_POST['pass'])) {
-		$p = escape_data($_POST['pass']);
+		$p = DB::escape_data($_POST['pass']);
 	} else {
 		$p = FALSE;
 		echo '<p><font color="red" size="+1">You forgot to enter your password!</font></p>';

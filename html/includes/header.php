@@ -1,5 +1,10 @@
-<?php # Script 13.1 - header.html
+<?php
+ # Script 13.1 - header.html
 // This page begins the HTML header for the site.
+
+// Let's handle some errors
+ini_set('display_errors', 'On');
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 require __DIR__.'/../../vendor/autoload.php';
 

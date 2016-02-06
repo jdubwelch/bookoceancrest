@@ -1,4 +1,8 @@
-<?php # Script 13.10 - forgot_password.php
+<?php 
+
+use OceanCrest\DB;
+
+# Script 13.10 - forgot_password.php 
 // This page allows a user to reset their password, if forgotten.
 
 
@@ -16,7 +20,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
 	} else {
 
 		// Check for the existence of that email address.
-		$query = "SELECT user_id FROM ocUsers WHERE email='".  escape_data($_POST['email']) . "'";		
+		$query = "SELECT user_id FROM ocUsers WHERE email='".  DB::escape_data($_POST['email']) . "'";		
 		$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
 		if (mysql_num_rows($result) == 1) {
 
