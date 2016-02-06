@@ -5,7 +5,7 @@ This is one of my first web apps. I want to refactor it.
 
 ## Refactoring Steps
 
-* Implement Autoloading
+* -Implement Autoloading-
 * Consolidate Classes and Functions
 * Replace global with Dependency Injection
 * Replace new with Dependency Injection
