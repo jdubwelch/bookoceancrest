@@ -1,9 +1,9 @@
 <?php # Script 13.8 - login.php
 
 use OceanCrest\DB;
+use OceanCrest\AuthGateway;
 
 // This is the login page for the site.
-
 
 // Set the page title and include the HTML header.
 $page_title = 'Login';
@@ -34,18 +34,18 @@ if (isset($_POST['submitted'])) { // Check if the form has been submitted.
 	if ($e && $p) { // If everything's OK.
 	
 		// Query the database.
-		$query = "SELECT user_id, name, side FROM ocUsers WHERE (email='$e' AND password = PASSWORD('$p') AND activated = '1')";		
-		$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-		
-		if (@mysql_num_rows($result) == 1) { // A match was made.
+        $credentials = [
+            'email' => $e,
+            'password' => $p
+        ];
 
-			// Register the values & redirect.
-			$row = mysql_fetch_array ($result, MYSQL_NUM); 
-			mysql_free_result($result);
-			mysql_close(); // Close the database connection.
-			$_SESSION['name'] = $row[1];
-			$_SESSION['user_id'] = $row[0];
-			$_SESSION['side'] = $row[2];
+        $authGateway = new AuthGateway($dbc);
+		if ($user = $authGateway->attempt($credentials)) { // A match was made.
+
+			
+			$_SESSION['name'] = $user->name;
+			$_SESSION['user_id'] = $user->id;
+			$_SESSION['side'] = $user->side;
 							
 			// Start defining the URL.
 			$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
@@ -68,8 +68,6 @@ if (isset($_POST['submitted'])) { // Check if the form has been submitted.
 		echo '<p><font color="red" size="+1">Please try again.</font></p>';		
 	}
 	
-	mysql_close(); // Close the database connection.
-
 } // End of SUBMIT conditional.
 ?>
 
