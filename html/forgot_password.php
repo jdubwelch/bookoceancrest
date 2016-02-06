@@ -19,8 +19,10 @@ if (isset($_POST['submitted'])) { // Handle the form.
 		echo '<p><font color="red" size="+1">You forgot to enter your email address!</font></p>';
 	} else {
 
+        $db = new DB($dbc);
+
 		// Check for the existence of that email address.
-		$query = "SELECT user_id FROM ocUsers WHERE email='".  DB::escape_data($_POST['email']) . "'";		
+		$query = "SELECT user_id FROM ocUsers WHERE email='".  $db->escape_data($_POST['email']) . "'";		
 		$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
 		if (mysql_num_rows($result) == 1) {
 

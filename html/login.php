@@ -12,10 +12,12 @@ include ('./includes/header.php');
 if (isset($_POST['submitted'])) { // Check if the form has been submitted.
 
 	require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
+    
+    $db = new DB($dbc);
 
 	// Validate the email address.	
 	if (!empty($_POST['email'])) {
-		$e = DB::escape_data($_POST['email']);
+		$e = $db->escape_data($_POST['email']);
 	} else {
 		echo '<p><font color="red" size="+1">You forgot to enter your email address!</font></p>';
 		$e = FALSE;
@@ -23,7 +25,7 @@ if (isset($_POST['submitted'])) { // Check if the form has been submitted.
 	
 	// Validate the password.
 	if (!empty($_POST['pass'])) {
-		$p = DB::escape_data($_POST['pass']);
+		$p = $db->escape_data($_POST['pass']);
 	} else {
 		$p = FALSE;
 		echo '<p><font color="red" size="+1">You forgot to enter your password!</font></p>';

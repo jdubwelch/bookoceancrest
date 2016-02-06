@@ -30,11 +30,13 @@ if (!isset($_SESSION['name'])) {
 	if (isset($_POST['submitted'])) { // Handle the form.
 	
 		require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
+
+        $db = new DB($dbc);
 				
 		// Check for a new password and match against the confirmed password.
 		if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($_POST['password1'])))) {
 			if ($_POST['password1'] == $_POST['password2']) {
-				$p = DB::escape_data($_POST['password1']);
+				$p = $db->escape_data($_POST['password1']);
 			} else {
 				$p = FALSE;
 				echo '<p><font color="red" size="+1">Your password did not match the confirmed password!</font></p>';

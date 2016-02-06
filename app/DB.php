@@ -2,8 +2,15 @@
 
 class DB {
 
+    private $connection;
+
+    public function __construct($connection)
+    {
+        $this->connection = $connection;
+    }
+
     // Create a function for escaping the data.
-    public static function escape_data ($data) {
+    public function escape_data ($data) {
         
         // Address Magic Quotes.
         if (ini_get('magic_quotes_gpc')) {
@@ -12,8 +19,7 @@ class DB {
         
         // Check for mysql_real_escape_string() support.
         if (function_exists('mysql_real_escape_string')) {
-            global $dbc; // Need the connection.
-            $data = mysql_real_escape_string (trim($data), $dbc);
+            $data = mysql_real_escape_string (trim($data), $this->connection);
         } else {
             $data = mysql_escape_string (trim($data));
         }
