@@ -1,5 +1,7 @@
 <?php
 
+use OceanCrest\Events;
+
 // Set the page title and include the HTML header.
 $page_title = 'O C E A N  C R E S T >> CALENDAR';
 include ('./includes/header.php');
@@ -100,7 +102,7 @@ $month = $date["mon"];
 $monthName = $date["month"];
 $year = $date["year"];
 
-$eventData = readCalendarData($month, $year);
+$eventData = Events::readCalendarData($month, $year);
 $eventsArray = @array_keys($eventData);
 
 $firstDay = mktime (0,1,0, $month, 1, $year);
