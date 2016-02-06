@@ -8,9 +8,7 @@ $page_title = 'O C E A N  C R E S T >> REGISTER';
 include ('./includes/header.php');
 
 // Instantiate the AYAH object.
-require_once("./includes/ayah.php");
 $ayah = new AYAH();
-
 
 if (isset($_POST['submitted'])) { // Handle the form.
 	

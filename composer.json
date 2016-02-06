@@ -6,7 +6,7 @@
     },
     "autoload": {
         "classmap": [
-            
+            "packages"
         ],
         "psr-4": {
             "OceanCrest\\": "app/"
