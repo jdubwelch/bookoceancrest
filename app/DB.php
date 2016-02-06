@@ -2,7 +2,7 @@
 
 class DB {
 
-    private $connection;
+    protected $connection;
 
     public function __construct($connection)
     {

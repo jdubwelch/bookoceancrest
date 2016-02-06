@@ -4,6 +4,7 @@
 // This page allows a logged-in user to change their password.
 
 use OceanCrest\DB;
+use OceanCrest\UserGateway;
 
 // Set the page title and include the HTML header.
 $page_title = 'O C E A N  C R E S T >> Change Your Password';
@@ -32,7 +33,7 @@ if (!isset($_SESSION['name'])) {
 		require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
 
         $db = new DB($dbc);
-				
+
 		// Check for a new password and match against the confirmed password.
 		if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($_POST['password1'])))) {
 			if ($_POST['password1'] == $_POST['password2']) {
@@ -47,15 +48,16 @@ if (!isset($_SESSION['name'])) {
 		}
 		
 		if ($p) { // If everything's OK.
+
+
+            $userGateway = new UserGateway($dbc);
+
+            $updated = $userGateway->updatePassword($_SESSION['user_id'], $p);
 	
-			// Make the query.
-			$query = "UPDATE `ocUsers` SET `password` = PASSWORD('$p') WHERE `user_id` = '{$_SESSION['user_id']}'";		
-			$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-			if (mysql_affected_rows() == 1) { // If it ran OK.
+			if ($updated) { // If it ran OK.
 			
 				// Send an email, if desired.
 				echo '<h3>Your password has been changed.</h3>';
-				mysql_close(); // Close the database connection.
 				include ('./includes/footer.php'); // Include the HTML footer.
 				exit();				
 				
@@ -70,7 +72,6 @@ if (!isset($_SESSION['name'])) {
 			echo '<p><font color="red" size="+1">Please try again.</font></p>';		
 		}
 		
-		mysql_close(); // Close the database connection.
 
 	} // End of the main Submit conditional.
 	

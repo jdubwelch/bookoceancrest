@@ -1,5 +1,7 @@
 <?php 
 
+use OceanCrest\EventGateway;
+
 require_once("../cgi-bin/oc/dbConnection.php");
 
 
@@ -36,30 +38,13 @@ if($_POST['action'] == "add"){
 		$event = '';
 		$staying = $_POST['staying'];
 	}
-	
-	// Create Date Time Field
-	$time = "00:00:00";
-	$dateArray = explode("/",$date);
-	$d = $dateArray[0];
-	$yr = $dateArray[2];
-	$mo = $dateArray[1];
-	
-	if ($staying > 1) {
-		for ($i = 0; $i < $staying; $i++) {
-			$reserveDates = $d + $i;
-			$datetime = "$yr-$mo-$reserveDates $time";
-			$sql = "INSERT INTO ocCalendar (dateField,family,event) VALUES ('" . $datetime . "','" . $family . "','" . $event . "')";
-			mysql_query($sql);
-			
-		}
-	} else {
-		$datetime = "$yr-$mo-$d $time";
-		$sql = "INSERT INTO ocCalendar (dateField,family,event) VALUES ('" . $datetime . "','" . $family . "','" . $event . "')";
-		mysql_query($sql);
-	}
-			
-	// Close Database Connection  
-	mysql_close();
+	   
+	$eventGateway = new EventGateway($dbc);
+    $eventGateway->reserve($family, $date, $staying);
+
+    $dateArray = explode("/", $date);
+    $mo = $dateArray[1];
+    $yr = $dateArray[2];
 	
 	// Return to Calendar Page
 	header("Location: calendar.php?month=$mo&year=$yr");

@@ -1,6 +1,7 @@
 <?php # Script 13.6 - register.php
 
 use OceanCrest\DB;
+use OceanCrest\UserGateway;
 // This is the registration page for the site.
 
 // Set the page title and include the HTML header.
@@ -21,6 +22,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
 		// Add code to process the form.
 		require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
         $db = new DB($dbc);
+        $userGateway = new UserGateway($dbc);
 
 		// Check for a first name.
 		if (stripslashes(trim($_POST['name']))) {
@@ -61,24 +63,15 @@ if (isset($_POST['submitted'])) { // Handle the form.
 
 		if ($name && $side && $e && $p) { // If everything's OK.
 
-			// Make sure the email address is available.
-			$query = "SELECT user_id FROM ocUsers WHERE email='$e'";		
-			$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-
-			if (mysql_num_rows($result) == 0) { // Available.
-
+			if ($userGateway->uniqueEmail($e)) { // Available.
 
 				// Add the user.
-				$query = "INSERT INTO `ocUsers` (`user_id`, `name`, `email`, `password`, `side`, `activated`) 
-				VALUES (NULL, '$name', '$e', PASSWORD('$p'), '$side', '0');";		
-				$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-
-				if (mysql_affected_rows() == 1) { // If it ran OK.
+				if ($user_id = $userGateway->create($name, $e, $side, $p)) { // If it ran OK.
 
 					// Send the email.
 					$body = "Name: $name\n\nEmail: $e\n\nSide: $side\n\n";
-					$body .= "http://www.bookoceancrest.com/activate.php?x=" . mysql_insert_id();
-					mail('jason@jwelchdesign.com', 'bookoceancrest.com', $body, 'From: info@bookoceancrest.com');
+					$body .= "http://www.bookoceancrest.com/activate.php?x=" . $user_id;
+					mail('jw@jwelchdesign.com', 'bookoceancrest.com', $body, 'From: info@bookoceancrest.com');
 
 					// Finish the page.
 					echo '<h1>Thank you for registering! </h1>
@@ -97,8 +90,6 @@ if (isset($_POST['submitted'])) { // Handle the form.
 		} else { // If one of the data tests failed.
 			echo '<p><font color="red" size="+1">Please try again.</font></p>';		
 		}
-
-		mysql_close(); // Close the database connection.
 	}
 	// you are NOT a human
 	else

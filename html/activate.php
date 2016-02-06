@@ -1,4 +1,6 @@
 <?php # Script 13.7 - activate.php
+
+use OceanCrest\UserGateway;
 // This page activates the user's account.
 
 
@@ -7,7 +9,7 @@ $page_title = 'O C E A N  C R E S T >> Activate Your Account';
 include ('./includes/header.php');
 
 // MAKE SURE IT'S AN ADMINISTRATOR
-if ($_SESSION['user_id'] != '8') {	// it's not an ADMIN
+if ($_SESSION['user_id'] != '1') {	// it's not an ADMIN
 	
 	echo "<h1 class=\"error\">I'm sorry, you don't have the proper access to view this page</h1>";
 	include('includes/footer.php');
@@ -25,23 +27,18 @@ if (isset($_GET['x'])) {
 if ($x > 0) {
 
 	require_once("../cgi-bin/oc/dbConnection.php");
-	
-	$query = "UPDATE `ocUsers` SET `activated` = '1' WHERE `user_id` = '$x' LIMIT 1;";		
-	$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
+
+    $userGateway = new UserGateway($dbc);
+    $activated = $userGateway->activate($x);
 	
 	// Print a customized message.
-	if (mysql_affected_rows() == 1) {
+	if ($activated) {
 		echo "<h3>Your account is now active. You may now log in.</h3>";
 	} else {
 		echo '<p><font color="red" size="+1">Your account could not be activated. Please re-check the link or contact the system administrator.</font></p>'; 
 	}
 	
-	$query = "SELECT email FROM ocUsers WHERE user_id = $x";
-	$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-	
-	$row = mysql_fetch_array($result);
-	
-	$email = $row[0];
+	$email = $userGateway->email($x);
 	
 	$body = "You're bookoceancrest account has now been activated.\n\n
 	Please login at http://www.bookoceancrest.com/login.php using your email and the password you set up.\n\n
@@ -51,8 +48,6 @@ if ($x > 0) {
 	$subject = "Ocean Crest Acount";
 	
 	mail($email, $subject, $body, 'From: info@bookoceancrest.com');
-
-	mysql_close();
 
 } else { // Redirect.
 

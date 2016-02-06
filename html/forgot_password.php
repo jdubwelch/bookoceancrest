@@ -1,6 +1,6 @@
 <?php 
 
-use OceanCrest\DB;
+use OceanCrest\UserGateway;
 
 # Script 13.10 - forgot_password.php 
 // This page allows a user to reset their password, if forgotten.
@@ -13,27 +13,16 @@ include ('./includes/header.php');
 if (isset($_POST['submitted'])) { // Handle the form.
 
 	require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
+    
+    $userGateway = new UserGateway($dbc);
 
 	if (empty($_POST['email'])) { // Validate the email address.
 		$uid = FALSE;
 		echo '<p><font color="red" size="+1">You forgot to enter your email address!</font></p>';
 	} else {
 
-        $db = new DB($dbc);
-
 		// Check for the existence of that email address.
-		$query = "SELECT user_id FROM ocUsers WHERE email='".  $db->escape_data($_POST['email']) . "'";		
-		$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-		if (mysql_num_rows($result) == 1) {
-
-			// Retrieve the user ID.
-			list($uid) = mysql_fetch_array ($result, MYSQL_NUM); 
-
-		} else {
-			echo '<p><font color="red" size="+1">The submitted email address does not match those on file!</font></p>';
-			$uid = FALSE;
-		}
-		
+        $uid = $userGateway->getUserByEmail($_POST['email']);
 	}
 	
 	if ($uid) { // If everything's OK.
@@ -42,15 +31,13 @@ if (isset($_POST['submitted'])) { // Handle the form.
 		$p = substr ( md5(uniqid(rand(),1)), 3, 10);
 
 		// Make the query.
-		$query = "UPDATE ocUsers SET password = PASSWORD('$p') WHERE user_id=$uid";		
-		$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-		if (mysql_affected_rows() == 1) { // If it ran OK.
+        $result = $userGateway->updatePassword($uid, $p);
+		if ($result) { // If it ran OK.
 		
 			// Send an email.
 			$body = "Your password to log into bookoceancrest.com has been temporarily changed to '$p'. Please log in using this password and your username. At that time you may change your password to something more familiar.";
 			mail ($_POST['email'], 'Your temporary password.', $body, 'From: info@bookoceancrest.com');
 			echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the "Change Password" link.</h3>';
-			mysql_close(); // Close the database connection.
 			include ('./includes/footer.php'); // Include the HTML footer.
 			exit();				
 			
@@ -63,8 +50,6 @@ if (isset($_POST['submitted'])) { // Handle the form.
 	} else { // Failed the validation test.
 		echo '<p><font color="red" size="+1">Please try again.</font></p>';		
 	}
-
-	mysql_close(); // Close the database connection.
 
 } // End of the main Submit conditional.
 

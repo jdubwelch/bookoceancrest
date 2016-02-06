@@ -1,4 +1,6 @@
 <?php 
+
+use OceanCrest\EventGateway;
 include ('./includes/header.php');
 require_once("../cgi-bin/oc/dbConnection.php"); ?>
 
@@ -12,6 +14,7 @@ if(strlen($_GET['day']) < 1){
 // MAKE SURE THEY ARE LOGGED IN
 if (isset($_SESSION['name'])) {
 	echo "<p>$_SESSION[name]</p>";
+    $name = $_SESSION['name'];
 } else {
 	// Start defining the URL.
 	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
@@ -29,62 +32,36 @@ if (isset($_SESSION['name'])) {
 
 // Create Timestamps to read in all events on given day
 $date = $_GET['day'];
+
+$eventGateway = new EventGateway($dbc);
+$records = $eventGateway->details($date);
+
 $dateArray = explode("/",$date);
-$startTimestamp = mktime(0,0,0,$dateArray[1],$dateArray[0],$dateArray[2]);
-$endTimestamp = mktime(23,59,00,$dateArray[1],$dateArray[0],$dateArray[2]);
-
-// Create SQL to read in database records
-$sql  = "SELECT id,family, UNIX_TIMESTAMP(dateField) AS timestampField  ";
-$sql .= "FROM ocCalendar ";
-$sql .= "WHERE UNIX_TIMESTAMP(dateField) >= " . $startTimestamp . " AND UNIX_TIMESTAMP(dateField) <= " . $endTimestamp . " ";
-$sql .= "ORDER BY UNIX_TIMESTAMP(dateField) ASC";
-
-
-// Read in Records from Database  
-$dbResult = mysql_query($sql)
-  or die ("MySQL Error: " . mysql_error() );
-$numRecords = mysql_num_rows($dbResult);
-for($i=0;$i < $numRecords;$i++){
-	$temp = mysql_fetch_assoc($dbResult);
-	if (!get_magic_quotes_gpc()) {
-		$temp['family'] = stripslashes($temp['family']);
-	}
-	$records[] = $temp;
-}
-
 $month = $dateArray[1];
 $day = $dateArray[0];
 $year = $dateArray[2];
 
-
 if (isset($_POST['delete'])) {
-	
+
 	// CHECK TO MAKE SURE THE RIGHT PERSON IS ACCESSING THIS PAGE
 	if ($name == $records[0]['family']) {
 		
 		$id = $_POST['id'];
-		
-		$query = "DELETE FROM `ocCalendar` WHERE `id` = '$id' LIMIT 1";
-		$result = mysql_query($query);
+		$result = $eventGateway->cancel($id);
 		
 		if ($result) {
-			
 			header("Location: calendar.php?month=$month&year=$year");
 			exit();
 		}
 		
-		
 	} else {
-	
 		echo "it's not.";
 	}
 }
 
-
 ?>
 
 <h3><?php echo $records[0]['family'] . " have reserved the cabin on $month/$day/$year"; ?></h3>
-  
   
   <p>&nbsp;</p>
   <?php 
@@ -98,11 +75,7 @@ if ($name == $records[0]['family']) {
 		<input name=\"id\" type=\"hidden\" value=\"$id\">
 		<input name=\"delete\" type=\"submit\" value=\" click if not staying anymore \">
 	</form>";
-
 } 
-
-
-
 	
 	
 } else { ?>
