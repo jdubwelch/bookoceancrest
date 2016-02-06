@@ -69,7 +69,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
 
 				// Add the user.
 				$query = "INSERT INTO `ocUsers` (`user_id`, `name`, `email`, `password`, `side`, `activated`) 
-				VALUES ('', '$name', '$e', PASSWORD('$p'), '$side', '0');";		
+				VALUES (NULL, '$name', '$e', PASSWORD('$p'), '$side', '0');";		
 				$result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
 
 				if (mysql_affected_rows() == 1) { // If it ran OK.

@@ -1,4 +1,5 @@
-<?php 	#view_users.php
+<?php
+
 
 $page_title = "View the Current Users";
 include ('./includes/header.html');
@@ -6,7 +7,7 @@ include ('./includes/header.html');
 // Page header
 echo '<h1 id="mainHead">Registered Users</h1>';
 
-require_once ('../cgi-bin/mysql_connect.php');	// connect to the database
+require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
 
 // Number of records to show per page
 $display = 5;
@@ -87,9 +88,8 @@ if (isset($_GET['sort'])) {
 	$sort = 'rdd';
 }
 
-$query = "SELECT name, user_id FROM ocUsers ORDER BY $order_by LIMIT $start, $display";
-
-$result = @mysql_query($query);		// run the query
+$query = "SELECT name, user_id FROM ocUsers";
+$result = mysql_query($query);		// run the query
 
 
 // table header

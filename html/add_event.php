@@ -23,17 +23,17 @@ if (isset($_SESSION['name'])) {
 }
 
 if($_POST['action'] == "add"){
-	
+
 	// Read data to insert into Database
 	if (!get_magic_quotes_gpc()) {
 		$date = addslashes($_POST['date']);
-		$family = addslashes($_POST['family']);
-		$event = addslashes($_POST['event']);
+		$family = $_SESSION['name'];
+		$event = '';
 		$staying = addslashes($_POST['staying']);
 	} else {
 		$date = $_POST['date'];
 		$family = $_SESSION['name'];
-		$event = $_POST['event'];
+		$event = '';
 		$staying = $_POST['staying'];
 	}
 	

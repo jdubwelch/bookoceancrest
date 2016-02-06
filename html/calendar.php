@@ -47,7 +47,8 @@ function readCalendarData ($month, $year) {
 	$dbResult = mysql_query($sql) or die ("MYSQL Error: " . mysql_error() );
 	$numRecords = mysql_num_rows ($dbResult);
 	$eventsArray[] = "";
-	
+	$eventData = [];
+
 	for ($i=0; $i < $numRecords; $i++) {
 		$row = mysql_fetch_assoc ($dbResult);
 		$day = date ("j", $row['timestampField']);
@@ -67,15 +68,14 @@ function readCalendarData ($month, $year) {
 	return $eventData;
 }
 
-if ($submit) {
-	
+if (isset($_POST['submit'])) {
+
+    $submit = $_POST['submit'];
+    $month_now = $_POST['month'];
+    $year_now = $_POST['year'];
+
 	// Subtract one from month for prev and add 1 for next
-	if ($submit == "submit") {
-		
-		$month_now = $_POST['month'];
-		$year_now = $_POST['year'];
-			
-	} elseif ($submit == "Prev") {
+	if ($submit == "Prev") {
 		$month_now--;
 	} else {
 		$month_now++;
@@ -109,7 +109,7 @@ $daysInMonth = date("t", mktime(0,0,0,$month,1,$year));
 
 // set the year for the year of the day it is right now
 $todaysYear = getdate();
-$todaysYear = $todaysYear[year];
+$todaysYear = $todaysYear['year'];
 
 echo "
 <div id=\"beachcal\">

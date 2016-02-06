@@ -1,6 +1,8 @@
 <?php # Script 13.1 - header.html
 // This page begins the HTML header for the site.
 
+require __DIR__.'/../../vendor/autoload.php';
+
 // Start output buffering.
 ob_start();
 // Initialize a session.
