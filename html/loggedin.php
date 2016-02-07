@@ -7,7 +7,7 @@ session_start();	// start the session
 if (!isset($_COOKIE['user_id'])) {
 	
 	// Start defining the url
-	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
 	
 	// Check for a trailing slash
 	if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {

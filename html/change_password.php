@@ -11,10 +11,10 @@ $page_title = 'O C E A N  C R E S T >> Change Your Password';
 include ('./includes/header.php');
 
 // If no first_name variable exists, redirect the user.
-if (!isset($_SESSION['name'])) {
+if (!isset($request->session['name'])) {
 
 	// Start defining the URL.
-	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
 	// Check for a trailing slash.
 	if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
 		$url = substr ($url, 0, -1); // Chop off the slash.
@@ -28,16 +28,16 @@ if (!isset($_SESSION['name'])) {
 	
 } else {
 
-	if (isset($_POST['submitted'])) { // Handle the form.
+	if (isset($request->post['submitted'])) { // Handle the form.
 	
 		require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
 
         $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 		// Check for a new password and match against the confirmed password.
-		if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($_POST['password1'])))) {
-			if ($_POST['password1'] == $_POST['password2']) {
-				$p = $db->escape_data($_POST['password1']);
+		if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($request->post['password1'])))) {
+			if ($request->post['password1'] == $request->post['password2']) {
+				$p = $db->escape_data($request->post['password1']);
 			} else {
 				$p = FALSE;
 				echo '<p><font color="red" size="+1">Your password did not match the confirmed password!</font></p>';
@@ -52,7 +52,7 @@ if (!isset($_SESSION['name'])) {
 
             $userGateway = new UserGateway($db);
 
-            $updated = $userGateway->updatePassword($_SESSION['user_id'], $p);
+            $updated = $userGateway->updatePassword($request->session['user_id'], $p);
 	
 			if ($updated) { // If it ran OK.
 			
@@ -88,6 +88,6 @@ if (!isset($_SESSION['name'])) {
 	</form>
 
 <?php
-} // End of the !isset($_SESSION['first_name']) ELSE.
+} // End of the !isset($request->session['first_name']) ELSE.
 include ('./includes/footer.php');
 ?>

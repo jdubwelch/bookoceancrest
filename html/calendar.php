@@ -8,11 +8,11 @@ $page_title = 'O C E A N  C R E S T >> CALENDAR';
 include ('./includes/header.php');
 
 // MAKE SURE THEY ARE LOGGED IN
-if (isset($_SESSION['name'])) {
-	echo "<p>$_SESSION[name]</p>";
+if (isset($request->session['name'])) {
+	echo "<p>{$request->session['name']}</p>";
 } else {
 	// Start defining the URL.
-	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
 	// Check for a trailing slash.
 	if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
 		$url = substr ($url, 0, -1); // Chop off the slash.
@@ -26,16 +26,16 @@ if (isset($_SESSION['name'])) {
 }
 
 // define their name
-$name = $_SESSION['name'];
-$uid = $_SESSION['user_id'];
-$side = $_SESSION['side'];
+$name = $request->session['name'];
+$uid = $request->session['user_id'];
+$side = $request->session['side'];
 
 
-if (isset($_POST['submit'])) {
+if (isset($request->post['submit'])) {
 
-    $submit = $_POST['submit'];
-    $month_now = $_POST['month'];
-    $year_now = $_POST['year'];
+    $submit = $request->post['submit'];
+    $month_now = $request->post['month'];
+    $year_now = $request->post['year'];
 
 	// Subtract one from month for prev and add 1 for next
 	if ($submit == "Prev") {
@@ -46,9 +46,9 @@ if (isset($_POST['submit'])) {
 	
 	$date = getdate(mktime(0,0,0,$month_now, 1, $year_now));
 
-} elseif (isset($_GET['month'])) {
+} elseif (isset($request->get['month'])) {
 
-	$date = getdate(mktime(0,0,0, $_GET['month'], 1, $_GET['year']));
+	$date = getdate(mktime(0,0,0, $request->get['month'], 1, $request->get['year']));
 		
 } else {
 

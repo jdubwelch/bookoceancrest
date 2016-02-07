@@ -7,18 +7,18 @@ require_once("../cgi-bin/oc/dbConnection.php"); ?>
 
 <?php
 // Check that we have a date parameter in the URL, if none redirect back to calendar page
-if(strlen($_GET['day']) < 1){
+if(strlen($request->get['day']) < 1){
 	header("Location: index.php");
 	exit();
 }
 
 // MAKE SURE THEY ARE LOGGED IN
-if (isset($_SESSION['name'])) {
-	echo "<p>$_SESSION[name]</p>";
-    $name = $_SESSION['name'];
+if (isset($request->session['name'])) {
+	echo "<p>$request->session[name]</p>";
+    $name = $request->session['name'];
 } else {
 	// Start defining the URL.
-	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
 	// Check for a trailing slash.
 	if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
 		$url = substr ($url, 0, -1); // Chop off the slash.
@@ -32,7 +32,7 @@ if (isset($_SESSION['name'])) {
 }
 
 // Create Timestamps to read in all events on given day
-$date = $_GET['day'];
+$date = $request->get['day'];
 
 $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $eventGateway = new EventGateway($db);
@@ -43,12 +43,12 @@ $month = $dateArray[1];
 $day = $dateArray[0];
 $year = $dateArray[2];
 
-if (isset($_POST['delete'])) {
+if (isset($request->post['delete'])) {
 
 	// CHECK TO MAKE SURE THE RIGHT PERSON IS ACCESSING THIS PAGE
 	if ($name == $records[0]['family']) {
 		
-		$id = $_POST['id'];
+		$id = $request->post['id'];
 		$result = $eventGateway->cancel($id);
 		
 		if ($result) {

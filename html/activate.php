@@ -10,16 +10,16 @@ $page_title = 'O C E A N  C R E S T >> Activate Your Account';
 include ('./includes/header.php');
 
 // MAKE SURE IT'S AN ADMINISTRATOR
-if ($_SESSION['user_id'] != '1') {	// it's not an ADMIN
+if ($request->session['user_id'] != '1') {	// it's not an ADMIN
 	
 	echo "<h1 class=\"error\">I'm sorry, you don't have the proper access to view this page</h1>";
 	include('includes/footer.php');
 	exit();
 }
 
-// Validate $_GET['x'] and $_GET['y'].
-if (isset($_GET['x'])) {
-	$x = (int) $_GET['x'];
+// Validate $request->get['x'] and $request->get['y'].
+if (isset($request->get['x'])) {
+	$x = (int) $request->get['x'];
 } else {
 	$x = 0;
 }
@@ -54,7 +54,7 @@ if ($x > 0) {
 } else { // Redirect.
 
 	// Start defining the URL.
-	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
 	// Check for a trailing slash.
 	if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
 		$url = substr ($url, 0, -1); // Chop off the slash.

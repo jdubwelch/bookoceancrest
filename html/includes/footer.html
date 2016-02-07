@@ -8,7 +8,7 @@
 
 // Display links based upon the login status.
 // Show LOGIN links if this is the LOGOUT page.
-if (isset($_SESSION['user_id']) AND (substr($_SERVER['PHP_SELF'], -10) != 'logout.php')) {
+if (isset($request->session['user_id']) AND (substr($request->server['PHP_SELF'], -10) != 'logout.php')) {
 	echo '<a href="logout.php">Logout</a><br />
 <a href="change_password.php">Change Password</a><br />
 ';

@@ -2,7 +2,8 @@
     "name": "welch/bookoceancrest",
     "description": "Event calendar app for family beach cabin.",
     "require": {
-        "nesbot/carbon": "~1.20"
+        "nesbot/carbon": "~1.20",
+        "mlaphp/mlaphp": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -4,9 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ba00456a289e1b540c3695c40e432415",
-    "content-hash": "e1393612691e9f4fe3fdfc4ae9f4ef04",
+    "hash": "cd45add3204aef63c36acc567a429529",
+    "content-hash": "2e8d4681909a837defac93e70f0aeb8a",
     "packages": [
+        {
+            "name": "mlaphp/mlaphp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mlaphp/mlaphp.git",
+                "reference": "142d75d35f60d9b6fdfb1e27a5ae75bc2b2b413c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mlaphp/mlaphp/zipball/142d75d35f60d9b6fdfb1e27a5ae75bc2b2b413c",
+                "reference": "142d75d35f60d9b6fdfb1e27a5ae75bc2b2b413c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mlaphp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Paul M. Jones",
+                    "email": "pmjones88@gmail.com",
+                    "homepage": "http://paul-m-jones.com"
+                }
+            ],
+            "description": "Library of code introduced throughout Modernizing Legacy Applications in PHP.",
+            "homepage": "https://leanpub.com/mlaphp",
+            "keywords": [
+                "container",
+                "di",
+                "legacy",
+                "modern",
+                "modernize",
+                "modernizing",
+                "request",
+                "response",
+                "router"
+            ],
+            "time": "2014-03-25 14:39:12"
+        },
         {
             "name": "nesbot/carbon",
             "version": "1.21.0",
@@ -788,16 +837,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.2.1",
+            "version": "5.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "40d32454fdad8a08ded0a2aafbc6d0e8f06a6b04"
+                "reference": "64c37805098cfe42a1aaf4838b60c654377ec4a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/40d32454fdad8a08ded0a2aafbc6d0e8f06a6b04",
-                "reference": "40d32454fdad8a08ded0a2aafbc6d0e8f06a6b04",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/64c37805098cfe42a1aaf4838b60c654377ec4a9",
+                "reference": "64c37805098cfe42a1aaf4838b60c654377ec4a9",
                 "shasum": ""
             },
             "require": {
@@ -858,7 +907,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-02-05 17:50:46"
+            "time": "2016-02-07 05:04:03"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1389,7 +1438,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "mlaphp/mlaphp": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

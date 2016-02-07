@@ -4,14 +4,23 @@
 
 // Let's handle some errors
 ini_set('display_errors', 'On');
+
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 require __DIR__.'/../../vendor/autoload.php';
 
 // Start output buffering.
 ob_start();
+
 // Initialize a session.
 session_start();
+
+// Build the Request Object
+$request = new \Mlaphp\Request($GLOBALS);
+
+// Server is not set in GLOBALS for whatever reason
+// Let's manually add it here ourselves
+$request->server = $_SERVER;
 
 // Check for a $page_title value.
 if (!isset($page_title)) {
@@ -35,7 +44,7 @@ if (!isset($page_title)) {
 		<li><a href="index.php">home</a></li>
 		<?php
 		// SHOW LOGIN LINKS IF USER IS NOT LOGGED IN
-		if (isset($_SESSION['name']) AND (substr($_SERVER['PHP_SELF'], -10) != 'logout.php')) {
+		if (isset($request->session['name']) AND (substr($request->server['PHP_SELF'], -10) != 'logout.php')) {
 			echo "<li><a href=\"calendar.php\">calendar</a></li>\n";
 			echo "<li><a href=\"logout.php\">logout</a></li>\n";
 			echo "<li><a href=\"change_password.php\">change password</a></li>\n";
@@ -46,7 +55,7 @@ if (!isset($page_title)) {
 			echo "<li><a href=\"register.php\">register</a></li>\n";
 		}
 		
-		$page = $_SERVER['PHP_SELF'];
+		$page = $request->server['PHP_SELF'];
 		$page = substr($page, 1);
 		
 		?>
