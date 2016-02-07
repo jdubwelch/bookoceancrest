@@ -6,10 +6,10 @@ $page_title = 'O C E A N  C R E S T >> Logout';
 include ('./includes/header.php');
 
 // If no first_name variable exists, redirect the user.
-if (!isset($_SESSION['name'])) {
+if (!isset($request->session['name'])) {
 
 	// Start defining the URL.
-	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
 	// Check for a trailing slash.
 	if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
 		$url = substr ($url, 0, -1); // Chop off the slash.
@@ -23,7 +23,7 @@ if (!isset($_SESSION['name'])) {
 	
 } else { // Logout the user.
 
-	$_SESSION = array(); // Destroy the variables.
+    unset($request->session);
 	session_destroy(); // Destroy the session itself.
 	setcookie (session_name(), '', time()-300, '/', '', 0); // Destroy the cookie.
 

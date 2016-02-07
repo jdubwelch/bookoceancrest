@@ -11,7 +11,7 @@ include ('./includes/header.php');
 // Instantiate the AYAH object.
 $ayah = new AYAH();
 
-if (isset($_POST['submitted'])) { // Handle the form.
+if (isset($request->post['submitted'])) { // Handle the form.
 	
 	// Use the AYAH object to get the score.
 	$score = $ayah->scoreResult();
@@ -25,15 +25,15 @@ if (isset($_POST['submitted'])) { // Handle the form.
         $userGateway = new UserGateway($db);
 
 		// Check for a first name.
-		if (stripslashes(trim($_POST['name']))) {
-			$name = $db->escape_data($_POST['name']);
+		if (stripslashes(trim($request->post['name']))) {
+			$name = $db->escape_data($request->post['name']);
 		} else {
 			$name = FALSE;
 			echo '<p><font color="red" size="+1">Please enter your name.</font></p>';
 		}
 
-		if ($_POST['side'] != "0" ) {
-			$side = $_POST['side'];
+		if ($request->post['side'] != "0" ) {
+			$side = $request->post['side'];
 		} else {
 			$side = FALSE;
 			echo '<p><font color="red" size="+1">Please your side of the family.</font></p>';
@@ -41,17 +41,17 @@ if (isset($_POST['submitted'])) { // Handle the form.
 
 
 		// Check for an email address.
-		if (eregi ('^[[:alnum:]][a-z0-9_\.\-]*@[a-z0-9\.\-]+\.[a-z]{2,4}$', stripslashes(trim($_POST['email'])))) {
-			$e = $db->escape_data($_POST['email']);
+		if (eregi ('^[[:alnum:]][a-z0-9_\.\-]*@[a-z0-9\.\-]+\.[a-z]{2,4}$', stripslashes(trim($request->post['email'])))) {
+			$e = $db->escape_data($request->post['email']);
 		} else {
 			$e = FALSE;
 			echo '<p><font color="red" size="+1">Please enter a valid email address.</font></p>';
 		}
 
 		// Check for a password and match against the confirmed password.
-		if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($_POST['password1'])))) {
-			if ($_POST['password1'] == $_POST['password2']) {
-				$p = $db->escape_data($_POST['password1']);
+		if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($request->post['password1'])))) {
+			if ($request->post['password1'] == $request->post['password2']) {
+				$p = $db->escape_data($request->post['password1']);
 			} else {
 				$p = FALSE;
 				echo '<p><font color="red" size="+1">Your password did not match the confirmed password!</font></p>';
@@ -106,7 +106,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
 	<fieldset>
 	
 	<p><b>Name:</b> 
-    <input name="name" type="text" id="name" value="<?php if (isset($_POST['name'])) echo $_POST['name']; ?>" size="15" maxlength="15" />
+    <input name="name" type="text" id="name" value="<?php if (isset($request->post['name'])) echo $request->post['name']; ?>" size="15" maxlength="15" />
     <small>(for example: Jason &amp; Deena) </small></p>
 	
 	<p><b>Side:</b> 
@@ -117,7 +117,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
       </select>
 	</p>
 	
-	<p><b>Email Address:</b> <input type="text" name="email" size="40" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" /> </p>
+	<p><b>Email Address:</b> <input type="text" name="email" size="40" maxlength="40" value="<?php if (isset($request->post['email'])) echo $request->post['email']; ?>" /> </p>
 		
 	<p><b>Password:</b> <input type="password" name="password1" size="20" maxlength="20" /> <small>Use only letters and numbers. Must be between 4 and 20 characters long.</small></p>
 	

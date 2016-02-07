@@ -5,14 +5,13 @@ use OceanCrest\EventGateway;
 
 require_once("../cgi-bin/oc/dbConnection.php");
 
-
 include ('./includes/header.php');
 
-if (isset($_SESSION['name'])) {
-	echo "<p>$_SESSION[name]</p>";
+if (isset($request->session['name'])) {
+	echo "<p>{$request->session['name']}</p>";
 } else {
 	// Start defining the URL.
-	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
 	// Check for a trailing slash.
 	if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
 		$url = substr ($url, 0, -1); // Chop off the slash.
@@ -25,19 +24,19 @@ if (isset($_SESSION['name'])) {
 	exit(); // Quit the script.
 }
 
-if($_POST['action'] == "add"){
+if($request->post['action'] == "add"){
 
 	// Read data to insert into Database
 	if (!get_magic_quotes_gpc()) {
-		$date = addslashes($_POST['date']);
-		$family = $_SESSION['name'];
+		$date = addslashes($request->post['date']);
+		$family = $request->session['name'];
 		$event = '';
-		$staying = addslashes($_POST['staying']);
+		$staying = addslashes($request->post['staying']);
 	} else {
-		$date = $_POST['date'];
-		$family = $_SESSION['name'];
+		$date = $request->post['date'];
+		$family = $request->session['name'];
 		$event = '';
-		$staying = $_POST['staying'];
+		$staying = $request->post['staying'];
 	}
 	
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -52,7 +51,7 @@ if($_POST['action'] == "add"){
 	header("Location: calendar.php?month=$mo&year=$yr");
 }
 
-$da = $_GET['day'];
+$da = $request->get['day'];
 
 $da = explode ('/', $da);
 
@@ -68,10 +67,10 @@ $dayofarrival = "$month/$day/$year";
 ?>
 
 <h3>Add a Calendar Event</h3>
-<form name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form name="form1" method="post" action="<?php echo $request->server['PHP_SELF']; ?>">
 <table width="450" border="0" cellpadding="3" cellspacing="0" id="addEvent">  
 <tr>
-	<td width="100" align="right">Date of Arrival:<input name="date" type="hidden" value="<?php echo $_GET['day']; ?>"></td>
+	<td width="100" align="right">Date of Arrival:<input name="date" type="hidden" value="<?php echo $request->get['day']; ?>"></td>
 	<td align="left"><?php echo $dayofarrival; ?></td>
   </tr>
 

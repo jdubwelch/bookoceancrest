@@ -9,22 +9,22 @@ use OceanCrest\AuthGateway;
 $page_title = 'Login';
 include ('./includes/header.php');
 
-if (isset($_POST['submitted'])) { // Check if the form has been submitted.
+if (isset($request->post['submitted'])) { // Check if the form has been submitted.
 
 	require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 	// Validate the email address.	
-	if (!empty($_POST['email'])) {
-		$e = $db->escape_data($_POST['email']);
+	if (!empty($request->post['email'])) {
+		$e = $db->escape_data($request->post['email']);
 	} else {
 		echo '<p><font color="red" size="+1">You forgot to enter your email address!</font></p>';
 		$e = FALSE;
 	}
 	
 	// Validate the password.
-	if (!empty($_POST['pass'])) {
-		$p = $db->escape_data($_POST['pass']);
+	if (!empty($request->post['pass'])) {
+		$p = $db->escape_data($request->post['pass']);
 	} else {
 		$p = FALSE;
 		echo '<p><font color="red" size="+1">You forgot to enter your password!</font></p>';
@@ -41,12 +41,12 @@ if (isset($_POST['submitted'])) { // Check if the form has been submitted.
         $authGateway = new AuthGateway($db);
 		if ($user = $authGateway->attempt($credentials)) { // A match was made.
 
-			$_SESSION['name'] = $user->name;
-			$_SESSION['user_id'] = $user->id;
-			$_SESSION['side'] = $user->side;
+			$request->session['name'] = $user->name;
+			$request->session['user_id'] = $user->id;
+			$request->session['side'] = $user->side;
 							
 			// Start defining the URL.
-			$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+			$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
 			// Check for a trailing slash.
 			if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
 				$url = substr ($url, 0, -1); // Chop off the slash.
@@ -73,7 +73,7 @@ if (isset($_POST['submitted'])) { // Check if the form has been submitted.
 <p>Your browser must allow cookies in order to log in.</p>
 <form action="login.php" method="post">
 	<fieldset>
-	<p><b>Email Address:</b> <input type="text" name="email" size="20" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" /></p>
+	<p><b>Email Address:</b> <input type="text" name="email" size="20" maxlength="40" value="<?php if (isset($request->post['email'])) echo $request->post['email']; ?>" /></p>
 	<p><b>Password:</b> <input type="password" name="pass" size="20" maxlength="20" /></p>
 	<p><a href="forgot_password.php">forget password? </a></p>
 	<div align="center"><input type="submit" name="submit" value="Login" /></div>
