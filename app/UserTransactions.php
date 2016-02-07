@@ -61,4 +61,49 @@ class UserTransactions
         
         return mail($email, $subject, $body, 'From: info@bookoceancrest.com');
     }
+    /**
+     * Transaction for changing a user's password.
+     * 
+     * @param  int $user_id          
+     * @param  string $password         
+     * @param  string $password_confirm 
+     * @return mixed                   
+     */
+    public function changePassword($user_id, $password, $password_confirm)
+    {
+        $this->errors = [];
+
+        // Check for a new password and match against the confirmed password.
+        if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($password)))) {
+            if ($password == $password_confirm) {
+                $password = trim($password);
+            } else {
+                $password = FALSE;
+                $this->errors[] = 'Your password did not match the confirmed password.';
+            }
+        } else {
+            $password = FALSE;
+            $this->errors[] = 'Please enter a valid password. Numbers and letters only.';
+        }
+        
+        if ($password) { // If everything's OK.
+      
+            $updated = $this->userGateway->updatePassword($user_id, $password);
+    
+            if ($updated) { // If it ran OK.
+            
+                echo '<h3>Your password has been changed.</h3>';
+                include ('./includes/footer.php'); // Include the HTML footer.
+                exit();             
+                
+            } else { // If it did not run OK.
+            
+                // Send a message to the error log, if desired.
+                $this->errors[] = 'Your password could not be changed due to a system error. We apologize for any inconvenience.'; 
+            }       
+    
+        } else { // Failed the validation test.
+            $this->errors[] = 'Please try again.';     
+        }
+    }
 }

@@ -71,6 +71,8 @@ class UserGateway {
      */
     public function updatePassword($user_id, $password)
     {
+        $password = $this->db->escape_data($password);
+        
         // Make the query.
         $query = "UPDATE `ocUsers` SET `password` = PASSWORD('{$password}') WHERE `user_id` = '{$user_id}' LIMIT 1";     
         $result = mysqli_query ($this->db->connection, $query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysqli_error());
