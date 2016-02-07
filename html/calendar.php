@@ -1,6 +1,7 @@
 <?php
 
-use OceanCrest\Events;
+use OceanCrest\DB;
+use OceanCrest\EventGateway;
 
 // Set the page title and include the HTML header.
 $page_title = 'O C E A N  C R E S T >> CALENDAR';
@@ -57,12 +58,15 @@ if (isset($_POST['submit'])) {
 
 }
 
-
 $month = $date["mon"];
 $monthName = $date["month"];
 $year = $date["year"];
 
-$eventData = Events::readCalendarData($month, $year);
+require_once("../cgi-bin/oc/dbConnection.php");
+$db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+$eventGateway = new EventGateway($db);
+
+$eventData = $eventGateway->monthlyEvents($month, $year);
 $eventsArray = @array_keys($eventData);
 
 $firstDay = mktime (0,1,0, $month, 1, $year);

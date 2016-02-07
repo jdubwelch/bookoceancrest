@@ -21,8 +21,8 @@ if (isset($_POST['submitted'])) { // Handle the form.
 	{
 		// Add code to process the form.
 		require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
-        $db = new DB($dbc);
-        $userGateway = new UserGateway($dbc);
+        $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        $userGateway = new UserGateway($db);
 
 		// Check for a first name.
 		if (stripslashes(trim($_POST['name']))) {

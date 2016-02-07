@@ -1,5 +1,6 @@
 <?php 
 
+use OceanCrest\DB;
 use OceanCrest\UserGateway;
 
 # Script 13.10 - forgot_password.php 
@@ -13,8 +14,8 @@ include ('./includes/header.php');
 if (isset($_POST['submitted'])) { // Handle the form.
 
 	require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
-    
-    $userGateway = new UserGateway($dbc);
+    $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $userGateway = new UserGateway($db);
 
 	if (empty($_POST['email'])) { // Validate the email address.
 		$uid = FALSE;
@@ -24,6 +25,12 @@ if (isset($_POST['submitted'])) { // Handle the form.
 		// Check for the existence of that email address.
         $uid = $userGateway->getUserByEmail($_POST['email']);
 	}
+
+    echo "<pre style='color:cyan; background:#212121; padding:2em;'>";
+    echo '#### uid'."\n";
+    var_dump($uid); 
+    echo "</pre>";
+    die();
 	
 	if ($uid) { // If everything's OK.
 

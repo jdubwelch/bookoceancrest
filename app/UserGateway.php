@@ -1,12 +1,16 @@
 <?php namespace OceanCrest;
 
-class UserGateway extends DB {
+class UserGateway {
 
     /**
      * Set via constructor
-     * @var mysql_connection
+     * @var DB
      */
-    protected $connection;
+    protected $db;
+
+    function __construct(DB $db) {
+        $this->db = $db;
+    }
 
     /**
      * Activate an existing user.
@@ -17,9 +21,9 @@ class UserGateway extends DB {
     public function activate($user_id)
     {
         $query = "UPDATE `ocUsers` SET `activated` = '1' WHERE `user_id` = '{$user_id}' LIMIT 1;";      
-        $result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
+        $result = mysqli_query ($this->db->connection, $query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysqli_error());
 
-        return mysql_affected_rows();
+        return mysqli_affected_rows($this->db->connection);
     }
 
     /**
@@ -31,9 +35,9 @@ class UserGateway extends DB {
     public function email($user_id)
     {
         $query = "SELECT email FROM ocUsers WHERE user_id = '{$user_id}' LIMIT 1";
-        $result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
+        $result = mysqli_query ($this->db->connection, $query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysqli_error());
         
-        $row = mysql_fetch_array($result);
+        $row = mysqli_fetch_array($result);
         
         return $row[0];
     }
@@ -45,11 +49,11 @@ class UserGateway extends DB {
      */
     public function getUserByEmail($email)
     {
-        $query = "SELECT user_id FROM ocUsers WHERE email='".  $this->escape_data($email) . "'";     
-        $result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-        if (mysql_num_rows($result) == 1) {
+        $query = "SELECT user_id FROM ocUsers WHERE email='".  $this->db->escape_data($email) . "'";     
+        $result = mysqli_query ($this->db->connection, $query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysqli_error());
+        if (mysqli_num_rows($result) == 1) {
             // Retrieve the user ID.
-            list($uid) = mysql_fetch_array ($result, MYSQL_NUM); 
+            list($uid) = mysqli_fetch_array ($result, MYSQL_NUM); 
         } else {
             echo '<p><font color="red" size="+1">The submitted email address does not match those on file!</font></p>';
             $uid = FALSE;
@@ -69,16 +73,16 @@ class UserGateway extends DB {
     {
         // Make the query.
         $query = "UPDATE `ocUsers` SET `password` = PASSWORD('{$password}') WHERE `user_id` = '{$user_id}' LIMIT 1";     
-        $result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-        return mysql_affected_rows();
+        $result = mysqli_query ($this->db->connection, $query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysqli_error());
+        return mysqli_affected_rows($this->db->connection);
     }
 
     public function uniqueEmail($email)
     {
         // Make sure the email address is available.
         $query = "SELECT `user_id` FROM ocUsers WHERE email='$email' LIMIT 1"; 
-        $result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
-        return (mysql_num_rows($result) == 0);
+        $result = mysqli_query ($this->db->connection, $query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysqli_error());
+        return (mysqli_num_rows($result) == 0);
     }
 
     /**
@@ -94,13 +98,13 @@ class UserGateway extends DB {
     {
         $query = "INSERT INTO `ocUsers` (`user_id`, `name`, `email`, `password`, `side`, `activated`) 
         VALUES (NULL, '$name', '$email', PASSWORD('$password'), '$side', '0');";       
-        $result = mysql_query ($query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysql_error());
+        $result = mysqli_query ($this->db->connection, $query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysqli_error($this->db->connection));
 
         if (! $result) {
             return false;
         }
 
-        return mysql_insert_id();
+        return mysqli_insert_id($this->db->connection);
     }
 
 

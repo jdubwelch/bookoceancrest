@@ -1,5 +1,6 @@
 <?php # Script 13.7 - activate.php
 
+use OceanCrest\DB;
 use OceanCrest\UserGateway;
 // This page activates the user's account.
 
@@ -28,7 +29,8 @@ if ($x > 0) {
 
 	require_once("../cgi-bin/oc/dbConnection.php");
 
-    $userGateway = new UserGateway($dbc);
+    $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $userGateway = new UserGateway($db);
     $activated = $userGateway->activate($x);
 	
 	// Print a customized message.

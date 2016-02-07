@@ -1,5 +1,6 @@
 <?php 
 
+use OceanCrest\DB;
 use OceanCrest\EventGateway;
 
 require_once("../cgi-bin/oc/dbConnection.php");
@@ -38,8 +39,9 @@ if($_POST['action'] == "add"){
 		$event = '';
 		$staying = $_POST['staying'];
 	}
-	   
-	$eventGateway = new EventGateway($dbc);
+	
+    $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	$eventGateway = new EventGateway($db);
     $eventGateway->reserve($family, $date, $staying);
 
     $dateArray = explode("/", $date);

@@ -32,7 +32,7 @@ if (!isset($_SESSION['name'])) {
 	
 		require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
 
-        $db = new DB($dbc);
+        $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 		// Check for a new password and match against the confirmed password.
 		if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($_POST['password1'])))) {
@@ -50,7 +50,7 @@ if (!isset($_SESSION['name'])) {
 		if ($p) { // If everything's OK.
 
 
-            $userGateway = new UserGateway($dbc);
+            $userGateway = new UserGateway($db);
 
             $updated = $userGateway->updatePassword($_SESSION['user_id'], $p);
 	

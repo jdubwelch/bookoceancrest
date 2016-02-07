@@ -1,5 +1,6 @@
 <?php 
 
+use OceanCrest\DB;
 use OceanCrest\EventGateway;
 include ('./includes/header.php');
 require_once("../cgi-bin/oc/dbConnection.php"); ?>
@@ -33,7 +34,8 @@ if (isset($_SESSION['name'])) {
 // Create Timestamps to read in all events on given day
 $date = $_GET['day'];
 
-$eventGateway = new EventGateway($dbc);
+$db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+$eventGateway = new EventGateway($db);
 $records = $eventGateway->details($date);
 
 $dateArray = explode("/",$date);

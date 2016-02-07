@@ -12,8 +12,7 @@ include ('./includes/header.php');
 if (isset($_POST['submitted'])) { // Check if the form has been submitted.
 
 	require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
-    
-    $db = new DB($dbc);
+    $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
 	// Validate the email address.	
 	if (!empty($_POST['email'])) {
@@ -39,10 +38,9 @@ if (isset($_POST['submitted'])) { // Check if the form has been submitted.
             'password' => $p
         ];
 
-        $authGateway = new AuthGateway($dbc);
+        $authGateway = new AuthGateway($db);
 		if ($user = $authGateway->attempt($credentials)) { // A match was made.
 
-			
 			$_SESSION['name'] = $user->name;
 			$_SESSION['user_id'] = $user->id;
 			$_SESSION['side'] = $user->side;

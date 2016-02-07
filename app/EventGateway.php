@@ -1,6 +1,52 @@
 <?php namespace OceanCrest;
 
-class EventGateway extends DB {
+class EventGateway {
+
+    /**
+     * Set via constructor
+     * @var DB
+     */
+    protected $db;
+
+    function __construct(DB $db) {
+        $this->db = $db;
+    }
+
+    public function monthlyEvents ($month, $year) {
+        
+        // CREATE TIMESTAMPS TO SEARCH WITH
+        $firstDayTimestamp = mktime (0,0,0, $month, 1, $year);
+        $daysInMonth = date ("t", $firstDayTimestamp);
+        $lastDayTimestamp = mktime (23, 59, 59, $month, $daysInMonth, $year);
+        
+        // CREATE SQL
+        $sql = "SELECT id, UNIX_TIMESTAMP(dateField) AS `timestampField`, family ";
+        $sql .= "FROM ocCalendar ";
+        $sql .= "WHERE UNIX_TIMESTAMP(dateField) >= " . $firstDayTimestamp . " AND UNIX_TIMESTAMP(dateField) <= " . $lastDayTimestamp . " ";
+        $sql .= "ORDER BY timestampField ASC";
+        
+        // READ IN DATA
+        $dbResult = mysqli_query($this->db->connection, $sql) 
+            or die ("MYSQL Error: " . mysqli_error($this->db->connection) );
+        $numRecords = mysqli_num_rows ($dbResult);
+        $eventsArray[] = "";
+        $eventData = [];
+
+        for ($i=0; $i < $numRecords; $i++) {
+            $row = mysqli_fetch_assoc ($dbResult);
+            $day = date ("j", $row['timestampField']);
+            $family = $row['family'];
+                    
+            // CHECK DATE ISN'T ALREADY IN $eventsArray
+            if(!in_array($day, $eventsArray)) {
+                $eventData[$day] = $family;         
+            } 
+        }
+
+        
+        // RETURN eventsArray TO CODE THAT CALLED FUNCTION 
+        return $eventData;
+    }
 
     /**
      * Get the details for a single date.  
@@ -21,11 +67,11 @@ class EventGateway extends DB {
         $sql .= "ORDER BY UNIX_TIMESTAMP(dateField) ASC";
 
         // Read in Records from Database  
-        $dbResult = mysql_query($sql)
+        $dbResult = mysqli_query($this->db->connection, $sql)
           or die ("MySQL Error: " . mysql_error() );
-        $numRecords = mysql_num_rows($dbResult);
+        $numRecords = mysqli_num_rows($dbResult);
         for($i=0;$i < $numRecords;$i++){
-            $temp = mysql_fetch_assoc($dbResult);
+            $temp = mysqli_fetch_assoc($dbResult);
             if (!get_magic_quotes_gpc()) {
                 $temp['family'] = stripslashes($temp['family']);
             }
@@ -44,7 +90,7 @@ class EventGateway extends DB {
     public function cancel($id)
     {
         $query = "DELETE FROM `ocCalendar` WHERE `id` = '$id' LIMIT 1";
-        return mysql_query($query);
+        return mysqli_query($this->db->connection, $query);
     }
 
     /**
@@ -60,22 +106,22 @@ class EventGateway extends DB {
         $time = "00:00:00";
         $dateArray = explode("/", $startDate);
         $d = $dateArray[0];
-        $yr = $dateArray[2];
         $mo = $dateArray[1];
+        $yr = $dateArray[2];
         
         if ($duration > 1) {
             for ($i = 0; $i < $duration; $i++) {
                 $reserveDates = $d + $i;
                 $datetime = "$yr-$mo-$reserveDates $time";
-                $sql = "INSERT INTO ocCalendar (dateField,family,event) VALUES ('" . $datetime . "','" . $family . "','" . $event . "')";
-                mysql_query($sql);
+                $sql = "INSERT INTO ocCalendar (dateField,family) VALUES ('" . $datetime . "','" . $family . "')";
+                mysqli_query($this->db->connection, $sql) or trigger_error("Query: $sql\n<br />MySQL Error: " . mysqli_error($this->db->connection));;
             }
         } else {
             $datetime = "$yr-$mo-$d $time";
-            $sql = "INSERT INTO ocCalendar (dateField,family,event) VALUES ('" . $datetime . "','" . $family . "','" . $event . "')";
-            mysql_query($sql);
+            $sql = "INSERT INTO ocCalendar (dateField,family) VALUES ('" . $datetime . "','" . $family . "')";
+            mysqli_query($this->db->connection, $sql) or trigger_error("Query: $sql\n<br />MySQL Error: " . mysqli_error($this->db->connection));;
         }
 
-        return true;
+        return mysqli_insert_id($this->db->connection);
     }
 }
