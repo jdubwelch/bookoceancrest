@@ -37,11 +37,17 @@ if (isset($request->post['submitted'])) { // Handle the form.
     $userGateway = new UserGateway($db);
     $userTransactions = new UserTransactions($userGateway);
 
-    $userTransactions->changePassword(
+    $result = $userTransactions->changePassword(
         $request->session['user_id'], 
         $request->post['password1'],
         $request->post['password2']
     );
+
+    if ($result) {
+        echo '<h3>Your password has been changed.</h3>';
+        include ('./includes/footer.php'); // Include the HTML footer.
+        exit();
+    }
 
     if (count($userTransactions->getErrors())) {
         echo '<p><font color="red" size="+1">'.implode('<br />', $userTransactions->getErrors()).'</font></p>';

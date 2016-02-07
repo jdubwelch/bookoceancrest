@@ -45,4 +45,33 @@ class UserTransactionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($transaction->getErrors());
     }
 
+    /**
+     * @test
+     */
+    function it_changes_the_password_for_a_user()
+    {
+        $gateway = m::mock('OceanCrest\UserGateway');
+        $gateway->shouldReceive('updatePassword')->with(99, 'newPassword')->andReturn(1);
+
+        $transaction = new UserTransactions($gateway);
+        $result = $transaction->changePassword(99, 'newPassword', 'newPassword');
+        
+        $this->assertTrue($result);
+    }
+
+    /**
+     * @test
+     */
+    function it_wont_change_the_password_if_the_confirmation_does_not_match()
+    {
+        $gateway = m::mock('OceanCrest\UserGateway');
+        $gateway->shouldNotReceive('updatePassword');
+
+        $transaction = new UserTransactions($gateway);
+        $result = $transaction->changePassword(99, 'new_password', 'new_password2');
+        
+        $this->assertFalse($result);
+        $this->assertNotEmpty($transaction->getErrors());
+    }
+
 }

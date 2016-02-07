@@ -74,7 +74,7 @@ class UserTransactions
         $this->errors = [];
 
         // Check for a new password and match against the confirmed password.
-        if (eregi ('^[[:alnum:]]{4,20}$', stripslashes(trim($password)))) {
+        if (preg_match('/^[[:alnum:]]{4,20}$/', stripslashes(trim($password)))) {
             if ($password == $password_confirm) {
                 $password = trim($password);
             } else {
@@ -91,11 +91,7 @@ class UserTransactions
             $updated = $this->userGateway->updatePassword($user_id, $password);
     
             if ($updated) { // If it ran OK.
-            
-                echo '<h3>Your password has been changed.</h3>';
-                include ('./includes/footer.php'); // Include the HTML footer.
-                exit();             
-                
+                return true;             
             } else { // If it did not run OK.
             
                 // Send a message to the error log, if desired.
@@ -105,5 +101,7 @@ class UserTransactions
         } else { // Failed the validation test.
             $this->errors[] = 'Please try again.';     
         }
+
+        return false;
     }
 }
