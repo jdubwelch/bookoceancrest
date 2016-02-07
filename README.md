@@ -12,6 +12,11 @@ This is one of my first web apps. I want to refactor it.
 * Write Tests
 * Extract SQL Statments to Gateways
 * Extract Domain Logic to Transactions
+** normalizing, filtering, sanitizing, and validating of data
+** calculation, modification, creation, and manipulation of data
+** sequential or concurrent operations and actions using the data
+** retention of success/failure/warning/notice messages from those operations and actions 
+** retention of values and variables for later inputs and outputs
 * Extract Presentation Logic to View Files
 * Extract Action Logic to Controllers
 * Replace inlcludes in Classes

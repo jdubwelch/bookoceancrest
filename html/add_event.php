@@ -25,34 +25,24 @@ if (isset($request->session['name'])) {
 }
 
 if($request->post['action'] == "add"){
-
-	// Read data to insert into Database
-	if (!get_magic_quotes_gpc()) {
-		$date = addslashes($request->post['date']);
-		$family = $request->session['name'];
-		$event = '';
-		$staying = addslashes($request->post['staying']);
-	} else {
-		$date = $request->post['date'];
-		$family = $request->session['name'];
-		$event = '';
-		$staying = $request->post['staying'];
-	}
 	
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	$eventGateway = new EventGateway($db);
-    $eventGateway->reserve($family, $date, $staying);
+    $eventGateway->reserve(
+        $request->session['family'], 
+        $request->post['date'], 
+        $request->post['staying']
+    );
 
-    $dateArray = explode("/", $date);
+    $dateArray = explode("/", $request->post['date']);
     $mo = $dateArray[1];
     $yr = $dateArray[2];
-	
+
 	// Return to Calendar Page
 	header("Location: calendar.php?month=$mo&year=$yr");
 }
 
 $da = $request->get['day'];
-
 $da = explode ('/', $da);
 
 $day = $da[0];
@@ -60,9 +50,6 @@ $month = $da[1];
 $year = $da[2];
 
 $dayofarrival = "$month/$day/$year";
-
-
-
 
 ?>
 

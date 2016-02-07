@@ -2,6 +2,7 @@
 
 use OceanCrest\DB;
 use OceanCrest\UserGateway;
+use OceanCrest\UserTransactions;
 // This page activates the user's account.
 
 
@@ -31,25 +32,17 @@ if ($x > 0) {
 
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $userGateway = new UserGateway($db);
-    $activated = $userGateway->activate($x);
+    $userTransactions = new UserTransactions($userGateway);
+
+    $activated = $userTransactions->activate($x);
 	
 	// Print a customized message.
 	if ($activated) {
 		echo "<h3>Your account is now active. You may now log in.</h3>";
 	} else {
-		echo '<p><font color="red" size="+1">Your account could not be activated. Please re-check the link or contact the system administrator.</font></p>'; 
+		echo '<p><font color="red" size="+1">'.implode('<br />', $userTransactions->getErrors()).'</font></p>'; 
 	}
 	
-	$email = $userGateway->email($x);
-	
-	$body = "You're bookoceancrest account has now been activated.\n\n
-	Please login at http://www.bookoceancrest.com/login.php using your email and the password you set up.\n\n
-	This was an automatically generated email, please do not reply.\n\n
-	With questions about the website contact Jason Welch at jason@jwelchdesign.com\n\n";
-	
-	$subject = "Ocean Crest Acount";
-	
-	mail($email, $subject, $body, 'From: info@bookoceancrest.com');
 
 } else { // Redirect.
 

@@ -51,11 +51,7 @@ if (isset($request->post['submit'])) {
 	$date = getdate(mktime(0,0,0, $request->get['month'], 1, $request->get['year']));
 		
 } else {
-
-	
 	$date = getdate();
-	
-
 }
 
 $month = $date["mon"];

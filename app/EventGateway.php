@@ -101,7 +101,7 @@ class EventGateway {
      * @return boolean
      */
     public function reserve($family, $startDate, $duration)
-    {
+    {        
         // Create Date Time Field
         $time = "00:00:00";
         $dateArray = explode("/", $startDate);
@@ -113,7 +113,7 @@ class EventGateway {
             for ($i = 0; $i < $duration; $i++) {
                 $reserveDates = $d + $i;
                 $datetime = "$yr-$mo-$reserveDates $time";
-                $sql = "INSERT INTO ocCalendar (dateField,family) VALUES ('" . $datetime . "','" . $family . "')";
+                $sql = "INSERT INTO ocCalendar (dateField,family) VALUES ('" . $datetime . "','" . $this->db->escape_data($family) . "')";
                 mysqli_query($this->db->connection, $sql) or trigger_error("Query: $sql\n<br />MySQL Error: " . mysqli_error($this->db->connection));;
             }
         } else {
