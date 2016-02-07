@@ -11,19 +11,19 @@ use OceanCrest\UserGateway;
 $page_title = 'O C E A N  C R E S T >> Forgot Your Password';
 include ('./includes/header.php');
 
-if (isset($_POST['submitted'])) { // Handle the form.
+if (isset($request->post['submitted'])) { // Handle the form.
 
 	require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $userGateway = new UserGateway($db);
 
-	if (empty($_POST['email'])) { // Validate the email address.
+	if (empty($request->post['email'])) { // Validate the email address.
 		$uid = FALSE;
 		echo '<p><font color="red" size="+1">You forgot to enter your email address!</font></p>';
 	} else {
 
 		// Check for the existence of that email address.
-        $uid = $userGateway->getUserByEmail($_POST['email']);
+        $uid = $userGateway->getUserByEmail($request->post['email']);
 	}
 
     echo "<pre style='color:cyan; background:#212121; padding:2em;'>";
@@ -43,7 +43,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
 		
 			// Send an email.
 			$body = "Your password to log into bookoceancrest.com has been temporarily changed to '$p'. Please log in using this password and your username. At that time you may change your password to something more familiar.";
-			mail ($_POST['email'], 'Your temporary password.', $body, 'From: info@bookoceancrest.com');
+			mail ($request->post['email'], 'Your temporary password.', $body, 'From: info@bookoceancrest.com');
 			echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the "Change Password" link.</h3>';
 			include ('./includes/footer.php'); // Include the HTML footer.
 			exit();				
@@ -66,7 +66,7 @@ if (isset($_POST['submitted'])) { // Handle the form.
 <p>Enter your email address below and your password will be reset.</p> 
 <form action="forgot_password.php" method="post">
 	<fieldset>
-	<p><b>Email Address:</b> <input type="text" name="email" size="20" maxlength="40" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" /></p>
+	<p><b>Email Address:</b> <input type="text" name="email" size="20" maxlength="40" value="<?php if (isset($request->post['email'])) echo $request->post['email']; ?>" /></p>
 	</fieldset>
 	<div align="center"><input type="submit" name="submit" value="Reset My Password" /></div>
 	<input type="hidden" name="submitted" value="TRUE" />
