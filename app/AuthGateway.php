@@ -14,10 +14,13 @@ class AuthGateway
 
     public function attempt($credentials)
     {
+        $email = $this->db->escape_data($credentials['email']);
+        $password = $this->db->escape_data($credentials['password']);
+
         $query = "SELECT user_id, name, side 
                 FROM ocUsers 
-                WHERE (email='{$credentials['email']}' 
-                    AND password = PASSWORD('{$credentials['password']}') 
+                WHERE (email='{$email}' 
+                    AND password = PASSWORD('{$password}') 
                     AND activated = '1')
                 LIMIT 1";        
         $result = mysqli_query ($this->db->connection, $query) 

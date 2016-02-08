@@ -1,7 +1,8 @@
 <?php # Script 13.8 - login.php
 
-use OceanCrest\DB;
 use OceanCrest\AuthGateway;
+use OceanCrest\AuthTransactions;
+use OceanCrest\DB;
 
 // This is the login page for the site.
 
@@ -13,58 +14,30 @@ if (isset($request->post['submitted'])) { // Check if the form has been submitte
 
 	require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $authGateway = new AuthGateway($db);
+    $authTransactions = new AuthTransactions($authGateway, $request);
 
-	// Validate the email address.	
-	if (!empty($request->post['email'])) {
-		$e = $db->escape_data($request->post['email']);
-	} else {
-		echo '<p><font color="red" size="+1">You forgot to enter your email address!</font></p>';
-		$e = FALSE;
-	}
-	
-	// Validate the password.
-	if (!empty($request->post['pass'])) {
-		$p = $db->escape_data($request->post['pass']);
-	} else {
-		$p = FALSE;
-		echo '<p><font color="red" size="+1">You forgot to enter your password!</font></p>';
-	}
-	
-	if ($e && $p) { // If everything's OK.
-	
-		// Query the database.
-        $credentials = [
-            'email' => $e,
-            'password' => $p
-        ];
+    if ($authTransactions->attempt([
+        'email' => $request->post['email'],
+        'password' => $request->post['pass']
+    ])) {
 
-        $authGateway = new AuthGateway($db);
-		if ($user = $authGateway->attempt($credentials)) { // A match was made.
+        // Start defining the URL.
+        $url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
+        // Check for a trailing slash.
+        if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
+            $url = substr ($url, 0, -1); // Chop off the slash.
+        }
+        // Add the page.
+        $url .= '/calendar.php';
+        
+        ob_end_clean(); // Delete the buffer.
+        header("Location: $url");
+        exit(); // Quit the script.
+    }
 
-			$request->session['name'] = $user->name;
-			$request->session['user_id'] = $user->id;
-			$request->session['side'] = $user->side;
-							
-			// Start defining the URL.
-			$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
-			// Check for a trailing slash.
-			if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
-				$url = substr ($url, 0, -1); // Chop off the slash.
-			}
-			// Add the page.
-			$url .= '/calendar.php';
-			
-			ob_end_clean(); // Delete the buffer.
-			header("Location: $url");
-			exit(); // Quit the script.
-				
-		} else { // No match was made.
-			echo '<p><font color="red" size="+1">That was the wrong email or your account has not been activated.</font></p>'; 
-		}
-		
-	} else { // If everything wasn't OK.
-		echo '<p><font color="red" size="+1">Please try again.</font></p>';		
-	}
+    // Failure
+    echo '<p><font color="red" size="+1">'.implode('<br />', $authTransactions->getErrors()).'</font></p>';
 	
 } // End of SUBMIT conditional.
 ?>

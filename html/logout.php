@@ -20,14 +20,11 @@ if (!isset($request->session['name'])) {
 	ob_end_clean(); // Delete the buffer.
 	header("Location: $url");
 	exit(); // Quit the script.
-	
-} else { // Logout the user.
+} 
 
-    unset($request->session);
-	session_destroy(); // Destroy the session itself.
-	setcookie (session_name(), '', time()-300, '/', '', 0); // Destroy the cookie.
-
-}
+unset($request->session);
+session_destroy(); // Destroy the session itself.
+setcookie (session_name(), '', time()-300, '/', '', 0); // Destroy the cookie.
 
 // Print a customized message.
 echo "<h1>You are now logged out.</h1>";
