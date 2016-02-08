@@ -12,7 +12,7 @@ class EventGateway {
         $this->db = $db;
     }
 
-    public function monthlyEvents($month, $year) {
+    public function monthlyEvents ($month, $year) {
         
         // CREATE TIMESTAMPS TO SEARCH WITH
         $firstDayTimestamp = mktime (0,0,0, $month, 1, $year);
