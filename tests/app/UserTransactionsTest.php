@@ -74,4 +74,23 @@ class UserTransactionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($transaction->getErrors());
     }
 
+    /**
+     * @test
+     */
+    function it_does_not_allow_invalid_passwords()
+    {
+        $gateway = m::mock('OceanCrest\UserGateway');
+        $gateway->shouldNotReceive('updatePassword');
+
+        $transaction = new UserTransactions($gateway);
+
+        /**
+         * Not sure why we don't allow special characters, but it originally didn't
+         */
+        $result = $transaction->changePassword(99, '!foo@', '!foo@');
+        
+        $this->assertFalse($result);
+        $this->assertNotEmpty($transaction->getErrors());
+    }
+
 }
