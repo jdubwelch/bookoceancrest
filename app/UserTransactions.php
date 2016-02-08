@@ -104,4 +104,41 @@ class UserTransactions
 
         return false;
     }
+
+    public function resetPassword($email)
+    {
+        $this->errors = [];
+
+        // Validate the email address.
+        if (empty($email)) {
+            $this->errors[] = 'You forgot to enter your email address.';
+            return false;
+        } 
+
+        // Check for the existence of that email address.
+        $user_id = $this->userGateway->getUserByEmail($email);
+
+        // No user exists
+        if (! $user_id) {
+            $this->errors[] = "Could not find a user with the email: {$email}. Please try again.";
+            return false;
+        }
+        
+        // Create a new, random password.
+        $password = substr ( md5(uniqid(rand(),1)), 3, 10);
+
+        // Make the query.
+        $result = $this->userGateway->updatePassword($user_id, $password);
+
+        if (! $result) {
+            $this->errors[] = 'Your password could not be changed due to a system error. We apologize for any inconvenience.';
+            return false;
+        }
+        
+        // Send an email.
+        $body = "Your password to log into bookoceancrest.com has been temporarily changed to '$password'. Please log in using this password and your username. At that time you may change your password to something more familiar.";
+        mail ($email, 'Your temporary password.', $body, 'From: info@bookoceancrest.com');
+
+        return true;
+    }
 }

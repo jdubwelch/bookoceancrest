@@ -93,4 +93,36 @@ class UserTransactionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($transaction->getErrors());
     }
 
+    /**
+     * @test
+     */
+    function it_when_a_user_forgets_their_password_it_reset_and_they_are_notified()
+    {
+        $gateway = m::mock('OceanCrest\UserGateway');
+        $gateway->shouldReceive('getUserByEmail')->with('forgot@mypassword.com')->andReturn(5)->once();
+        $gateway->shouldReceive('updatePassword')->with(5, anything())->andReturn(true)->once();
+
+        $transaction = new UserTransactions($gateway);
+        $result = $transaction->resetPassword('forgot@mypassword.com');
+
+        $this->assertTrue($result);
+        $this->assertCount(0, $transaction->getErrors());
+    }
+
+    /**
+     * @test
+     */
+    function it_when_a_user_forgets_their_password_it_fails_if_the_email_is_not_attached_to_a_user()
+    {
+        $gateway = m::mock('OceanCrest\UserGateway');
+        $gateway->shouldReceive('getUserByEmail')->with('invalid@email.com')->once()->andReturn(false);
+        $gateway->shouldNotReceive('updatePassword');
+
+        $transaction = new UserTransactions($gateway);
+        $result = $transaction->resetPassword('invalid@email.com');
+
+        $this->assertFalse($result);
+        $this->assertGreaterThan(0, $transaction->getErrors());
+    }
+
 }

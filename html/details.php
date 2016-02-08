@@ -2,6 +2,7 @@
 
 use OceanCrest\DB;
 use OceanCrest\EventGateway;
+
 include ('./includes/header.php');
 require_once("../cgi-bin/oc/dbConnection.php"); ?>
 
@@ -55,10 +56,7 @@ if (isset($request->post['delete'])) {
 			header("Location: calendar.php?month=$month&year=$year");
 			exit();
 		}
-		
-	} else {
-		echo "it's not.";
-	}
+	} 
 }
 
 ?>
