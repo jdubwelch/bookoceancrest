@@ -105,6 +105,12 @@ class UserTransactions
         return false;
     }
 
+    /**
+     * Reset the password for a user.
+     * 
+     * @param  string $email
+     * @return boolean
+     */
     public function resetPassword($email)
     {
         $this->errors = [];
@@ -138,6 +144,72 @@ class UserTransactions
         // Send an email.
         $body = "Your password to log into bookoceancrest.com has been temporarily changed to '$password'. Please log in using this password and your username. At that time you may change your password to something more familiar.";
         mail ($email, 'Your temporary password.', $body, 'From: info@bookoceancrest.com');
+
+        return true;
+    }
+
+    /**
+     * The process of registering a user.
+     * 
+     * @param  array $input 
+     * @return boolean
+     */
+    public function register($input)
+    {
+        $this->errors = [];
+
+        // Check for a first name.
+        if (empty($input['name'])) {
+            $this->errors[] = 'Please enter your name.';
+        }
+
+        if ($input['side'] == '0') {
+            $this->errors[] = 'Please your side of the family.';
+        }
+
+        // Check for an email address.
+        if (! preg_match('/^[[:alnum:]][a-z0-9_\.\-]*@[a-z0-9\.\-]+\.[a-z]{2,4}$/', $input['email'])) {
+            $this->errors[] = 'Please enter a valid email address.';
+        }
+
+        // Check for a password and match against the confirmed password.
+        if (preg_match('/^[[:alnum:]]{4,20}$/', $input['password'])) {
+            if ($input['password'] != $input['password_confirm']) {
+                $this->errors[] = 'Your password did not match the confirmed password!';
+            }
+        } else {
+            $this->errors[] = 'Please enter a valid password';
+        }
+
+        // Get outta here if the data is not good
+        if (count($this->errors)) {
+            return false;
+        }
+
+        // Only create people that don't have an account
+        if (! $this->userGateway->uniqueEmail($input['email'])) { 
+            $this->errors[] = 'The email address has already been registered. If you have forgotten your password, use the link to have your password sent to you.';
+            return false;
+        }
+
+        // Add the user.
+        $user_id = $this->userGateway->create(
+            $input['name'], 
+            $input['email'], 
+            $input['side'],
+            $input['password']
+        );
+
+        // Some kind of MySQL error in the SQL for some reason.
+        if (! $user_id) {
+            $this->errors[] = 'You could not be registered due to a system error. We apologize for any inconvenience.';
+            return false;
+        }
+
+        // Notify the administrator so they know to activate.
+        $body = "Name: {$input['name']}\n\nEmail: {$input['email']}\n\nSide: {$input['side']}\n\n";
+        $body .= "http://www.bookoceancrest.com/activate.php?x=" . $user_id;
+        mail('jw@jwelchdesign.com', 'bookoceancrest.com', $body, 'From: info@bookoceancrest.com');
 
         return true;
     }

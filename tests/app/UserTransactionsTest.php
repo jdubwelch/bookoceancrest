@@ -125,4 +125,48 @@ class UserTransactionsTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $transaction->getErrors());
     }
 
+    /**
+     * @test
+     */
+    function it_registers_a_user()
+    {
+        $gateway = m::mock('OceanCrest\UserGateway');
+        $gateway->shouldReceive('uniqueEmail')->with('bob@email.com')->once()->andReturn(true);
+        $gateway->shouldReceive('create')->with('Bob & Sally', 'bob@email.com', 'Welch', 'pword')->once()->andReturn(99);
+        $transactions = new UserTransactions($gateway);
+
+        $result = $transactions->register([
+            'name' => 'Bob & Sally',
+            'side' => 'Welch',
+            'email' => 'bob@email.com',
+            'password' => 'pword',
+            'password_confirm' => 'pword'
+        ]);
+
+        $this->assertTrue($result);
+        $this->assertCount(0, $transactions->getErrors());
+    }
+
+    /**
+     * @test
+     */
+    function it_fails_when_bad_registration_data_is_provided()
+    {
+        $gateway = m::mock('OceanCrest\UserGateway');
+        $gateway->shouldNotReceive('uniqueEmail');
+        $gateway->shouldNotReceive('create');
+        $transactions = new UserTransactions($gateway);
+
+        $result = $transactions->register([
+            'name' => 'Bob & Sally',
+            'side' => '0',
+            'email' => 'fake',
+            'password' => 'pword',
+            'password_confirm' => 'pword2'
+        ]);
+
+        $this->assertFalse($result);
+        $this->assertCount(3, $transactions->getErrors());
+    }
+
 }

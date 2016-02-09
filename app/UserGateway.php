@@ -98,6 +98,11 @@ class UserGateway {
      */
     public function create($name, $email, $side, $password)
     {
+        $name = $this->db->escape_data($name);
+        $email = $this->db->escape_data($email);
+        $side = $this->db->escape_data($side);
+        $password = $this->db->escape_data($password);
+        
         $query = "INSERT INTO `ocUsers` (`user_id`, `name`, `email`, `password`, `side`, `activated`) 
         VALUES (NULL, '$name', '$email', PASSWORD('$password'), '$side', '0');";       
         $result = mysqli_query ($this->db->connection, $query) or trigger_error("Query: $query\n<br />MySQL Error: " . mysqli_error($this->db->connection));
