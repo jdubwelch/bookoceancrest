@@ -15,7 +15,7 @@ $ayah = new AYAH();
 if (isset($request->post['submitted'])) { // Handle the form.
 	
 	// Use the AYAH object to get the score.
-	$score = $ayah->scoreResult();
+	$score = $ayah->scoreResult(); 
 
 	// Check the score to determine what to do.
 	if ($score)
@@ -37,7 +37,12 @@ if (isset($request->post['submitted'])) { // Handle the form.
         if ($registered) {
             echo '<h1>Thank you for registering! </h1>
             <p>You will receive and email once your account is activated.  It could take up to 24 hours to be activated.</p>';
+            include ('./includes/footer.php'); // Include the HTML footer.
+            exit(); 
         }
+
+        echo '<p><font color="red" size="+1">'.implode('<br>', $userTransactions->getErrors()).'</font></p>';  
+
 	}
 	// you are NOT a human
 	else
@@ -45,7 +50,6 @@ if (isset($request->post['submitted'])) { // Handle the form.
         echo '<p><font color="red" size="+1">Human verification failed. Please try again.</font></p>';  
     }
     
-		echo '<p><font color="red" size="+1">Human verification failed. Please try again.</font></p>';	
 
 } // End of the main Submit conditional.
 ?>
