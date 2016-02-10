@@ -3,16 +3,17 @@
 class DetailsHtmlTest extends \PHPUnit_Framework_TestCase
 {
     protected $response;
+    protected $request;
     protected $output;
     
     public function setUp()
     {
-        $request = new \Mlaphp\Request($GLOBALS);
+        $this->request = new \Mlaphp\Request($GLOBALS);
 
         $this->response = new \Mlaphp\Response(__DIR__.'/../../views');
         $this->response->setView('details.php');
         $this->response->setVars([
-            'request' => $request,
+            'request' => $this->request,
             'name' => 'Jason & Deena',
             'event' => [
                 'family' => 'Jason & Deena',
@@ -42,11 +43,44 @@ class DetailsHtmlTest extends \PHPUnit_Framework_TestCase
         $this->assertOutputHas($expect);
     }
 
+    /**
+     * @test
+     */
+    function it_does_not_show_the_cancel_button_when_the_event_is_not_owned_by_user()
+    {
+        $this->response->setVars([
+            'request' => $this->request,
+            'name' => 'Not Jason or Deena',
+            'event' => [
+                'family' => 'Jason & Deena',
+                'id' => 1,
+                'date' => "3/30/2016",
+                'owned' => false
+            ]   
+        ]);
+        $this->output = $this->response->requireView();
+
+        $expect = 'click if not staying anymore';
+        $this->assertOutputDoesNotHave($expect);
+    }
+
     public function assertOutputHas($expect)
     {
-        if (strpos($this->output, $expect) === false) {
+        if (! $this->outputHas($expect)) {
             $this->fail("Did not find expected output: $expect");
         }
+    }
+
+    public function assertOutputDoesNotHave($expect)
+    {
+        if ($this->outputHas($expect)) {
+            $this->fail("Did not expect to have this output: $expect");
+        }
+    }
+
+    private function outputHas($expect)
+    {
+        return strpos($this->output, $expect) !== false;
     }
 }
 
