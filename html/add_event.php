@@ -49,6 +49,7 @@ $year = $da[2];
 $response = new \Mlaphp\Response(__DIR__.'/../views'); 
 $response->setView('add_event.php'); 
 $response->setVars([
+    'request' => $request,
     'name' => $request->session['name'],
     'action' => $request->server['PHP_SELF'],
     'day' => $request->get['day'],
