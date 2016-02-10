@@ -29,7 +29,7 @@ if($request->post['action'] == "add"){
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	$eventGateway = new EventGateway($db);
     $eventGateway->reserve(
-        $request->session['family'], 
+        $request->session['name'], 
         $request->post['date'], 
         $request->post['staying']
     );
