@@ -1,20 +1,23 @@
 <?php 
 include (__DIR__.'/../views/partials/header.php');
 
-$firstDay = mktime (0,1,0, $month, 1, $year);
-$firstDay = date ("w", $firstDay);
+$presenter = new OceanCrest\CalendarPresenter($month, $year);
+
+// What day of the week the month starts on 0-6 (Sunday-Saturday)
+$firstDay = date ("w", mktime (0,1,0, $month, 1, $year));
+
+// Total days in the month
 $daysInMonth = date("t", mktime(0,0,0,$month,1,$year));
 
-#CALCULATE NUMBER OF ROWS
+// Determine the number of rows we'll need.
 $totalCells = $firstDay + $daysInMonth;
-if ($totalCells < 36) {
-    $rowNumber = 5;
-} else {
-    $rowNumber = 6;
-}       
-$dayNumber = 1;
+$numberOfRows = ($totalCells < 36) ? 5 : 6;
+     
+
 
 $eventsArray = @array_keys($eventData);
+
+echo "<pre>month: $month\nyear: $year\nfirst day: $firstDay\ndays in month: $daysInMonth\ntotal cells: $totalCells\nRows: $numberOfRows</pre>";
 
 echo "<p>{$name}</p>";
 echo '
@@ -43,7 +46,9 @@ echo '
         <td>sat</td>
     </tr>
 ';
-for ($currentRow=1; $currentRow <= $rowNumber; $currentRow++) {
+
+$dayNumber = 1;
+for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
     
     if ($currentRow == 1) {
         
@@ -55,33 +60,27 @@ for ($currentRow=1; $currentRow <= $rowNumber; $currentRow++) {
             $weekRow = date("W", mktime(0,0,0, $month, $dayNumber+3, $year));
                         
             if ($weekRow % 2 == 0) {
-                $row = "evenrow";
+                $row = "welch_week";
                 $sid = 0; // sid = side id 
                 $familyweek = "W";
+                
             } else {
-                $row = "oddrow";
+                $row = "schu_week";
                 $sid = 1;
                 $familyweek = "S";
-            }
-            
-            
-            if ($row == "evenrow") {
-                $reserved = "#D8FFDC";
-            } else {
-                $reserved = "#DAE7FF";
             }
             
             // CHECK IF IT'S THE FIRST DAY OF THE MONTH
             if ($currentCell == $firstDay) {
                 $day = $dayNumber . "/" . $month . "/" . $year;
-                $link = "<a href=\"details.php?day=$day\">$dayNumber</a>";
-                $alink = "<a href=\"add_event.php?day=$day\">$dayNumber</a>";
+                $link = $presenter->link_to_event($dayNumber);
+                $alink = $presenter->link_to_add_event($dayNumber);
                 
                 if (@in_array($dayNumber, $eventsArray)) {
                     $fam = $eventData[$dayNumber];
-                    echo "<td bgcolor=\"$reserved\" class=\"$row\"><div id=\"day\">$link</div><div id=\"event\">$fam</div></td>\n";
+                    echo '<td class="'.$row.' reserved"><div id="day">'.$link.'</div><div id="event">'.$fam.'</div></td>'."\n";
                 } else {
-                    echo "<td class=\"$row\"><div id=\"day\">$alink</div><div id=\"event\"></div></td>\n";
+                    echo '<td class="'.$row.'"><div id="day">'.$alink.'</div><div id="event"></div></td>'."\n";
                 }
                 $dayNumber++;
             } else {
@@ -89,73 +88,66 @@ for ($currentRow=1; $currentRow <= $rowNumber; $currentRow++) {
                 // IF THE FIRST DAY IS PASSED OUTPUT THE DATE
                 if ($dayNumber > 1) { 
                     $day = $dayNumber . "/" . $month . "/" . $year;
-                    $link = "<a href=\"details.php?day=$day\">$dayNumber</a>";
-                    $alink = "<a href=\"add_event.php?day=$day&sid=$sid\">$dayNumber</a>";
+                    $link = $presenter->link_to_event($dayNumber);
+                    $alink = $presenter->link_to_add_event($dayNumber);
                 
                     if (@in_array($dayNumber, $eventsArray)) {
                         $fam = $eventData[$dayNumber];
-                        echo "<td bgcolor=\"$reserved\" class=\"$row\"><div id=\"day\">$link</div><div id=\"event\">$fam</div></td>\n";
+                        echo '<td class="'.$row.' reserved"><div id="day">'.$link.'</div><div id="event">'.$fam.'</div></td>'."\n";
                     } else {
-                        echo "<td class=\"$row\"><div id=\"day\">$alink</div><div id=\"event\"></div></td>\n";
+                        echo '<td class="'.$row.'"><div id="day">'.$alink.'</div><div id="event"></div></td>'."\n";
                     }
                     $dayNumber++;
                 } else {    // FIRST DAY NOT REACHED SO DISPLAY A BLANK CELL
-                    echo "<td class=\"otherMonth\">&nbsp;</td>\n";
+                    echo '<td class="otherMonth">&nbsp;</td>'."\n";
                 }
             }
         }
-        echo "</tr>\n";
+        echo '</tr>'."\n";
     } else {
     
         #CREATE THE REMAINING ROWS
-        echo "<tr>\n";
+        echo '<tr>'."\n";
         for ($currentCell=0; $currentCell < 7; $currentCell++) {
             $dayName = date("l", mktime(0,0,0,$month, $dayNumber, $year));
     
             $weekRow = date("W", mktime(0,0,0, $month, $dayNumber+3, $year));
             
             if ($weekRow % 2 == 0) {
-                $row = "evenrow";
+                $row = "welch_week";
                 $sid = 0; // sid = side id 
                 $familyweek = "W";
             } else {
-                $row = "oddrow";
+                $row = "schu_week";
                 $sid = 1;
                 $familyweek = "S";
             }
             
-            
-            if ($row == "evenrow") {
-                $reserved = "#D8FFDC";
-            } else {
-                $reserved = "#DAE7FF";
-            }
-            
             $day = $dayNumber . "/" . $month . "/" . $year;
-            $link = "<a href=\"details.php?day=$day\">$dayNumber</a>";
-            $alink = "<a href=\"add_event.php?day=$day&sid=$sid\">$dayNumber</a>";
+            $link = $presenter->link_to_event($dayNumber);
+            $alink = $presenter->link_to_add_event($dayNumber);
             
             // IF THE DAYS IN THE MONTH ARE EXCEEDED DISPLAY A BLANK CELL
             if ($dayNumber > $daysInMonth) {
-                echo "<td class=\"otherMonth\">&nbsp;</td>\n";
+                echo '<td class="otherMonth">&nbsp;</td>'."\n";
             } else {
                 if (@in_array($dayNumber, $eventsArray)) {
                     $fam = $eventData[$dayNumber];
-                    echo "<td bgcolor=\"$reserved\" class=\"$row\"><div id=\"day\">$link</div><div id=\"event\">$fam</div></td>\n";
+                    echo '<td class="'.$row.' reserved"><div id="day">'.$link.'</div><div id="event">'.$fam.'</div></td>'."\n";
                 } else {
-                    echo "<td class=\"$row\"><div id=\"day\">$alink</div><div id=\"event\"></div></td>\n";
+                    echo '<td class="'.$row.'"><div id="day">'.$alink.'</div><div id="event"></div></td>'."\n";
                 }
                 $dayNumber++;
             }
         }
-        echo "</tr>\n";
+        echo '</tr>'."\n";
     }
         
 }
-echo "</table>";
+echo '</table>';
 
 
-echo "<select name=\"month\">";
+echo '<select name="month">';
 
 
 

@@ -35,8 +35,12 @@
 	padding-right: 2px;
 	padding-bottom: 2px;
 }
-.oddrow {
+.schu_week {
 	color: #FF0000;
+}
+
+.schu_week.reserved {
+    background-color: #DAE7FF;
 }
 #event {
 	font-size: 9px;
@@ -51,26 +55,28 @@
 	font-size: 10px;
 	clear: both;
 }
-.reserved {
-	background-color: #D8FFDC;
-}
-.evenrow #day a {
+
+.welch_week #day a {
 	text-decoration: none;
 	color: #00CC00;
 }
-.oddrow #day a {
+.schu_week #day a {
 	color: #0000FF;
 	text-decoration: none;
 }
-.oddrow #day a:hover {
+.schu_week #day a:hover {
 	text-decoration: underline;
 }
-.evenrow #day a:hover {
+.welch_week #day a:hover {
 	text-decoration: underline;
 }
-.evenrow {
+.welch_week {
 	color: #33FF00;
 }
+.welch_week.reserved {
+    background-color: #D8FFDC;
+}
+
 .otherMonth {
 	background-color: #ececec;
 }
