@@ -20,7 +20,7 @@
 	padding-bottom: 20px;
 	font-size: 11px;
 }
-#day {
+.day {
 	text-align: right;
 	width: 20px;
 	float: right;
@@ -56,18 +56,18 @@
 	clear: both;
 }
 
-.welch_week #day a {
+.welch_week .day a {
 	text-decoration: none;
 	color: #00CC00;
 }
-.schu_week #day a {
+.schu_week .day a {
 	color: #0000FF;
 	text-decoration: none;
 }
-.schu_week #day a:hover {
+.schu_week .day a:hover {
 	text-decoration: underline;
 }
-.welch_week #day a:hover {
+.welch_week .day a:hover {
 	text-decoration: underline;
 }
 .welch_week {

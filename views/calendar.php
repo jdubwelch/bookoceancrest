@@ -60,46 +60,33 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
             $weekRow = date("W", mktime(0,0,0, $month, $dayNumber+3, $year));
                         
             if ($weekRow % 2 == 0) {
-                $row = "welch_week";
-                $sid = 0; // sid = side id 
-                $familyweek = "W";
+                $family = "welch";
                 
             } else {
-                $row = "schu_week";
-                $sid = 1;
-                $familyweek = "S";
+                $family = "schu";
             }
             
             // CHECK IF IT'S THE FIRST DAY OF THE MONTH
             if ($currentCell == $firstDay) {
-                $day = $dayNumber . "/" . $month . "/" . $year;
-                $link = $presenter->link_to_event($dayNumber);
-                $alink = $presenter->link_to_add_event($dayNumber);
-                
+
                 if (@in_array($dayNumber, $eventsArray)) {
-                    $fam = $eventData[$dayNumber];
-                    echo '<td class="'.$row.' reserved"><div id="day">'.$link.'</div><div id="event">'.$fam.'</div></td>'."\n";
+                    echo $presenter->day($dayNumber, $family, $eventData[$dayNumber]);
                 } else {
-                    echo '<td class="'.$row.'"><div id="day">'.$alink.'</div><div id="event"></div></td>'."\n";
+                    echo $presenter->day($dayNumber, $family);
                 }
                 $dayNumber++;
             } else {
                 
                 // IF THE FIRST DAY IS PASSED OUTPUT THE DATE
                 if ($dayNumber > 1) { 
-                    $day = $dayNumber . "/" . $month . "/" . $year;
-                    $link = $presenter->link_to_event($dayNumber);
-                    $alink = $presenter->link_to_add_event($dayNumber);
-                
                     if (@in_array($dayNumber, $eventsArray)) {
-                        $fam = $eventData[$dayNumber];
-                        echo '<td class="'.$row.' reserved"><div id="day">'.$link.'</div><div id="event">'.$fam.'</div></td>'."\n";
+                        echo $presenter->day($dayNumber, $family, $eventData[$dayNumber]);
                     } else {
-                        echo '<td class="'.$row.'"><div id="day">'.$alink.'</div><div id="event"></div></td>'."\n";
+                        echo $presenter->day($dayNumber, $family);
                     }
                     $dayNumber++;
                 } else {    // FIRST DAY NOT REACHED SO DISPLAY A BLANK CELL
-                    echo '<td class="otherMonth">&nbsp;</td>'."\n";
+                    echo $presenter->off_day();
                 }
             }
         }
@@ -108,34 +95,25 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
     
         #CREATE THE REMAINING ROWS
         echo '<tr>'."\n";
-        for ($currentCell=0; $currentCell < 7; $currentCell++) {
-            $dayName = date("l", mktime(0,0,0,$month, $dayNumber, $year));
-    
+        for ($currentCell = 0; $currentCell < 7; $currentCell++) {
+            
+            // Week Ownership
             $weekRow = date("W", mktime(0,0,0, $month, $dayNumber+3, $year));
             
             if ($weekRow % 2 == 0) {
-                $row = "welch_week";
-                $sid = 0; // sid = side id 
-                $familyweek = "W";
+                $family = "welch";
             } else {
-                $row = "schu_week";
-                $sid = 1;
-                $familyweek = "S";
+                $family = "schu";
             }
-            
-            $day = $dayNumber . "/" . $month . "/" . $year;
-            $link = $presenter->link_to_event($dayNumber);
-            $alink = $presenter->link_to_add_event($dayNumber);
             
             // IF THE DAYS IN THE MONTH ARE EXCEEDED DISPLAY A BLANK CELL
             if ($dayNumber > $daysInMonth) {
-                echo '<td class="otherMonth">&nbsp;</td>'."\n";
+                echo $presenter->off_day();
             } else {
                 if (@in_array($dayNumber, $eventsArray)) {
-                    $fam = $eventData[$dayNumber];
-                    echo '<td class="'.$row.' reserved"><div id="day">'.$link.'</div><div id="event">'.$fam.'</div></td>'."\n";
+                    echo $presenter->day($dayNumber, $family, $eventData[$dayNumber]);
                 } else {
-                    echo '<td class="'.$row.'"><div id="day">'.$alink.'</div><div id="event"></div></td>'."\n";
+                    echo $presenter->day($dayNumber, $family);
                 }
                 $dayNumber++;
             }

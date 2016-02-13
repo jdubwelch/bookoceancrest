@@ -32,4 +32,42 @@ class CalendarPresenterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($expected, $link);
     }
+
+    /**
+     * @test
+     */
+    function it_creates_the_markup_for_a_cell_with_an_event()
+    {
+        $link = $this->presenter->link_to_event(4);
+        $expected = '<td class="welch_week reserved"><div class="day Thursday">'.$link.'</div><div id="event">Jason & Deena</div></td>';
+
+        $html = $this->presenter->day(4, 'welch', 'Jason & Deena');
+
+        $this->assertSame($expected, $html);
+    }
+
+    /**
+     * @test
+     */
+    function it_creates_the_markup_for_a_cell_with_no_event()
+    {
+        $link = $this->presenter->link_to_add_event(5);
+        $expected = '<td class="welch_week"><div class="day Friday">'.$link.'</div><div id="event"></div></td>';
+
+        $html = $this->presenter->day(5, 'welch');
+
+        $this->assertSame($expected, $html);
+    }
+
+    /**
+     * @test
+     */
+    function it_creates_days_not_in_the_current_month()
+    {
+        $expected = '<td class="otherMonth">&nbsp;</td>';
+
+        $html = $this->presenter->off_day();
+
+        $this->assertSame($expected, $html);
+    }
 }
