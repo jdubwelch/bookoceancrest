@@ -29,6 +29,8 @@ class CalendarPresenter {
     public function day($day, $family, $guest = false)
     {
         $classes = [
+
+            // day of the week (tuesday, wednesday, etc)
             strtolower(date("l", mktime(0,0,0,$this->month, $day, $this->year))),
             $family.'_week'
         ];
