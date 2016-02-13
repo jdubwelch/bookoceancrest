@@ -28,7 +28,10 @@ class CalendarPresenter {
 
     public function day($day, $family, $guest = false)
     {
-        $classes = [$family.'_week'];
+        $classes = [
+            strtolower(date("l", mktime(0,0,0,$this->month, $day, $this->year))),
+            $family.'_week'
+        ];
 
         if ($guest) {
             $link = $this->link_to_event($day);
@@ -37,9 +40,7 @@ class CalendarPresenter {
             $link = $this->link_to_add_event($day);
         }
 
-        $dayName = date("l", mktime(0,0,0,$this->month, $day, $this->year));
-
-        return '<td class="'.implode(' ', $classes).'"><div class="day '.$dayName.'">'.$link.'</div><div id="event">'.$guest.'</div></td>';
+        return '<td class="'.implode(' ', $classes).'"><div class="day">'.$link.'</div><div id="event">'.$guest.'</div></td>';
     }
 
     public function off_day()

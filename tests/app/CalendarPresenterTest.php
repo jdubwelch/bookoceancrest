@@ -39,7 +39,7 @@ class CalendarPresenterTest extends \PHPUnit_Framework_TestCase
     function it_creates_the_markup_for_a_cell_with_an_event()
     {
         $link = $this->presenter->link_to_event(4);
-        $expected = '<td class="welch_week reserved"><div class="day Thursday">'.$link.'</div><div id="event">Jason & Deena</div></td>';
+        $expected = '<td class="thursday welch_week reserved"><div class="day">'.$link.'</div><div id="event">Jason & Deena</div></td>';
 
         $html = $this->presenter->day(4, 'welch', 'Jason & Deena');
 
@@ -52,7 +52,7 @@ class CalendarPresenterTest extends \PHPUnit_Framework_TestCase
     function it_creates_the_markup_for_a_cell_with_no_event()
     {
         $link = $this->presenter->link_to_add_event(5);
-        $expected = '<td class="welch_week"><div class="day Friday">'.$link.'</div><div id="event"></div></td>';
+        $expected = '<td class="friday welch_week"><div class="day">'.$link.'</div><div id="event"></div></td>';
 
         $html = $this->presenter->day(5, 'welch');
 
