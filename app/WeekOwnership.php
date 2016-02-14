@@ -7,7 +7,7 @@ class WeekOwnership {
     protected $oddYearOddWeek = 'welch';
     protected $oddYearEvenWeek = 'schu';
 
-    protected function getWeekNumber($day, $month, $year)
+    public function getWeekNumber($day, $month, $year)
     {
         return date("W", mktime(0,0,0, $month, $day+3, $year));
     }
@@ -49,6 +49,12 @@ class WeekOwnership {
             } else {
                 return 'schu';
             }
+        }
+
+        // If the month is december and week is 1,
+        // then it's the next year. 
+        if ($weekNumber == 1 && $month == 12) {
+            $year++;
         }
 
         // Along with alternating weeks each year

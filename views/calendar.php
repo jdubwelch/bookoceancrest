@@ -62,6 +62,8 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
             // set week ownership
             $familyOriginal = $ownershipOriginal->determine($dayNumber, $month, $year);
             $family = $ownership->determine($dayNumber, $month, $year);
+
+            $familyOriginal .= " | wk=".$ownership->getWeekNumber($dayNumber, $month, $year);
             
             // CHECK IF IT'S THE FIRST DAY OF THE MONTH
             if ($currentCell == $firstDay) {
@@ -97,6 +99,8 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
             // Week Ownership
             $familyOriginal = $ownershipOriginal->determine($dayNumber, $month, $year);
             $family = $ownership->determine($dayNumber, $month, $year);
+
+            $familyOriginal .= " | wk=".$ownership->getWeekNumber($dayNumber, $month, $year);
             
             // IF THE DAYS IN THE MONTH ARE EXCEEDED DISPLAY A BLANK CELL
             if ($dayNumber > $daysInMonth) {

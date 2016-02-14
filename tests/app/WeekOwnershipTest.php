@@ -229,6 +229,32 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $actual);
     }
 
+    /**
+     * @test
+     */
+    function it_respects_the_week_numbers_and_the_alternating_rules_at_the_end_of_the_year()
+    {
+        $ownership = new WeekOwnership;
+
+        // according to the calendar-list,
+        // wk1 in 2017 starts 12/30
+        // welches get odd weeks in odd years, so it should be welch
+        $side = $ownership->determine(31, 12, 2016);
+        $this->assertSame('welch', $side);
+
+
+        // A year when the last day of the week is 12/30,
+        // and that week belongs to the schu's. The next
+        // week starts on 12/31 and that year is even so 
+        // the schu's get that. They should have two weeks there then.
+        $side = $ownership->determine(30, 12, 2021);
+        $this->assertSame('schu', $side);
+        $side = $ownership->determine(31, 12, 2021);
+        $this->assertSame('schu', $side);
+
+
+    }
+
 }
 
 
