@@ -7,10 +7,15 @@ class WeekOwnership {
     protected $oddYearOddWeek = 'welch';
     protected $oddYearEvenWeek = 'schu';
 
+    protected function getWeekNumber($day, $month, $year)
+    {
+        return date("W", mktime(0,0,0, $month, $day+3, $year));
+    }
+
     public function determine($day, $month, $year)
     {
         // Week Ownership
-        $weekNumber = date("W", mktime(0,0,0, $month, $day+3, $year));
+        $weekNumber = $this->getWeekNumber($day, $month, $year);
        
         // Welch's get fourth of july on even years
         $fourthOfJulyWeek = $this->fourthOfJulyWeek($year);
@@ -66,7 +71,6 @@ class WeekOwnership {
             } else {
                 return 'schu';
             }
-
         }
     }
 
@@ -88,15 +92,15 @@ class WeekOwnership {
 
     public function memorialDayWeek($year)
     {
-        return $this->getWeekNumber(strtotime("last monday of may $year"));
+        return $this->getWeekNumberFromTimestamp(strtotime("last monday of may $year"));
     }
 
     public function laborDayWeek($year)
     {
-        return $this->getWeekNumber(strtotime("first monday of september $year"));
+        return $this->getWeekNumberFromTimestamp(strtotime("first monday of september $year"));
     }
 
-    private function getWeekNumber($timestamp)
+    private function getWeekNumberFromTimestamp($timestamp)
     {
         return date("W", mktime(0,0,0, date('m', $timestamp), date('d', $timestamp)+3, date('Y', $timestamp)));
     }

@@ -7,8 +7,8 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Carbon\Carbon;
 
-$ownegd = new OceanCrest\WeekOwnershipOriginal;
-$ownership = new OceanCrest\WeekOwnership;
+$ownershipOriginal = new OceanCrest\WeekOwnershipOriginal;
+$ownership = new OceanCrest\WeekOwnershipSwap;
 
 foreach(range(2016, 2025) as $year) {
     $date = Carbon::createFromDate($year, 1, 1);

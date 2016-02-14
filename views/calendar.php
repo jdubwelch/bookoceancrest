@@ -48,7 +48,7 @@ echo '
 ';
 
 $ownershipOriginal = new OceanCrest\WeekOwnershipOriginal;
-$ownership = new OceanCrest\WeekOwnership;
+$ownership = new OceanCrest\WeekOwnershipSwap;
 
 $dayNumber = 1;
 for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
