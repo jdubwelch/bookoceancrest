@@ -68,8 +68,6 @@ class WeekOwnership {
             }
 
         }
-
-
     }
 
     private function evenYear($year)
@@ -82,18 +80,18 @@ class WeekOwnership {
         return ! $this->evenYear($year);
     }
 
-    private function fourthOfJulyWeek($year)
+    public function fourthOfJulyWeek($year)
     {
         $fourth = strtotime("july 4 $year");
         return date("W", mktime(0,0,0, date('m', $fourth), date('d', $fourth)+3, $year));
     }
 
-    private function memorialDayWeek($year)
+    public function memorialDayWeek($year)
     {
         return $this->getWeekNumber(strtotime("last monday of may $year"));
     }
 
-    private function laborDayWeek($year)
+    public function laborDayWeek($year)
     {
         return $this->getWeekNumber(strtotime("first monday of september $year"));
     }
