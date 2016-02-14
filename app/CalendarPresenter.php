@@ -26,7 +26,7 @@ class CalendarPresenter {
         return '<a href="add_event.php?day='.$this->make_date($day).'">'.$day.'</a>';
     }
 
-    public function day($day, $family, $familyOld, $guest = false)
+    public function day($day, $family, $familyOriginal, $guest = false)
     {
         $classes = [
 
@@ -42,7 +42,7 @@ class CalendarPresenter {
             $link = $this->link_to_add_event($day);
         }
 
-        return '<td class="'.implode(' ', $classes).'"><div class="day">'.$link.'</div><div id="event">'.$guest.'</div><small style="color:#999;">'.$familyOld.'</small></td>';
+        return '<td class="'.implode(' ', $classes).'"><div class="day">'.$link.'</div><div id="event">'.$guest.'</div><small style="color:#999;">'.$familyOriginal.'</small></td>';
     }
 
     public function off_day()
