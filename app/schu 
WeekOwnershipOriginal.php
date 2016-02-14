@@ -1,6 +1,6 @@
 <?php namespace OceanCrest;
 
-class WeekOwnershipOld {
+class WeekOwnershipOriginal {
 
     public function determine($day, $month, $year)
     {

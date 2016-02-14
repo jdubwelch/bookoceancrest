@@ -6,7 +6,7 @@ ini_set('display_startup_errors', '1');
 require __DIR__ . '/vendor/autoload.php';
 
 
-$ownershipOld = new OceanCrest\WeekOwnershipOld;
+$ownershipOriginal = new OceanCrest\WeekOwnershipOriginal;
 $ownership = new OceanCrest\WeekOwnership;
 
 /*
@@ -31,7 +31,7 @@ foreach (range(2017, 2026) as $year) {
     echo " TOTAL WEEKS: $weeks\n";
 
     $newYears = strtotime("first day of january $year");
-    $whoOld = $ownershipOld->determine(date('d', $newYears), date('m', $newYears), $year);
+    $whoOld = $ownershipOriginal->determine(date('d', $newYears), date('m', $newYears), $year);
     $who = $ownership->determine(date('d', $newYears), date('m', $newYears), $year);
     echo " NEW YEARS\n";
     echo "         day: ".date('m/d l', $newYears)."\n";
@@ -42,7 +42,7 @@ foreach (range(2017, 2026) as $year) {
     $stats['new years']['new'][$year] = $who;
 
     $memorial = strtotime("last monday of may $year"); 
-    $whoOld = $ownershipOld->determine(date('d', $memorial), date('m', $memorial), $year);
+    $whoOld = $ownershipOriginal->determine(date('d', $memorial), date('m', $memorial), $year);
     $who = $ownership->determine(date('d', $memorial), date('m', $memorial), $year);
     echo " MEMORIAL DAY\n";
     echo "         day: ".date('m/d l', $memorial)."\n";
@@ -53,7 +53,7 @@ foreach (range(2017, 2026) as $year) {
     $stats['memorial']['new'][$year] = $who;
 
     $fourth = strtotime("july 4 $year");
-    $whoOld = $ownershipOld->determine(date('d', $fourth), date('m', $fourth), $year);
+    $whoOld = $ownershipOriginal->determine(date('d', $fourth), date('m', $fourth), $year);
     $who = $ownership->determine(date('d', $fourth), date('m', $fourth), $year);
     echo " INDEPENDENCE DAY\n";
     echo "         day: ".date('m/d l', $fourth)."\n";
@@ -64,7 +64,7 @@ foreach (range(2017, 2026) as $year) {
     $stats['july 4th']['new'][$year] = $who;
 
     $laborDay = strtotime("first monday of september $year");
-    $whoOld = $ownershipOld->determine(date('d', $laborDay), date('m', $laborDay), $year);
+    $whoOld = $ownershipOriginal->determine(date('d', $laborDay), date('m', $laborDay), $year);
     $who = $ownership->determine(date('d', $laborDay), date('m', $laborDay), $year);
     echo " LABOR DAY\n";
     echo "         day: ".date('m/d l', $laborDay)."\n";

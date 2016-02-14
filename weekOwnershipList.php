@@ -7,7 +7,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Carbon\Carbon;
 
-$ownershipOld = new OceanCrest\WeekOwnershipOld;
+$ownegd = new OceanCrest\WeekOwnershipOriginal;
 $ownership = new OceanCrest\WeekOwnership;
 
 foreach(range(2016, 2025) as $year) {
@@ -31,7 +31,7 @@ foreach(range(2016, 2025) as $year) {
 
 function display($date)
 {
-    global $ownership, $ownershipOld;
+    global $ownership, $ownershipOriginal;
     $week = $date->copy()->addDays(3)->format('W');
     // $week = date("W", mktime(0,0,0, $date->month, $date->day+3, $date->year));
     // echo $date->format('M d, Y | l |')." ";
@@ -41,7 +41,7 @@ function display($date)
 
     echo ' | '.$ownership->determine($date->day, $date->month, $date->year);
 
-    echo ' | ('.$ownershipOld->determine($date->day, $date->month, $date->year).')';
+    echo ' | ('.$ownershipOriginal->determine($date->day, $date->month, $date->year).')';
 
     if ($date->isSameDay(Carbon::createFromDate($date->year, 1, 1))) {
         echo " | New Years Day -> ".$date->format('m/d l');
