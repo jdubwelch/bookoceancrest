@@ -15,9 +15,9 @@ foreach(range(2016, 2025) as $year) {
     $date->setWeekStartsAt(Carbon::FRIDAY);
     $date->setWeekEndsAt(Carbon::THURSDAY);
 
-    echo "-------------------------------------------------------------------\n";
-    echo 'Year | Week # | Week Start | Week End | Family | Holiday'."\n";
-    echo "-------------------------------------------------------------------\n";
+    echo "---------------------------------------------------------------------------\n";
+    echo 'Year | Week # | Week Start | Week End | Family | Family (old) | Holiday'."\n";
+    echo "---------------------------------------------------------------------------\n";
     
     display($date);
 
@@ -31,7 +31,7 @@ foreach(range(2016, 2025) as $year) {
 
 function display($date)
 {
-    global $ownership;
+    global $ownership, $ownershipOld;
     $week = $date->copy()->addDays(3)->format('W');
     // $week = date("W", mktime(0,0,0, $date->month, $date->day+3, $date->year));
     // echo $date->format('M d, Y | l |')." ";
@@ -40,6 +40,8 @@ function display($date)
     echo $date->copy()->startOfWeek()->format('m/d').' | '.$date->copy()->endOfWeek()->format('m/d');
 
     echo ' | '.$ownership->determine($date->day, $date->month, $date->year);
+
+    echo ' | ('.$ownershipOld->determine($date->day, $date->month, $date->year).')';
 
     if ($date->isSameDay(Carbon::createFromDate($date->year, 1, 1))) {
         echo " | New Years Day -> ".$date->format('m/d l');
