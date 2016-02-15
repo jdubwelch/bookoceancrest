@@ -27,6 +27,5 @@ if(strlen($event['family']) > 0) {
   <p>&nbsp;</p>
   <p><a href="calendar.php">Return to Calendar</a> </p>
 <?php
-
 include (__DIR__.'/../views/partials/footer.php');
 ?>
