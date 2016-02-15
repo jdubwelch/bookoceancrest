@@ -3,10 +3,8 @@
 use OceanCrest\DB;
 use OceanCrest\EventGateway;
 
-include ('./includes/header.php');
-require_once("../cgi-bin/oc/dbConnection.php"); ?>
+require_once("../bootstrap/start.php"); 
 
-<?php
 // Check that we have a date parameter in the URL, if none redirect back to calendar page
 if(strlen($request->get['day']) < 1){
 	header("Location: index.php");
@@ -15,7 +13,6 @@ if(strlen($request->get['day']) < 1){
 
 // MAKE SURE THEY ARE LOGGED IN
 if (isset($request->session['name'])) {
-	echo "<p>$request->session[name]</p>";
     $name = $request->session['name'];
 } else {
 	// Start defining the URL.
@@ -59,32 +56,16 @@ if (isset($request->post['delete'])) {
 	} 
 }
 
-?>
-
-<h3><?php echo $records[0]['family'] . " have reserved the cabin on $month/$day/$year"; ?></h3>
-  
-  <p>&nbsp;</p>
-  <?php 
-  if(strlen($records[0]['family']) > 0) { 
-
-// CHECK TO MAKE SURE THE RIGHT PERSON IS ACCESSING THIS PAGE
-$id = $records[0]['id'];
-
-if ($name == $records[0]['family']) { 
-	echo "<form action=\"\" method=\"post\">
-		<input name=\"id\" type=\"hidden\" value=\"$id\">
-		<input name=\"delete\" type=\"submit\" value=\" click if not staying anymore \">
-	</form>";
-} 
-	
-	
-} else { ?>
-  <p align='center'><h3>No Current Records</h3></p>
-  <?php } ?>
-  <p>&nbsp;</p>
-  <p><a href="calendar.php">Return to Calendar</a> </p>
-<?
-
-include ('./includes/footer.php');
-
-?>
+$response = new \Mlaphp\Response(__DIR__.'/../views'); 
+$response->setView('details.php'); 
+$response->setVars([
+    'request' => $request,
+    'name' => $request->session['name'],
+    'event' => [
+        'family' => $records[0]['family'],
+        'id' => $records[0]['id'],
+        'date' => "$month/$day/$year",
+        'owned' => ($request->session['name'] == $records[0]['family'])
+    ]   
+]);
+$response->send();

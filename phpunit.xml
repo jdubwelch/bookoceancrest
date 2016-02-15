@@ -10,12 +10,13 @@
          stopOnFailure="false">
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory>./tests/</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
             <directory suffix=".php">app/</directory>
+            <directory suffix=".php">views/</directory>
         </whitelist>
     </filter>
     <php>
