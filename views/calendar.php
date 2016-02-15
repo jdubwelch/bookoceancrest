@@ -1,20 +1,22 @@
 <?php 
 include (__DIR__.'/../views/partials/header.php');
 
-$firstDay = mktime (0,1,0, $month, 1, $year);
-$firstDay = date ("w", $firstDay);
+$presenter = new OceanCrest\CalendarPresenter($month, $year);
+
+// What day of the week the month starts on 0-6 (Sunday-Saturday)
+$firstDay = date ("w", mktime (0,1,0, $month, 1, $year));
+
+// Total days in the month
 $daysInMonth = date("t", mktime(0,0,0,$month,1,$year));
 
-#CALCULATE NUMBER OF ROWS
+// Determine the number of rows we'll need.
 $totalCells = $firstDay + $daysInMonth;
-if ($totalCells < 36) {
-    $rowNumber = 5;
-} else {
-    $rowNumber = 6;
-}       
-$dayNumber = 1;
-
+$numberOfRows = ($totalCells < 36) ? 5 : 6;
+     
 $eventsArray = @array_keys($eventData);
+
+// Debugggin stuff
+echo "<pre>month: $month\nyear: $year\nfirst day: $firstDay\ndays in month: $daysInMonth\ntotal cells: $totalCells\nRows: $numberOfRows</pre>";
 
 echo "<p>{$name}</p>";
 echo '
@@ -43,7 +45,12 @@ echo '
         <td>sat</td>
     </tr>
 ';
-for ($currentRow=1; $currentRow <= $rowNumber; $currentRow++) {
+
+$ownershipOriginal = new OceanCrest\WeekOwnershipOriginal;
+$ownership = new OceanCrest\WeekOwnershipSwap;
+
+$dayNumber = 1;
+for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
     
     if ($currentRow == 1) {
         
@@ -51,115 +58,82 @@ for ($currentRow=1; $currentRow <= $rowNumber; $currentRow++) {
         echo "<tr>\n";
         for ($currentCell = 0; $currentCell < 7; $currentCell++) {
             
-            // Get the number of the week
-            $weekRow = date("W", mktime(0,0,0, $month, $dayNumber+3, $year));
-                        
-            if ($weekRow % 2 == 0) {
-                $row = "evenrow";
-                $sid = 0; // sid = side id 
-                $familyweek = "W";
-            } else {
-                $row = "oddrow";
-                $sid = 1;
-                $familyweek = "S";
-            }
-            
-            
-            if ($row == "evenrow") {
-                $reserved = "#D8FFDC";
-            } else {
-                $reserved = "#DAE7FF";
-            }
+            // set week ownership
+            $familyOriginal = $ownershipOriginal->determine($dayNumber, $month, $year);
+            $family = $ownership->determine($dayNumber, $month, $year);
+
+            $familyOriginal .= " | wk=".$ownership->getWeekNumber($dayNumber, $month, $year);
             
             // CHECK IF IT'S THE FIRST DAY OF THE MONTH
             if ($currentCell == $firstDay) {
-                $day = $dayNumber . "/" . $month . "/" . $year;
-                $link = "<a href=\"details.php?day=$day\">$dayNumber</a>";
-                $alink = "<a href=\"add_event.php?day=$day\">$dayNumber</a>";
-                
+
                 if (@in_array($dayNumber, $eventsArray)) {
-                    $fam = $eventData[$dayNumber];
-                    echo "<td bgcolor=\"$reserved\" class=\"$row\"><div id=\"day\">$link</div><div id=\"event\">$fam</div></td>\n";
+                    echo $presenter->day($dayNumber, $family, $familyOriginal, $eventData[$dayNumber]);
                 } else {
-                    echo "<td class=\"$row\"><div id=\"day\">$alink</div><div id=\"event\"></div></td>\n";
+                    echo $presenter->day($dayNumber, $family, $familyOriginal);
                 }
                 $dayNumber++;
             } else {
                 
                 // IF THE FIRST DAY IS PASSED OUTPUT THE DATE
                 if ($dayNumber > 1) { 
-                    $day = $dayNumber . "/" . $month . "/" . $year;
-                    $link = "<a href=\"details.php?day=$day\">$dayNumber</a>";
-                    $alink = "<a href=\"add_event.php?day=$day&sid=$sid\">$dayNumber</a>";
-                
                     if (@in_array($dayNumber, $eventsArray)) {
-                        $fam = $eventData[$dayNumber];
-                        echo "<td bgcolor=\"$reserved\" class=\"$row\"><div id=\"day\">$link</div><div id=\"event\">$fam</div></td>\n";
+                        echo $presenter->day($dayNumber, $family, $familyOriginal, $eventData[$dayNumber]);
                     } else {
-                        echo "<td class=\"$row\"><div id=\"day\">$alink</div><div id=\"event\"></div></td>\n";
+                        echo $presenter->day($dayNumber, $family, $familyOriginal);
                     }
                     $dayNumber++;
                 } else {    // FIRST DAY NOT REACHED SO DISPLAY A BLANK CELL
-                    echo "<td class=\"otherMonth\">&nbsp;</td>\n";
+                    echo $presenter->off_day();
                 }
             }
         }
-        echo "</tr>\n";
+        echo '</tr>'."\n";
     } else {
     
         #CREATE THE REMAINING ROWS
-        echo "<tr>\n";
-        for ($currentCell=0; $currentCell < 7; $currentCell++) {
-            $dayName = date("l", mktime(0,0,0,$month, $dayNumber, $year));
-    
-            $weekRow = date("W", mktime(0,0,0, $month, $dayNumber+3, $year));
+        echo '<tr>'."\n";
+        for ($currentCell = 0; $currentCell < 7; $currentCell++) {
             
-            if ($weekRow % 2 == 0) {
-                $row = "evenrow";
-                $sid = 0; // sid = side id 
-                $familyweek = "W";
-            } else {
-                $row = "oddrow";
-                $sid = 1;
-                $familyweek = "S";
-            }
-            
-            
-            if ($row == "evenrow") {
-                $reserved = "#D8FFDC";
-            } else {
-                $reserved = "#DAE7FF";
-            }
-            
-            $day = $dayNumber . "/" . $month . "/" . $year;
-            $link = "<a href=\"details.php?day=$day\">$dayNumber</a>";
-            $alink = "<a href=\"add_event.php?day=$day&sid=$sid\">$dayNumber</a>";
+            // Week Ownership
+            $familyOriginal = $ownershipOriginal->determine($dayNumber, $month, $year);
+            $family = $ownership->determine($dayNumber, $month, $year);
+
+            $familyOriginal .= " | wk=".$ownership->getWeekNumber($dayNumber, $month, $year);
             
             // IF THE DAYS IN THE MONTH ARE EXCEEDED DISPLAY A BLANK CELL
             if ($dayNumber > $daysInMonth) {
-                echo "<td class=\"otherMonth\">&nbsp;</td>\n";
+                echo $presenter->off_day();
             } else {
                 if (@in_array($dayNumber, $eventsArray)) {
-                    $fam = $eventData[$dayNumber];
-                    echo "<td bgcolor=\"$reserved\" class=\"$row\"><div id=\"day\">$link</div><div id=\"event\">$fam</div></td>\n";
+                    echo $presenter->day($dayNumber, $family, $familyOriginal, $eventData[$dayNumber]);
                 } else {
-                    echo "<td class=\"$row\"><div id=\"day\">$alink</div><div id=\"event\"></div></td>\n";
+                    echo $presenter->day($dayNumber, $family, $familyOriginal);
                 }
                 $dayNumber++;
             }
         }
-        echo "</tr>\n";
+        echo '</tr>'."\n";
     }
         
 }
-echo "</table>";
+echo '</table>';
+echo '<select name="month">';
 
-
-echo "<select name=\"month\">";
-
-
-
-$month_array = array("January" => 1, "February" => 2, "March" => 3, "April" => 4, "May" => 5, "June" => 6, "July" => 7, "August" => 8, "September" => 9, "October" => 10, "November" => 11, "December" => 12);
+$month_array = array(
+    "January" => 1,
+    "February" => 2,
+    "March" => 3,
+    "April" => 4,
+    "May" => 5,
+    "June" => 6,
+    "July" => 7,
+    "August" => 8,
+    "September" => 9,
+    "October" => 10,
+    "November" => 11,
+    "December" => 12
+);
 
 foreach ($month_array as $m => $key) {
     if ($monthName == $m) {
