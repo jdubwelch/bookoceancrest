@@ -13,10 +13,9 @@ $daysInMonth = date("t", mktime(0,0,0,$month,1,$year));
 $totalCells = $firstDay + $daysInMonth;
 $numberOfRows = ($totalCells < 36) ? 5 : 6;
      
-
-
 $eventsArray = @array_keys($eventData);
 
+// Debugggin stuff
 echo "<pre>month: $month\nyear: $year\nfirst day: $firstDay\ndays in month: $daysInMonth\ntotal cells: $totalCells\nRows: $numberOfRows</pre>";
 
 echo "<p>{$name}</p>";
@@ -119,13 +118,22 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
         
 }
 echo '</table>';
-
-
 echo '<select name="month">';
 
-
-
-$month_array = array("January" => 1, "February" => 2, "March" => 3, "April" => 4, "May" => 5, "June" => 6, "July" => 7, "August" => 8, "September" => 9, "October" => 10, "November" => 11, "December" => 12);
+$month_array = array(
+    "January" => 1,
+    "February" => 2,
+    "March" => 3,
+    "April" => 4,
+    "May" => 5,
+    "June" => 6,
+    "July" => 7,
+    "August" => 8,
+    "September" => 9,
+    "October" => 10,
+    "November" => 11,
+    "December" => 12
+);
 
 foreach ($month_array as $m => $key) {
     if ($monthName == $m) {
