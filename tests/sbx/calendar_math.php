@@ -3,7 +3,7 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 
 $ownershipOriginal = new OceanCrest\WeekOwnershipOriginal;
@@ -24,7 +24,7 @@ $stats = [
     'labor' => []
 ];
 
-foreach (range(2017, 2026) as $year) {
+foreach (range(2006, 2015) as $year) {
     echo " YEAR: $year\n";
 
     $weeks =  (date("W", mktime(0,0,0, 12, 31+3, $year)) == 53) ? 53 : 52;
