@@ -17,7 +17,7 @@ class EventController
         $this->response = $response;
     }
 
-    function __invoke()
+    public function show()
     {
         // Handle the Delete Request
         if (isset($this->request->post['delete'])) {
@@ -41,7 +41,6 @@ class EventController
             exit();
         }
 
-
         // Create Timestamps to read in all events on given day
         $date = $this->request->get['day'];
 
@@ -51,7 +50,6 @@ class EventController
         $month = $dateArray[1];
         $day = $dateArray[0];
         $year = $dateArray[2];
-
 
         $this->response->setView('details.php'); 
         $this->response->setVars([
@@ -63,6 +61,44 @@ class EventController
                 'date' => "$month/$day/$year",
                 'owned' => ($this->request->session['name'] == $records[0]['family'])
             ]   
+        ]);
+
+        return $this->response;
+    }
+
+    public function create()
+    {
+        if(isset($this->request->post['action']) && $this->request->post['action'] == "add"){
+
+            $this->eventGateway->reserve(
+                $this->request->session['name'], 
+                $this->request->post['date'], 
+                $this->request->post['staying']
+            );
+
+            $dateArray = explode("/", $this->request->post['date']);
+            
+            $mo = $dateArray[1];
+            $yr = $dateArray[2];
+
+            // Return to Calendar Page
+            header("Location: calendar.php?month=$mo&year=$yr");
+        }
+
+        $da = $this->request->get['day'];
+        $da = explode ('/', $da);
+
+        $day = $da[0];
+        $month = $da[1];
+        $year = $da[2];
+
+        $this->response->setView('add_event.php'); 
+        $this->response->setVars([
+            'request' => $this->request,
+            'name' => $this->request->session['name'],
+            'action' => $this->request->server['PHP_SELF'],
+            'day' => $this->request->get['day'],
+            'arrival_date' => "$month/$day/$year",
         ]);
 
         return $this->response;
