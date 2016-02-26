@@ -14,6 +14,7 @@
 ini_set('display_errors', 'On');
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
+// error_reporting(E_ALL);
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../cgi-bin/oc/dbConnection.php'; 

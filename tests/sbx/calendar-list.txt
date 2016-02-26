@@ -23,12 +23,12 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2016 | 20 | 05/13 | 05/19 | welch | (welch)
 2016 | 21 | 05/20 | 05/26 | schu | (schu)
 2016 | 22 | 05/27 | 06/02 | schu | (welch) | Memorial Day Week -> 05/30 Monday
-2016 | 23 | 06/03 | 06/09 | schu | (schu)
+2016 | 23 | 06/03 | 06/09 | welch | (schu)
 2016 | 24 | 06/10 | 06/16 | welch | (welch)
 2016 | 25 | 06/17 | 06/23 | schu | (schu)
 2016 | 26 | 06/24 | 06/30 | welch | (welch)
 2016 | 27 | 07/01 | 07/07 | welch | (schu) | July 4th Week -> 07/04 Monday
-2016 | 28 | 07/08 | 07/14 | welch | (welch)
+2016 | 28 | 07/08 | 07/14 | schu | (welch)
 2016 | 29 | 07/15 | 07/21 | schu | (schu)
 2016 | 30 | 07/22 | 07/28 | welch | (welch)
 2016 | 31 | 07/29 | 08/04 | schu | (schu)
@@ -78,12 +78,12 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2017 | 20 | 05/12 | 05/18 | schu | (welch)
 2017 | 21 | 05/19 | 05/25 | welch | (schu)
 2017 | 22 | 05/26 | 06/01 | welch | (welch) | Memorial Day Week -> 05/29 Monday
-2017 | 23 | 06/02 | 06/08 | welch | (schu)
+2017 | 23 | 06/02 | 06/08 | schu | (schu)
 2017 | 24 | 06/09 | 06/15 | schu | (welch)
 2017 | 25 | 06/16 | 06/22 | welch | (schu)
 2017 | 26 | 06/23 | 06/29 | schu | (welch)
 2017 | 27 | 06/30 | 07/06 | schu | (schu) | July 4th Week -> 07/04 Tuesday
-2017 | 28 | 07/07 | 07/13 | schu | (welch)
+2017 | 28 | 07/07 | 07/13 | welch | (welch)
 2017 | 29 | 07/14 | 07/20 | welch | (schu)
 2017 | 30 | 07/21 | 07/27 | schu | (welch)
 2017 | 31 | 07/28 | 08/03 | welch | (schu)
@@ -133,12 +133,12 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2018 | 20 | 05/11 | 05/17 | welch | (welch)
 2018 | 21 | 05/18 | 05/24 | schu | (schu)
 2018 | 22 | 05/25 | 05/31 | schu | (welch) | Memorial Day Week -> 05/28 Monday
-2018 | 23 | 06/01 | 06/07 | schu | (schu)
+2018 | 23 | 06/01 | 06/07 | welch | (schu)
 2018 | 24 | 06/08 | 06/14 | welch | (welch)
 2018 | 25 | 06/15 | 06/21 | schu | (schu)
 2018 | 26 | 06/22 | 06/28 | welch | (welch)
 2018 | 27 | 06/29 | 07/05 | welch | (schu) | July 4th Week -> 07/04 Wednesday
-2018 | 28 | 07/06 | 07/12 | welch | (welch)
+2018 | 28 | 07/06 | 07/12 | schu | (welch)
 2018 | 29 | 07/13 | 07/19 | schu | (schu)
 2018 | 30 | 07/20 | 07/26 | welch | (welch)
 2018 | 31 | 07/27 | 08/02 | schu | (schu)
@@ -188,12 +188,12 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2019 | 20 | 05/10 | 05/16 | schu | (welch)
 2019 | 21 | 05/17 | 05/23 | welch | (schu)
 2019 | 22 | 05/24 | 05/30 | welch | (welch) | Memorial Day Week -> 05/27 Monday
-2019 | 23 | 05/31 | 06/06 | welch | (schu)
+2019 | 23 | 05/31 | 06/06 | schu | (schu)
 2019 | 24 | 06/07 | 06/13 | schu | (welch)
 2019 | 25 | 06/14 | 06/20 | welch | (schu)
 2019 | 26 | 06/21 | 06/27 | schu | (welch)
 2019 | 27 | 06/28 | 07/04 | schu | (schu) | July 4th Week -> 07/04 Thursday
-2019 | 28 | 07/05 | 07/11 | schu | (welch)
+2019 | 28 | 07/05 | 07/11 | welch | (welch)
 2019 | 29 | 07/12 | 07/18 | welch | (schu)
 2019 | 30 | 07/19 | 07/25 | schu | (welch)
 2019 | 31 | 07/26 | 08/01 | welch | (schu)
@@ -243,7 +243,7 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2020 | 20 | 05/08 | 05/14 | welch | (welch)
 2020 | 21 | 05/15 | 05/21 | schu | (schu)
 2020 | 22 | 05/22 | 05/28 | schu | (welch) | Memorial Day Week -> 05/25 Monday
-2020 | 23 | 05/29 | 06/04 | schu | (schu)
+2020 | 23 | 05/29 | 06/04 | welch | (schu)
 2020 | 24 | 06/05 | 06/11 | welch | (welch)
 2020 | 25 | 06/12 | 06/18 | schu | (schu)
 2020 | 26 | 06/19 | 06/25 | welch | (welch)
@@ -258,7 +258,7 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2020 | 35 | 08/21 | 08/27 | schu | (schu)
 2020 | 36 | 08/28 | 09/03 | welch | (welch)
 2020 | 37 | 09/04 | 09/10 | welch | (schu) | Labor Day Week ->  09/07 Monday
-2020 | 38 | 09/11 | 09/17 | welch | (welch)
+2020 | 38 | 09/11 | 09/17 | schu | (welch)
 2020 | 39 | 09/18 | 09/24 | schu | (schu)
 2020 | 40 | 09/25 | 10/01 | welch | (welch)
 2020 | 41 | 10/02 | 10/08 | schu | (schu)
@@ -299,12 +299,12 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2021 | 20 | 05/14 | 05/20 | schu | (welch)
 2021 | 21 | 05/21 | 05/27 | welch | (schu)
 2021 | 22 | 05/28 | 06/03 | welch | (welch) | Memorial Day Week -> 05/31 Monday
-2021 | 23 | 06/04 | 06/10 | welch | (schu)
+2021 | 23 | 06/04 | 06/10 | schu | (schu)
 2021 | 24 | 06/11 | 06/17 | schu | (welch)
 2021 | 25 | 06/18 | 06/24 | welch | (schu)
 2021 | 26 | 06/25 | 07/01 | schu | (welch)
 2021 | 27 | 07/02 | 07/08 | schu | (schu) | July 4th Week -> 07/04 Sunday
-2021 | 28 | 07/09 | 07/15 | schu | (welch)
+2021 | 28 | 07/09 | 07/15 | welch | (welch)
 2021 | 29 | 07/16 | 07/22 | welch | (schu)
 2021 | 30 | 07/23 | 07/29 | schu | (welch)
 2021 | 31 | 07/30 | 08/05 | welch | (schu)
@@ -354,12 +354,12 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2022 | 20 | 05/13 | 05/19 | welch | (welch)
 2022 | 21 | 05/20 | 05/26 | schu | (schu)
 2022 | 22 | 05/27 | 06/02 | schu | (welch) | Memorial Day Week -> 05/30 Monday
-2022 | 23 | 06/03 | 06/09 | schu | (schu)
+2022 | 23 | 06/03 | 06/09 | welch | (schu)
 2022 | 24 | 06/10 | 06/16 | welch | (welch)
 2022 | 25 | 06/17 | 06/23 | schu | (schu)
 2022 | 26 | 06/24 | 06/30 | welch | (welch)
 2022 | 27 | 07/01 | 07/07 | welch | (schu) | July 4th Week -> 07/04 Monday
-2022 | 28 | 07/08 | 07/14 | welch | (welch)
+2022 | 28 | 07/08 | 07/14 | schu | (welch)
 2022 | 29 | 07/15 | 07/21 | schu | (schu)
 2022 | 30 | 07/22 | 07/28 | welch | (welch)
 2022 | 31 | 07/29 | 08/04 | schu | (schu)
@@ -409,12 +409,12 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2023 | 20 | 05/12 | 05/18 | schu | (welch)
 2023 | 21 | 05/19 | 05/25 | welch | (schu)
 2023 | 22 | 05/26 | 06/01 | welch | (welch) | Memorial Day Week -> 05/29 Monday
-2023 | 23 | 06/02 | 06/08 | welch | (schu)
+2023 | 23 | 06/02 | 06/08 | schu | (schu)
 2023 | 24 | 06/09 | 06/15 | schu | (welch)
 2023 | 25 | 06/16 | 06/22 | welch | (schu)
 2023 | 26 | 06/23 | 06/29 | schu | (welch)
 2023 | 27 | 06/30 | 07/06 | schu | (schu) | July 4th Week -> 07/04 Tuesday
-2023 | 28 | 07/07 | 07/13 | schu | (welch)
+2023 | 28 | 07/07 | 07/13 | welch | (welch)
 2023 | 29 | 07/14 | 07/20 | welch | (schu)
 2023 | 30 | 07/21 | 07/27 | schu | (welch)
 2023 | 31 | 07/28 | 08/03 | welch | (schu)
@@ -464,12 +464,12 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2024 | 20 | 05/10 | 05/16 | welch | (welch)
 2024 | 21 | 05/17 | 05/23 | schu | (schu)
 2024 | 22 | 05/24 | 05/30 | schu | (welch) | Memorial Day Week -> 05/27 Monday
-2024 | 23 | 05/31 | 06/06 | schu | (schu)
+2024 | 23 | 05/31 | 06/06 | welch | (schu)
 2024 | 24 | 06/07 | 06/13 | welch | (welch)
 2024 | 25 | 06/14 | 06/20 | schu | (schu)
 2024 | 26 | 06/21 | 06/27 | welch | (welch)
 2024 | 27 | 06/28 | 07/04 | welch | (schu) | July 4th Week -> 07/04 Thursday
-2024 | 28 | 07/05 | 07/11 | welch | (welch)
+2024 | 28 | 07/05 | 07/11 | schu | (welch)
 2024 | 29 | 07/12 | 07/18 | schu | (schu)
 2024 | 30 | 07/19 | 07/25 | welch | (welch)
 2024 | 31 | 07/26 | 08/01 | schu | (schu)
@@ -519,7 +519,7 @@ Year | Week # | Week Start | Week End | Family | Family (old) | Holiday
 2025 | 20 | 05/09 | 05/15 | schu | (welch)
 2025 | 21 | 05/16 | 05/22 | welch | (schu)
 2025 | 22 | 05/23 | 05/29 | welch | (welch) | Memorial Day Week -> 05/26 Monday
-2025 | 23 | 05/30 | 06/05 | welch | (schu)
+2025 | 23 | 05/30 | 06/05 | schu | (schu)
 2025 | 24 | 06/06 | 06/12 | schu | (welch)
 2025 | 25 | 06/13 | 06/19 | welch | (schu)
 2025 | 26 | 06/20 | 06/26 | schu | (welch)
