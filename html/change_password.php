@@ -31,7 +31,7 @@ if (!isset($request->session['name'])) {
 
 if (isset($request->post['submitted'])) { // Handle the form.
 
-	require_once("../cgi-bin/oc/dbConnection.php"); // Connect to the database.
+	require_once("../cgi-bin/config/database.php"); // Connect to the database.
 
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $userGateway = new UserGateway($db);

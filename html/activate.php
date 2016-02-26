@@ -28,7 +28,7 @@ if (isset($request->get['x'])) {
 // If $x and $y aren't correct, redirect the user.
 if ($x > 0) {
 
-	require_once("../cgi-bin/oc/dbConnection.php");
+	require_once("../cgi-bin/config/database.php");
 
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $userGateway = new UserGateway($db);
