@@ -21,9 +21,6 @@ class DB {
             
                 // Handle the error.
                 trigger_error("Could not select the database!\n<br />MySQL Error: " . mysqli_error());
-                
-                // Print a message to the user, include the footer, and kill the script.
-                include ('./includes/footer.html');
                 exit();
                 
             } // End of mysqli_select_db IF.
@@ -34,7 +31,6 @@ class DB {
 
             // Print a message to the user, include the footer, and kill the script.
             trigger_error("Could not connect to MySQL!\n<br />MySQL Error: " . mysqli_error());
-            include ('./includes/footer.html');
             exit();
             
         } // End of $dbc IF.
