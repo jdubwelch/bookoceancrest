@@ -20,6 +20,7 @@ This is one of my first web apps. I want to refactor it.
 * Extract Presentation Logic to View Files
 * Extract Action Logic to Controllers
 * Replace inlcludes in Classes
+* Separate Public And Non-Public Resources
 
 # Local Test Server
 * ```php -S localhost:8000```
