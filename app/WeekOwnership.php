@@ -57,11 +57,7 @@ class WeekOwnership {
         |
         */
         if ($this->isFourthOfJulyWeek($weekNumber, $year)) {
-            if ($this->even($year)) {
-                return 'welch';
-            } else {
-                return 'schu';
-            }
+            return ($this->even($year)) ? 'welch' : 'schu';
         }
 
         /*
@@ -75,12 +71,7 @@ class WeekOwnership {
         |
         */
         if ($this->isMemorialDayWeek($weekNumber, $year)) {
-
-            if ($this->odd($year)) {
-                return 'welch';
-            } 
-            
-            return 'schu';
+            return ($this->odd($year)) ? 'welch' : 'schu';
         }
 
         /*
@@ -94,12 +85,7 @@ class WeekOwnership {
         |
         */
         if ($this->isLaborDayWeek($weekNumber, $year)) {
-
-            if ($this->even($year)) {
-                return 'welch';
-            } 
-            
-            return 'schu';
+            return ($this->even($year)) ? 'welch' : 'schu';
         }
 
         /**

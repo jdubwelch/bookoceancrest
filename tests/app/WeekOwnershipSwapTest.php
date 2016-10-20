@@ -23,7 +23,13 @@ class WeekOwnershipSwapTest extends \PHPUnit_Framework_TestCase
         // the next week should be swapped to the other family
         $nextWho = $ownership->determine(3, 6, 2016);
         $this->assertSame('welch', $nextWho);
+    }
 
+    /** @test */
+    function jan_6th_2017_should_be_a_schu_day()
+    {
+        $ownership = new WeekOwnershipSwap;
+        $this->assertSame('schu', $ownership->determine(6, 1, 2017));
     }
 
 }

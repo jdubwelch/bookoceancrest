@@ -32,11 +32,7 @@ class WeekOwnershipSwap extends WeekOwnership {
         if ($this->previousWeekSwapped($date)) {
 
             // swap sides
-            if ($standardFamily != 'welch') {
-                return 'welch';
-            }
-            
-            return 'schu';
+            return ($standardFamily != 'welch') ? 'welch' : 'schu';
         }
 
         return $standardFamily;
@@ -49,24 +45,30 @@ class WeekOwnershipSwap extends WeekOwnership {
      */
     private function previousWeekSwapped(Carbon $date)
     {
+        $thisYear = $date->year;
+
         // we want to check who had and should have add the cabin last week
-        $date->subWeek();
+        $lastWeek = $date->subWeek();
+
+        $lastWeekNumber = $this->getWeekNumber($lastWeek->day, $lastWeek->month, $lastWeek->year);
+
+        // If subtracted to week 1, and the year's are different, no swap occurs.
+        // An example of this is the beginning of 2017.
+        if ($lastWeekNumber == 1 && ($lastWeek->year != $thisYear)) {
+            return false;
+        }
 
         // Normal rules (even/odd) which side would get the cabin
         $defaultFamily = $this->evenOddAssignment(
-            $this->getWeekNumber($date->day, $date->month, $date->year),
-            $date->year
+            $lastWeekNumber,
+            $lastWeek->year
         );
         
-        // With the holiday rules, who was the week given too
-        $family = parent::determine($date->day, $date->month, $date->year);
+        // With the holiday rules, who was the previous week given too.
+        $family = parent::determine($lastWeek->day, $lastWeek->month, $lastWeek->year);
 
         // If they are different then they were swapped
-        if ($defaultFamily != $family) {
-            return true;
-        }
-
-        return false;
+        return ($defaultFamily != $family);
     }
 
     
