@@ -10,6 +10,9 @@
 |
 */
 
+// Test the default time zone.
+date_default_timezone_set('America/Los_Angeles');
+
 // Let's handle some errors
 ini_set('display_errors', 'On');
 
