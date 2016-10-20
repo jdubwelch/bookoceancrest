@@ -16,7 +16,7 @@ $numberOfRows = ($totalCells < 36) ? 5 : 6;
 $eventsArray = @array_keys($eventData);
 
 // Debugggin stuff
-echo "<pre>month: $month\nyear: $year\nfirst day: $firstDay\ndays in month: $daysInMonth\ntotal cells: $totalCells\nRows: $numberOfRows</pre>";
+// echo "<pre>month: $month\nyear: $year\nfirst day: $firstDay\ndays in month: $daysInMonth\ntotal cells: $totalCells\nRows: $numberOfRows</pre>";
 
 echo "<p>{$name}</p>";
 echo '
@@ -46,7 +46,6 @@ echo '
     </tr>
 ';
 
-$ownershipOriginal = new OceanCrest\WeekOwnershipOriginal;
 $ownership = new OceanCrest\WeekOwnershipSwap;
 
 $dayNumber = 1;
@@ -59,18 +58,15 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
         for ($currentCell = 0; $currentCell < 7; $currentCell++) {
             
             // set week ownership
-            $familyOriginal = $ownershipOriginal->determine($dayNumber, $month, $year);
             $family = $ownership->determine($dayNumber, $month, $year);
-
-            $familyOriginal .= " | wk=".$ownership->getWeekNumber($dayNumber, $month, $year);
             
             // CHECK IF IT'S THE FIRST DAY OF THE MONTH
             if ($currentCell == $firstDay) {
 
                 if (@in_array($dayNumber, $eventsArray)) {
-                    echo $presenter->day($dayNumber, $family, $familyOriginal, $eventData[$dayNumber]);
+                    echo $presenter->day($dayNumber, $family, $eventData[$dayNumber]);
                 } else {
-                    echo $presenter->day($dayNumber, $family, $familyOriginal);
+                    echo $presenter->day($dayNumber, $family);
                 }
                 $dayNumber++;
             } else {
@@ -78,9 +74,9 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
                 // IF THE FIRST DAY IS PASSED OUTPUT THE DATE
                 if ($dayNumber > 1) { 
                     if (@in_array($dayNumber, $eventsArray)) {
-                        echo $presenter->day($dayNumber, $family, $familyOriginal, $eventData[$dayNumber]);
+                        echo $presenter->day($dayNumber, $family, $eventData[$dayNumber]);
                     } else {
-                        echo $presenter->day($dayNumber, $family, $familyOriginal);
+                        echo $presenter->day($dayNumber, $family);
                     }
                     $dayNumber++;
                 } else {    // FIRST DAY NOT REACHED SO DISPLAY A BLANK CELL
@@ -96,19 +92,16 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
         for ($currentCell = 0; $currentCell < 7; $currentCell++) {
             
             // Week Ownership
-            $familyOriginal = $ownershipOriginal->determine($dayNumber, $month, $year);
             $family = $ownership->determine($dayNumber, $month, $year);
-
-            $familyOriginal .= " | wk=".$ownership->getWeekNumber($dayNumber, $month, $year);
             
             // IF THE DAYS IN THE MONTH ARE EXCEEDED DISPLAY A BLANK CELL
             if ($dayNumber > $daysInMonth) {
                 echo $presenter->off_day();
             } else {
                 if (@in_array($dayNumber, $eventsArray)) {
-                    echo $presenter->day($dayNumber, $family, $familyOriginal, $eventData[$dayNumber]);
+                    echo $presenter->day($dayNumber, $family, $eventData[$dayNumber]);
                 } else {
-                    echo $presenter->day($dayNumber, $family, $familyOriginal);
+                    echo $presenter->day($dayNumber, $family);
                 }
                 $dayNumber++;
             }

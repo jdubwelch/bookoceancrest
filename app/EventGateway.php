@@ -51,14 +51,14 @@ class EventGateway {
     /**
      * Get the details for a single date.  
      * 
-     * @param  string $date Format: mm/dd/yyyy
+     * @param  string $date Format: dd/mm/yyyy
      * @return array
      */
     public function details($date)
     {
         $dateArray = explode("/",$date);
-        $startTimestamp = mktime(0,0,0,$dateArray[1],$dateArray[0],$dateArray[2]);
-        $endTimestamp = mktime(23,59,00,$dateArray[1],$dateArray[0],$dateArray[2]);
+        $startTimestamp = mktime(0,0,0,$dateArray[0],$dateArray[1],$dateArray[2]);
+        $endTimestamp = mktime(23,59,00,$dateArray[0],$dateArray[1],$dateArray[2]);
 
         // Create SQL to read in database records
         $sql  = "SELECT id,family, UNIX_TIMESTAMP(dateField) AS `timestampField`  ";
@@ -105,19 +105,19 @@ class EventGateway {
         // Create Date Time Field
         $time = "00:00:00";
         $dateArray = explode("/", $startDate);
-        $d = $dateArray[0];
-        $mo = $dateArray[1];
-        $yr = $dateArray[2];
+        $day = $dateArray[1];
+        $month = $dateArray[0];
+        $year = $dateArray[2];
         
         if ($duration > 1) {
             for ($i = 0; $i < $duration; $i++) {
-                $reserveDates = $d + $i;
-                $datetime = "$yr-$mo-$reserveDates $time";
+                $reserveDates = $day + $i;
+                $datetime = "$year-$month-$reserveDates $time";
                 $sql = "INSERT INTO ocCalendar (dateField,family) VALUES ('" . $datetime . "','" . $this->db->escape_data($family) . "')";
                 mysqli_query($this->db->connection, $sql) or trigger_error("Query: $sql\n<br />MySQL Error: " . mysqli_error($this->db->connection));;
             }
         } else {
-            $datetime = "$yr-$mo-$d $time";
+            $datetime = "$year-$month-$day $time";
             $sql = "INSERT INTO ocCalendar (dateField,family) VALUES ('" . $datetime . "','" . $family . "')";
             mysqli_query($this->db->connection, $sql) or trigger_error("Query: $sql\n<br />MySQL Error: " . mysqli_error($this->db->connection));;
         }

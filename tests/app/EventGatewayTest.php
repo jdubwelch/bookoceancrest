@@ -22,16 +22,14 @@ class EventGatewayTest extends GatewayTester
  
         $event_id = $this->gateway->reserve(
             $user->side, 
-            // DD/MM/YYYY
-            '05/02/2016', 
+            '02/05/2016', 
             3
         );
 
         $user2 = $this->makeUser();
         $event_id = $this->gateway->reserve(
             $user2->side, 
-            // DD/MM/YYYY
-            '12/02/2016', 
+            '02/12/2016', 
             2
         );
 
@@ -50,12 +48,13 @@ class EventGatewayTest extends GatewayTester
 
         $event_id = $this->gateway->reserve(
             $user->side, 
-            // DD/MM/YYYY
-            '01/02/2016', 
+            '02/01/2016', 
             1
         );
 
         $this->assertGreaterThan(0, $event_id);
+        $events = $this->gateway->monthlyEvents('02', '2016');
+        $this->assertCount(1, $events);
     }
 
     /**
@@ -67,14 +66,15 @@ class EventGatewayTest extends GatewayTester
 
         $event_id = $this->gateway->reserve(
             $user->side, 
-            // DD/MM/YYYY
-            '02/03/2016', 
+            '03/02/2016', 
             1
         );
 
         $result = $this->gateway->cancel($event_id);
+        $events = $this->gateway->monthlyEvents('03', '2016');
 
         $this->assertTrue($result);
+        $this->assertCount(0, $events);
     }
 
     /**
@@ -84,7 +84,7 @@ class EventGatewayTest extends GatewayTester
     {
         $user = $this->makeUser();
 
-        $day = '4/2/2016';
+        $day = '2/4/2016';
 
         $event_id = $this->gateway->reserve(
             $user->side, 
@@ -93,7 +93,7 @@ class EventGatewayTest extends GatewayTester
             1
         );
 
-        $details = $this->gateway->details($day);
+        $details = $this->gateway->details('2/4/2016');
 
         $this->assertEquals($user->side, $details[0]['family']);
     }

@@ -19,6 +19,20 @@ class EventController
 
     public function show()
     {
+        // Check that we have a date parameter in the URL, if none redirect back to calendar page
+        if(strlen($this->request->get['day']) < 1){
+            header("Location: index.php");
+            exit();
+        }
+        
+        // Create Timestamps to read in all events on given day
+        $date = $this->request->get['day'];
+
+        $dateArray = explode("/",$date);
+        $month = $dateArray[0];
+        $day = $dateArray[1];
+        $year = $dateArray[2];
+
         // Handle the Delete Request
         if (isset($this->request->post['delete'])) {
 
@@ -34,22 +48,8 @@ class EventController
                 }
             } 
         }
-           
-        // Check that we have a date parameter in the URL, if none redirect back to calendar page
-        if(strlen($this->request->get['day']) < 1){
-            header("Location: index.php");
-            exit();
-        }
-
-        // Create Timestamps to read in all events on given day
-        $date = $this->request->get['day'];
 
         $records = $this->eventGateway->details($date);
-
-        $dateArray = explode("/",$date);
-        $month = $dateArray[1];
-        $day = $dateArray[0];
-        $year = $dateArray[2];
 
         $this->response->setView('details.php'); 
         $this->response->setVars([
@@ -78,7 +78,7 @@ class EventController
 
             $dateArray = explode("/", $this->request->post['date']);
             
-            $mo = $dateArray[1];
+            $mo = $dateArray[0];
             $yr = $dateArray[2];
 
             // Return to Calendar Page
@@ -88,8 +88,8 @@ class EventController
         $da = $this->request->get['day'];
         $da = explode ('/', $da);
 
-        $day = $da[0];
-        $month = $da[1];
+        $month = $da[0];
+        $day = $da[1];
         $year = $da[2];
 
         $this->response->setView('add_event.php'); 

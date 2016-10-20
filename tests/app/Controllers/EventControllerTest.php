@@ -21,13 +21,13 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
         $eventGateway = m::mock('OceanCrest\EventGateway');
         $response = new Response(__DIR__.'/../views'); 
 
-        $request->get['day'] = '3/2/2016';
+        $request->get['day'] = '2/3/2016';
         $request->post = [];
         $request->session['name'] = 'Bob';
 
         $eventGateway
             ->shouldReceive('details')
-            ->with('3/2/2016')
+            ->with('2/3/2016')
             ->once()
             ->andReturn([
                 [
@@ -46,6 +46,7 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('details.php', $view);
         $this->assertSame('Welch', $vars['event']['family']);
+        $this->assertSame('2/3/2016', $vars['event']['date']);
         $this->assertSame('Bob', $vars['name']);
     }
 
@@ -59,7 +60,7 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
         $response = new Response(__DIR__.'/../views'); 
 
         $request->post = [];
-        $request->get['day'] = '12/2/2016';
+        $request->get['day'] = '2/12/2016';
         $this->request->server['PHP_SELF'] = 'foo';
 
         $controller = new EventController($request, $eventGateway, $response);
@@ -69,7 +70,7 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
         $vars = $response->getVars();
 
         $this->assertSame('add_event.php', $view);
-        $this->assertSame('12/2/2016', $vars['day']);
+        $this->assertSame('2/12/2016', $vars['day']);
         $this->assertSame('2/12/2016', $vars['arrival_date']);
     }
 }
