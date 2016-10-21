@@ -9,7 +9,7 @@ use OceanCrest\UserTransactions;
 
 // Set the page title and include the HTML header.
 $page_title = 'O C E A N  C R E S T >> Change Your Password';
-include ('./includes/header.php');
+include (__DIR__.'/includes/header.php');
 
 // If no first_name variable exists, redirect the user.
 if (!isset($request->session['name'])) {
@@ -31,7 +31,7 @@ if (!isset($request->session['name'])) {
 
 if (isset($request->post['submitted'])) { // Handle the form.
 
-	require_once("../cgi-bin/config/database.php"); // Connect to the database.
+	require_once(__DIR__.'/../cgi-bin/config/database.php'); // Connect to the database.
 
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $userGateway = new UserGateway($db);
@@ -68,5 +68,5 @@ if (isset($request->post['submitted'])) { // Handle the form.
 </form>
 
 <?php
-include ('./includes/footer.php');
+include (__DIR__.'/includes/footer.php');
 ?>

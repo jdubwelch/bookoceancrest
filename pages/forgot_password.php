@@ -10,7 +10,7 @@ use OceanCrest\UserTransactions;
 
 // Set the page title and include the HTML header.
 $page_title = 'O C E A N  C R E S T >> Forgot Your Password';
-include ('./includes/header.php');
+include (__DIR__.'/includes/header.php');
 
 if (isset($request->post['submitted'])) { // Handle the form.
 
@@ -43,5 +43,5 @@ if (isset($request->post['submitted'])) { // Handle the form.
 </form>
 
 <?php
-include ('./includes/footer.php');
+include (__DIR__.'/includes/footer.php');
 ?>

@@ -8,13 +8,13 @@ use OceanCrest\UserTransactions;
 
 // Set the page title and include the HTML header.
 $page_title = 'O C E A N  C R E S T >> Activate Your Account';
-include ('./includes/header.php');
+include (__DIR__.'/includes/header.php');
 
 // MAKE SURE IT'S AN ADMINISTRATOR
 if ($request->session['user_id'] != '1') {	// it's not an ADMIN
 	
 	echo "<h1 class=\"error\">I'm sorry, you don't have the proper access to view this page</h1>";
-	include('includes/footer.php');
+	include(__DIR__.'includes/footer.php');
 	exit();
 }
 
@@ -28,7 +28,7 @@ if (isset($request->get['x'])) {
 // If $x and $y aren't correct, redirect the user.
 if ($x > 0) {
 
-	require_once("../cgi-bin/config/database.php");
+	require_once(__DIR__.'/../cgi-bin/config/database.php');
 
     $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $userGateway = new UserGateway($db);
@@ -53,7 +53,7 @@ if ($x > 0) {
 		$url = substr ($url, 0, -1); // Chop off the slash.
 	}
 	// Add the page.
-	$url .= '/index2.php';
+	$url .= '/index.php';
 	
 	ob_end_clean(); // Delete the buffer.
 	header("Location: $url");
@@ -61,5 +61,5 @@ if ($x > 0) {
 
 } // End of main IF-ELSE.
 
-include ('./includes/footer.php');
+include (__DIR__.'/includes/footer.php');
 ?>
