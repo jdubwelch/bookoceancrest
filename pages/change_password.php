@@ -1,41 +1,14 @@
 <?php 
 
-# Script 13.11 - change_password.php
-// This page allows a logged-in user to change their password.
-
-use OceanCrest\DB;
-use OceanCrest\UserGateway;
-use OceanCrest\UserTransactions;
-
 // Set the page title and include the HTML header.
 $page_title = 'O C E A N  C R E S T >> Change Your Password';
 include (__DIR__.'/includes/header.php');
 
-// If no first_name variable exists, redirect the user.
-if (!isset($request->session['name'])) {
-
-	// Start defining the URL.
-	$url = 'http://' . $request->server['HTTP_HOST'] . dirname($request->server['PHP_SELF']);
-	// Check for a trailing slash.
-	if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
-		$url = substr ($url, 0, -1); // Chop off the slash.
-	}
-	// Add the page.
-	$url .= '/index.php';
-	
-	ob_end_clean(); // Delete the buffer.
-	header("Location: $url");
-	exit(); // Quit the script.
-	
-} 
+$di->get('middleware');
 
 if (isset($request->post['submitted'])) { // Handle the form.
 
-	require_once(__DIR__.'/../cgi-bin/config/database.php'); // Connect to the database.
-
-    $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $userGateway = new UserGateway($db);
-    $userTransactions = new UserTransactions($userGateway);
+    $userTransactions = $di->newInstance('OceanCrest\UserTransactions');
 
     $result = $userTransactions->changePassword(
         $request->session['user_id'], 
@@ -45,7 +18,7 @@ if (isset($request->post['submitted'])) { // Handle the form.
 
     if ($result) {
         echo '<h3>Your password has been changed.</h3>';
-        include ('./includes/footer.php'); // Include the HTML footer.
+        include (__DIR__.'/includes/footer.php'); // Include the HTML footer.
         exit();
     }
 

@@ -1,11 +1,5 @@
 <?php # Script 13.7 - activate.php
 
-use OceanCrest\DB;
-use OceanCrest\UserGateway;
-use OceanCrest\UserTransactions;
-// This page activates the user's account.
-
-
 // Set the page title and include the HTML header.
 $page_title = 'O C E A N  C R E S T >> Activate Your Account';
 include (__DIR__.'/includes/header.php');
@@ -28,12 +22,7 @@ if (isset($request->get['x'])) {
 // If $x and $y aren't correct, redirect the user.
 if ($x > 0) {
 
-	require_once(__DIR__.'/../cgi-bin/config/database.php');
-
-    $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $userGateway = new UserGateway($db);
-    $userTransactions = new UserTransactions($userGateway);
-
+    $userTransactions = $di->newInstance('OceanCrest\UserTransactions');
     $activated = $userTransactions->activate($x);
 	
 	// Print a customized message.

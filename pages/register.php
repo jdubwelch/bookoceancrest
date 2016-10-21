@@ -1,9 +1,5 @@
 <?php # Script 13.6 - register.php
 
-use OceanCrest\DB;
-use OceanCrest\UserGateway;
-use OceanCrest\UserTransactions;
-
 // Instantiate the AYAH object.
 $ayah = new AYAH();
 
@@ -16,9 +12,7 @@ if (isset($request->post['submitted'])) { // Handle the form.
 	if ($score)
 	{
 		// Add code to process the form.
-        $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-        $userGateway = new UserGateway($db);
-        $userTransactions = new UserTransactions($userGateway);
+        $userTransactions = $di->newInstance('OceanCrest\UserTransactions');
 
         $registered = $userTransactions->register([
             'name' => $request->post['name'],
@@ -45,7 +39,7 @@ if (isset($request->post['submitted'])) { // Handle the form.
     }    
 } // End of the main Submit conditional.
 
-$response = new \Mlaphp\Response(__DIR__.'/../views'); 
+$response = $di->get('response');
 $response->setView('register.php'); 
 $response->setVars([
     'request' => $request,
