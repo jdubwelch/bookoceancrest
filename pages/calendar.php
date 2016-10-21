@@ -4,8 +4,6 @@ use OceanCrest\DB;
 use OceanCrest\EventGateway;
 use OceanCrest\Controllers\CalendarController;
 
-require_once("../bootstrap/start.php"); 
-
 // MAKE SURE THEY ARE LOGGED IN
 if (! isset($request->session['name'])) {
 	// Start defining the URL.
@@ -26,6 +24,3 @@ $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $eventGateway = new EventGateway($db);
 $response = new \Mlaphp\Response(__DIR__.'/../views'); 
 $controller = new CalendarController($request, $eventGateway, $response);
-$response = $controller->__invoke();
-$response->send();
-?>

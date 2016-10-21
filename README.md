@@ -21,6 +21,8 @@ This is one of my first web apps. I want to refactor it.
 * Extract Action Logic to Controllers
 * Replace inlcludes in Classes
 * Separate Public And Non-Public Resources
+* Decouple url paths from file paths
+* Remove Repeated Logic In Page Scripts
 
 # Local Test Server
 * ```php -S localhost:8000```

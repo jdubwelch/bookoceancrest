@@ -3,9 +3,7 @@
 use Mlaphp\Response;
 use OceanCrest\DB;
 use OceanCrest\EventGateway;
-use OceanCrest\Controllers\EventController;
-
-require_once("../bootstrap/start.php");
+use OceanCrest\Controllers\ReservedEventController;
 
 // MAKE SURE THEY ARE LOGGED IN
 if (! isset($request->session['name'])) {
@@ -27,7 +25,6 @@ if (! isset($request->session['name'])) {
 $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $eventGateway = new EventGateway($db);
 $response = new Response(__DIR__.'/../views'); 
-$controller = new EventController($request, $eventGateway, $response);
+$controller = new ReservedEventController($request, $eventGateway, $response);
 
-$response = $controller->show();
-$response->send();
+
