@@ -4,8 +4,6 @@ use OceanCrest\DB;
 use OceanCrest\UserGateway;
 use OceanCrest\UserTransactions;
 
-require_once(__DIR__.'/../bootstrap/start.php'); 
-
 // Instantiate the AYAH object.
 $ayah = new AYAH();
 

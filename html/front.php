@@ -1,7 +1,6 @@
-<?php 
+<?php
 
-// The router class file.
-require dirname(__DIR__).'/vendor/mlaphp/mlaphp/src/Mlaphp/Router.php';
+require dirname(__DIR__).'/bootstrap/start.php';
 
 // Set up the router.
 $pages_dir = dirname(__DIR__).'/pages';
@@ -13,3 +12,8 @@ $route = $router->match($path);
 
 // Require the page script.
 require $route;
+
+if (isset($controller)) {
+    $response = $controller->__invoke();
+    $response->send();
+}
