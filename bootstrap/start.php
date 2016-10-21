@@ -20,7 +20,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 // error_reporting(E_ALL);
 
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../cgi-bin/config/database.php'; 
+require __DIR__ . '/../config/database.php'; 
 
 // Start output buffering.
 ob_start();

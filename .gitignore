@@ -4,4 +4,5 @@
 *.todo
 *.sublime-*
 .tags
-cgi-bin
+/config/database.php
+

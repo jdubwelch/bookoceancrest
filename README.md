@@ -23,6 +23,7 @@ This is one of my first web apps. I want to refactor it.
 * Separate Public And Non-Public Resources
 * Decouple url paths from file paths
 * Remove Repeated Logic In Page Scripts
+* Add a Dependency Injection Container
 
 # Local Test Server
 * ```php -S localhost:8000```
@@ -30,6 +31,7 @@ This is one of my first web apps. I want to refactor it.
 * ```mysql.server stop```
 
 ## Database Setup
+You'll need to rename ```/config/example.database.php``` to just ```database.php```
 
 ```
 CREATE TABLE `ocUsers` (
