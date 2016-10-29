@@ -1,8 +1,5 @@
 <?php # Script 13.8 - login.php
 
-use OceanCrest\AuthGateway;
-use OceanCrest\AuthTransactions;
-use OceanCrest\DB;
 
 // This is the login page for the site.
 
@@ -12,10 +9,7 @@ include (__DIR__.'/includes/header.php');
 
 if (isset($request->post['submitted'])) { // Check if the form has been submitted.
 
-	require_once(__DIR__."/../cgi-bin/config/database.php"); // Connect to the database.
-    $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $authGateway = new AuthGateway($db);
-    $authTransactions = new AuthTransactions($authGateway, $request);
+    $authTransactions = $di->newInstance('OceanCrest\AuthTransactions');
 
     if ($authTransactions->attempt([
         'email' => $request->post['email'],

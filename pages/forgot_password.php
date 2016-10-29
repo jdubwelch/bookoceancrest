@@ -1,10 +1,5 @@
 <?php 
 
-use OceanCrest\DB;
-use OceanCrest\UserGateway;
-use OceanCrest\UserTransactions;
-
-# Script 13.10 - forgot_password.php 
 // This page allows a user to reset their password, if forgotten.
 
 
@@ -13,12 +8,7 @@ $page_title = 'O C E A N  C R E S T >> Forgot Your Password';
 include (__DIR__.'/includes/header.php');
 
 if (isset($request->post['submitted'])) { // Handle the form.
-
-	require_once("../cgi-bin/config/database.php"); // Connect to the database.
-    $db = new DB(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    $userGateway = new UserGateway($db);
-    $userTransactions = new UserTransactions($userGateway);
-
+    $userTransactions = $di->newInstance('OceanCrest\UserTransactions');
 	if ($userTransactions->resetPassword($request->post['email'])) {
         echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the "Change Password" link.</h3>';
         include ('./includes/footer.php'); // Include the HTML footer.
