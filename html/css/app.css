@@ -5786,7 +5786,7 @@ table.calendar tbody td {
 tr.headerDays {
     text-transform: uppercase;
     text-align: center;
-    background: #666;
+    background: #31708f;
     color: #ececec;
     font-size: 1.4em;
     font-weight: bold;

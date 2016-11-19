@@ -19,42 +19,39 @@ $eventsArray = @array_keys($eventData);
 // echo "<pre>month: $month\nyear: $year\nfirst day: $firstDay\ndays in month: $daysInMonth\ntotal cells: $totalCells\nRows: $numberOfRows</pre>";
 
 
-echo '
+?>
 <div id="beachcal">
     <div id="welch">Welch</div>
     <div id="schu">Schumacher</div>
     <div class="row">
-        <form name="calendar" method="post" action="">
-            <input type="hidden" name="month_now" value="'.$month.'" />
-            <input type="hidden" name="year_now" value="'.$year.'" />
 
             <div class="calendar-nav col-md-2">
-                <input class="calendar-nav-btn" type="submit" name="submit" value="Prev" />
+                <a href="?year=<?=$year?>&month=<?=$month11?>" class="btn btn-primary btn-large btn-block">Last Month</a>
             </div>
             <div class="col-md-8">
-                <h1 class="calendar-header">'.$monthName.' '.$year.'</h1>
+                <h1 class="calendar-header"><?=$monthName.' '.$year?></h1>
             </div>
             <div class="calendar-nav col-md-2">
-                <input class="calendar-nav-btn" type="submit" name="submit" value="Next" />
+                <a href="?year=<?=$year?>&month=<?=$month+1?>" class="btn btn-primary btn-large btn-block">Next Month</a>
             </div>
         </form>
     </div>
 
-<table class="calendar">
-    <thead>
-        <tr class="headerDays">
-            <td>sun</td>
-            <td>mon</td>
-            <td>tue</td>
-            <td>wed</td>
-            <td>thur</td>
-            <td>fri</td>
-            <td>sat</td>
-        </tr>
-    </thead>
-    <tbody>
-';
+    <table class="calendar">
+        <thead>
+            <tr class="headerDays">
+                <td>sun</td>
+                <td>mon</td>
+                <td>tue</td>
+                <td>wed</td>
+                <td>thur</td>
+                <td>fri</td>
+                <td>sat</td>
+            </tr>
+        </thead>
+        <tbody>
 
+<?php
 $ownership = new OceanCrest\WeekOwnershipSwap;
 
 $dayNumber = 1;
@@ -117,45 +114,45 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
         }
         echo '</tr>'."\n";
     }
-
 }
-    echo '</tbody></table>';
-echo '
-<form name="calendar" method="get" action="">
-<select name="month">';
+?>
+        </tbody>
+    </table>
 
+    <form name="calendar" method="get" action="">
+        <select name="month">
+<?php
 $month_array = array(
-    "January" => 1,
-    "February" => 2,
-    "March" => 3,
-    "April" => 4,
-    "May" => 5,
-    "June" => 6,
-    "July" => 7,
-    "August" => 8,
+    "January"   => 1,
+    "February"  => 2,
+    "March"     => 3,
+    "April"     => 4,
+    "May"       => 5,
+    "June"      => 6,
+    "July"      => 7,
+    "August"    => 8,
     "September" => 9,
-    "October" => 10,
-    "November" => 11,
-    "December" => 12
+    "October"   => 10,
+    "November"  => 11,
+    "December"  => 12
 );
 
 foreach ($month_array as $m => $key) {
-    if ($monthName == $m) {
-        echo "<option value=\"$key\" selected=\"selected\">$m</option>\n";
-    } else {
-        echo "<option value=\"$key\">$m</option>\n";
-    }
-
+    $selected = ($monthName == $m) ? 'selected="selected" ' : '';
+    echo "<option value=\"$key\" $selected>$m</option>\n";
 }
-echo "</select>";
-
-echo "<select name=\"year\">";
+?>
+        </select>
+        <select name="year">
+<?php
 for ($i=$year; $i<=$year+2; $i++) {
     echo "<option value=\"$i\">$i</option>\n";
 }
-echo "</select>
-<input type=\"submit\" value=\"submit\" />
-</form>
-</div>";
+?>
+        </select>
+        <input type="submit" value="View Month" class="btn btn-primary" />
+    </form>
+</div>
 
+<?php
 include (__DIR__.'/../views/partials/footer.php');

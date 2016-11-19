@@ -26,7 +26,7 @@ class CalendarController
         if (isset($this->request->post['submit'])) {
 
             $submit = $this->request->post['submit'];
-            $month_now = $this->request->post['month_now'];
+            $month_now = $this->request->post['month'];
             $year_now = $this->request->post['year_now'];
 
             // Subtract one from month for prev and add 1 for next
