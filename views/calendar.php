@@ -26,7 +26,7 @@ $eventsArray = @array_keys($eventData);
     <div class="row">
 
             <div class="calendar-nav col-md-2">
-                <a href="?year=<?=$year?>&month=<?=$month11?>" class="btn btn-primary btn-large btn-block">Last Month</a>
+                <a href="?year=<?=$year?>&month=<?=$month-1?>" class="btn btn-primary btn-large btn-block">Last Month</a>
             </div>
             <div class="col-md-8">
                 <h1 class="calendar-header"><?=$monthName.' '.$year?></h1>

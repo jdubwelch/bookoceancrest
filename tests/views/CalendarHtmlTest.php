@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 class CalendarHtmlTest extends \PHPUnit_Framework_TestCase
 {
     protected $response;
     protected $request;
     protected $output;
-    
+
     public function setUp()
     {
         $this->request = new \Mlaphp\Request($GLOBALS);
@@ -44,10 +44,10 @@ class CalendarHtmlTest extends \PHPUnit_Framework_TestCase
     function it_displays_the_name_of_the_person_who_has_reserved_a_day()
     {
         $expectations = [
-            '<a href="details.php?day=2/1/2016">1</a></div><div id="event">Bob Schu</div>',
-            '<a href="details.php?day=2/2/2016">2</a></div><div id="event">Bob Schu</div>',
-            '<a href="details.php?day=2/4/2016">4</a></div><div id="event">Jason & Deena</div>',
-            '<a href="details.php?day=2/23/2016">23</a></div><div id="event">Jason & Deena</div>',
+            '<a href="details.php?day=2/1/2016">1</a></div><div class="event">Bob Schu</div>',
+            '<a href="details.php?day=2/2/2016">2</a></div><div class="event">Bob Schu</div>',
+            '<a href="details.php?day=2/4/2016">4</a></div><div class="event">Jason & Deena</div>',
+            '<a href="details.php?day=2/23/2016">23</a></div><div class="event">Jason & Deena</div>',
         ];
 
         foreach ($expectations as $expect) {
@@ -55,7 +55,7 @@ class CalendarHtmlTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    
+
     public function assertOutputHas($expect)
     {
         if (! $this->outputHas($expect)) {
