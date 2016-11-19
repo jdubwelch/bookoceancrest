@@ -21,15 +21,24 @@ $eventsArray = @array_keys($eventData);
 
 echo '
 <div id="beachcal">
-<form name="calendar" method="post" action="">
-    <input type="hidden" name="month_now" value="'.$month.'" />
-    <input type="hidden" name="year_now" value="'.$year.'" />
     <div id="welch">Welch</div>
     <div id="schu">Schumacher</div>
-    <input type="submit" name="submit" value="Prev" />
-    <span class="theMonth">'.$monthName.' '.$year.'</span>
-    <input type="submit" name="submit" value="Next" />
-</form>
+    <div class="row">
+        <form name="calendar" method="post" action="">
+            <input type="hidden" name="month_now" value="'.$month.'" />
+            <input type="hidden" name="year_now" value="'.$year.'" />
+
+            <div class="calendar-nav col-md-2">
+                <input class="calendar-nav-btn" type="submit" name="submit" value="Prev" />
+            </div>
+            <div class="col-md-8">
+                <h1 class="calendar-header">'.$monthName.' '.$year.'</h1>
+            </div>
+            <div class="calendar-nav col-md-2">
+                <input class="calendar-nav-btn" type="submit" name="submit" value="Next" />
+            </div>
+        </form>
+    </div>
 
 <table class="calendar">
     <thead>
@@ -112,7 +121,7 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
 }
     echo '</tbody></table>';
 echo '
-<form name="calendar" method="post" action="">
+<form name="calendar" method="get" action="">
 <select name="month">';
 
 $month_array = array(
@@ -145,7 +154,7 @@ for ($i=$year; $i<=$year+2; $i++) {
     echo "<option value=\"$i\">$i</option>\n";
 }
 echo "</select>
-<input type=\"submit\" name=\"submit\" value=\"submit\" />
+<input type=\"submit\" value=\"submit\" />
 </form>
 </div>";
 

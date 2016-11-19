@@ -4,7 +4,7 @@ use Mlaphp\Request;
 use Mlaphp\Response;
 use OceanCrest\EventGateway;
 
-class CalendarController 
+class CalendarController
 {
     protected $request;
     protected $eventGateway;
@@ -26,22 +26,22 @@ class CalendarController
         if (isset($this->request->post['submit'])) {
 
             $submit = $this->request->post['submit'];
-            $month_now = $this->request->post['month'];
-            $year_now = $this->request->post['year'];
+            $month_now = $this->request->post['month_now'];
+            $year_now = $this->request->post['year_now'];
 
             // Subtract one from month for prev and add 1 for next
             if ($submit == "Prev") {
                 $month_now--;
             } else {
                 $month_now++;
-            } 
-            
+            }
+
             $date = getdate(mktime(0,0,0,$month_now, 1, $year_now));
 
         } elseif (isset($this->request->get['month'])) {
 
             $date = getdate(mktime(0,0,0, $this->request->get['month'], 1, $this->request->get['year']));
-                
+
         } else {
             $date = getdate();
         }
@@ -52,7 +52,7 @@ class CalendarController
 
         $eventData = $this->eventGateway->monthlyEvents($month, $year);
 
-        $this->response->setView('calendar.php'); 
+        $this->response->setView('calendar.php');
         $this->response->setVars([
             'request' => $this->request,
             'name' => $this->request->session['name'],

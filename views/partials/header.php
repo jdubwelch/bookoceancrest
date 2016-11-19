@@ -48,5 +48,5 @@ $page = substr($page, 1);
 
     </nav>
 
-<div class="container">
+<div class="container-fluid">
     <div class="content">
