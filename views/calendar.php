@@ -21,29 +21,29 @@ $eventsArray = @array_keys($eventData);
 
 echo '
 <div id="beachcal">
-<form id="calendar" name="calendar" method="post" action="">
+<form name="calendar" method="post" action="">
+    <input type="hidden" name="month_now" value="'.$month.'" />
+    <input type="hidden" name="year_now" value="'.$year.'" />
+    <div id="welch">Welch</div>
+    <div id="schu">Schumacher</div>
+    <input type="submit" name="submit" value="Prev" />
+    <span class="theMonth">'.$monthName.' '.$year.'</span>
+    <input type="submit" name="submit" value="Next" />
+</form>
 
-<table width="600" border="0" cellpadding="3" cellspacing="0">
-    <tr>
-        <input type="hidden" name="month_now" value="'.$month.'" />
-        <input type="hidden" name="year_now" value="'.$year.'" />
-        <td colspan="7" class="headRow">
-            <div id="welch">Welch</div>
-            <div id="schu">Schumacher</div>
-            <input type="submit" name="submit" value="Prev" />
-            <span class="theMonth">'.$monthName.' '.$year.'</span>
-            <input type="submit" name="submit" value="Next" />
-        </td>
-    </tr>
-    <tr class="headerDays">
-        <td>sun</td>
-        <td>mon</td>
-        <td>tue</td>
-        <td>wed</td>
-        <td>thur</td>
-        <td>fri</td>
-        <td>sat</td>
-    </tr>
+<table class="calendar">
+    <thead>
+        <tr class="headerDays">
+            <td>sun</td>
+            <td>mon</td>
+            <td>tue</td>
+            <td>wed</td>
+            <td>thur</td>
+            <td>fri</td>
+            <td>sat</td>
+        </tr>
+    </thead>
+    <tbody>
 ';
 
 $ownership = new OceanCrest\WeekOwnershipSwap;
@@ -110,8 +110,10 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
     }
 
 }
-echo '</table>';
-echo '<select name="month">';
+    echo '</tbody></table>';
+echo '
+<form name="calendar" method="post" action="">
+<select name="month">';
 
 $month_array = array(
     "January" => 1,
