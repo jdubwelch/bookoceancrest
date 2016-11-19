@@ -5799,16 +5799,32 @@ tr.headerDays {
 .otherMonth {
     background: #ececed;
 }
+
+.event {
+    font-size: 1.1em;
+    font-weight: bold;
+}
 .welch_week a {
     color: #25d625;
 }
-
+.welch_week.reserved {
+    background: rgba(37, 214, 37, 0.31);
+}
+.welch_week .event {
+    color: #2b8428
+}
 #welch {
     color: #25d625;
 }
 
 .schu_week a {
     color: #073ee4;
+}
+.schu_week.reserved {
+    background: rgba(7, 62, 228, 0.31);
+}
+.schu_week .event {
+    color: #102f8e;
 }
 
 #schu {

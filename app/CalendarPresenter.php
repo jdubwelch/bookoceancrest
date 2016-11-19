@@ -41,7 +41,7 @@ class CalendarPresenter {
             $link = $this->link_to_add_event($day);
         }
 
-        return '<td class="'.implode(' ', $classes).'"><div class="day">'.$link.'</div><div id="event">'.$guest.'</div></td>';
+        return '<td class="'.implode(' ', $classes).'"><div class="day">'.$link.'</div><div class="event">'.$guest.'</div></td>';
     }
 
     public function off_day()
