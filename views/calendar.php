@@ -1,4 +1,4 @@
-<?php 
+<?php
 include (__DIR__.'/../views/partials/header.php');
 
 $presenter = new OceanCrest\CalendarPresenter($month, $year);
@@ -12,13 +12,13 @@ $daysInMonth = date("t", mktime(0,0,0,$month,1,$year));
 // Determine the number of rows we'll need.
 $totalCells = $firstDay + $daysInMonth;
 $numberOfRows = ($totalCells < 36) ? 5 : 6;
-     
+
 $eventsArray = @array_keys($eventData);
 
 // Debugggin stuff
 // echo "<pre>month: $month\nyear: $year\nfirst day: $firstDay\ndays in month: $daysInMonth\ntotal cells: $totalCells\nRows: $numberOfRows</pre>";
 
-echo "<p>{$name}</p>";
+
 echo '
 <div id="beachcal">
 <form id="calendar" name="calendar" method="post" action="">
@@ -50,16 +50,16 @@ $ownership = new OceanCrest\WeekOwnershipSwap;
 
 $dayNumber = 1;
 for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
-    
+
     if ($currentRow == 1) {
-        
+
         #CREATE FIRST ROW
         echo "<tr>\n";
         for ($currentCell = 0; $currentCell < 7; $currentCell++) {
-            
+
             // set week ownership
             $family = $ownership->determine($dayNumber, $month, $year);
-            
+
             // CHECK IF IT'S THE FIRST DAY OF THE MONTH
             if ($currentCell == $firstDay) {
 
@@ -70,9 +70,9 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
                 }
                 $dayNumber++;
             } else {
-                
+
                 // IF THE FIRST DAY IS PASSED OUTPUT THE DATE
-                if ($dayNumber > 1) { 
+                if ($dayNumber > 1) {
                     if (@in_array($dayNumber, $eventsArray)) {
                         echo $presenter->day($dayNumber, $family, $eventData[$dayNumber]);
                     } else {
@@ -86,14 +86,14 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
         }
         echo '</tr>'."\n";
     } else {
-    
+
         #CREATE THE REMAINING ROWS
         echo '<tr>'."\n";
         for ($currentCell = 0; $currentCell < 7; $currentCell++) {
-            
+
             // Week Ownership
             $family = $ownership->determine($dayNumber, $month, $year);
-            
+
             // IF THE DAYS IN THE MONTH ARE EXCEEDED DISPLAY A BLANK CELL
             if ($dayNumber > $daysInMonth) {
                 echo $presenter->off_day();
@@ -108,7 +108,7 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
         }
         echo '</tr>'."\n";
     }
-        
+
 }
 echo '</table>';
 echo '<select name="month">';
@@ -134,7 +134,7 @@ foreach ($month_array as $m => $key) {
     } else {
         echo "<option value=\"$key\">$m</option>\n";
     }
-    
+
 }
 echo "</select>";
 

@@ -6,40 +6,47 @@
 if (!isset($page_title)) {
     $page_title = 'O C E A N  C R E S T';
 }
+
+$auth = isset($request->session['name']) AND (substr($request->server['PHP_SELF'], -10) != 'logout.php');
+
+$page = $request->server['PHP_SELF'];
+$page = substr($page, 1);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-    <title><?php echo $page_title; ?></title>
-<style type="text/css" media="screen">@import "./css/first.css";</style>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title><?=$page_title?></title>
+
+        <link href="/css/app.css" rel="stylesheet" type="text/css">
+    </head>
 
 <body>
-<div id="container">
-    <div id="header">
-      <h1>Ocean Crest </h1>
-      <ul>
-        <li><a href="index.php">home</a></li>
-        <?php
-        // SHOW LOGIN LINKS IF USER IS NOT LOGGED IN
-        if (isset($request->session['name']) AND (substr($request->server['PHP_SELF'], -10) != 'logout.php')) {
-            echo "<li><a href=\"calendar.php\">calendar</a></li>\n";
-            echo "<li><a href=\"logout.php\">logout</a></li>\n";
-            echo "<li><a href=\"change_password.php\">change password</a></li>\n";
-            
-            
-        } else {    // they're not logged in
-            echo "<li><a href=\"login.php\">login</a></li>\n";
-            echo "<li><a href=\"register.php\">register</a></li>\n";
-        }
-        
-        $page = $request->server['PHP_SELF'];
-        $page = substr($page, 1);
-        
-        ?>
-      </ul>
-  </div>
-    <div id="content">
-    <!-- END OF THE HEADER FILE -->
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="calendar" class="navbar-brand">
+                    Ocean Crest
+                </a>
+            </div>
+
+            <p class="navbar-text">Signed in as <?=$name?></p>
+            <ul class="nav nav-pills navbar-right">
+            <?php
+            if ($auth) {
+                include('nav-auth.php');
+            } else {
+                include('nav-guest.php');
+            }
+            ?>
+            </ul>
+        </div>
+
+    </nav>
+
+<div class="container">
+    <div class="content">

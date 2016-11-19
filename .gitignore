@@ -5,4 +5,5 @@
 *.sublime-*
 .tags
 /config/database.php
+/config/live.database.php
 
