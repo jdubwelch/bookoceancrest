@@ -116,8 +116,10 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
         </tbody>
     </table>
 
-    <form name="calendar" method="get" action="">
-        <select name="month">
+    <form name="calendar" method="get" action="" class="form-inline">
+        <div class="form-group">
+            <label for="month" class="sr-only">Month</label>
+            <select name="month" id="month">
 <?php
 $month_array = array(
     "January"   => 1,
@@ -139,15 +141,19 @@ foreach ($month_array as $m => $key) {
     echo "<option value=\"$key\" $selected>$m</option>\n";
 }
 ?>
-        </select>
-        <select name="year">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="year" class="sr-only">Year</label>
+            <select name="year" id="year">
 <?php
 for ($i=$year; $i<=$year+2; $i++) {
     echo "<option value=\"$i\">$i</option>\n";
 }
 ?>
-        </select>
-        <input type="submit" value="View Month" class="btn btn-primary" />
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">View Month</button>
     </form>
 </div>
 
