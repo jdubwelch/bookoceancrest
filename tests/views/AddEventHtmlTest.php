@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 class AddEventHtmlTest extends \PHPUnit_Framework_TestCase
 {
     protected $response;
     protected $request;
     protected $output;
-    
+
     public function setUp()
     {
         $this->request = new \Mlaphp\Request($GLOBALS);
@@ -21,13 +21,13 @@ class AddEventHtmlTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->output = $this->response->requireView();
     }
-    
+
    /**
     * @test
     */
    function it_shows_the_date_of_arrival()
    {
-        $this->assertOutputHas('<td align="left">2/5/2016</td>');
+        $this->assertOutputHas('value="5/2/2016"');
    }
 
    /**
@@ -35,13 +35,14 @@ class AddEventHtmlTest extends \PHPUnit_Framework_TestCase
     */
    function it_passes_the_day_through_the_form()
    {
-        $this->assertOutputHas('<input name="date" type="hidden" value="5/2/2016">');
+        $this->assertOutputHas('value="5/2/2016"');
    }
 
    public function assertOutputHas($expect)
    {
        if (! $this->outputHas($expect)) {
-           $this->fail("Did not find expected output: $expect");
+            echo $this->output;
+            $this->fail("Did not find expected output: $expect");
        }
    }
 

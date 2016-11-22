@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 class DetailsHtmlTest extends \PHPUnit_Framework_TestCase
 {
     protected $response;
     protected $request;
     protected $output;
-    
+
     public function setUp()
     {
         $this->request = new \Mlaphp\Request($GLOBALS);
@@ -20,7 +20,7 @@ class DetailsHtmlTest extends \PHPUnit_Framework_TestCase
                 'id' => 1,
                 'date' => "3/30/2016",
                 'owned' => true
-            ]   
+            ]
         ]);
         $this->output = $this->response->requireView();
     }
@@ -30,8 +30,8 @@ class DetailsHtmlTest extends \PHPUnit_Framework_TestCase
      */
     function it_displays_the_date_and_who_is_staying()
     {
-        $expect = '<h3>Jason & Deena have reserved the cabin on 3/30/2016</h3>';
-        $this->assertOutputHas($expect);
+        $this->assertOutputHas('Jason & Deena');
+        $this->assertOutputHas('3/30/2016');
     }
 
     /**
@@ -56,7 +56,7 @@ class DetailsHtmlTest extends \PHPUnit_Framework_TestCase
                 'id' => 1,
                 'date' => "3/30/2016",
                 'owned' => false
-            ]   
+            ]
         ]);
         $this->output = $this->response->requireView();
 

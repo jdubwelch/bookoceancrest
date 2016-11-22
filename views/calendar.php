@@ -119,7 +119,7 @@ for ($currentRow=1; $currentRow <= $numberOfRows; $currentRow++) {
     <form name="calendar" method="get" action="" class="form-inline">
         <div class="form-group">
             <label for="month" class="sr-only">Month</label>
-            <select name="month" id="month">
+            <select name="month" id="month" class="form-control">
 <?php
 $month_array = array(
     "January"   => 1,
@@ -145,7 +145,7 @@ foreach ($month_array as $m => $key) {
         </div>
         <div class="form-group">
             <label for="year" class="sr-only">Year</label>
-            <select name="year" id="year">
+            <select name="year" id="year" class="form-control">
 <?php
 for ($i=$year; $i<=$year+2; $i++) {
     echo "<option value=\"$i\">$i</option>\n";

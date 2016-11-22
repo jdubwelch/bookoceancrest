@@ -8,13 +8,14 @@ include (__DIR__.'/../views/partials/header.php');
     <div class="form-group">
         <label for="arrivalDate" class="col-sm-2 control-label">Arrival Date</label>
         <div class="col-sm-2">
-            <input type="text" name="date" class="form-control" id="arrivalDate" value="<?=$this->esc($day)?>" readonly>
+            <input type="text" name="date" class="form-control" id="arrivalDate" value="<?=$arrival_date?>" disabled>
+            <input type="hidden" name="date" value="<?=$this->esc($day)?>" />
         </div>
     </div>
     <div class="form-group">
-        <label for="arrivalDate" class="col-sm-2 control-label">No. of Days Staying</label>
+        <label for="totalDays" class="col-sm-2 control-label">No. of Days Staying</label>
         <div class="col-sm-2">
-            <select name="staying" class="form-control">
+            <select name="staying" class="form-control" id="totalDays">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
