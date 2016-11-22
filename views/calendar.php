@@ -17,14 +17,11 @@ $eventsArray = @array_keys($eventData);
 
 // Debugggin stuff
 // echo "<pre>month: $month\nyear: $year\nfirst day: $firstDay\ndays in month: $daysInMonth\ntotal cells: $totalCells\nRows: $numberOfRows</pre>";
-
-
 ?>
 <div id="beachcal">
     <div id="welch">Welch</div>
     <div id="schu">Schumacher</div>
     <div class="row">
-
             <div class="calendar-nav col-md-2">
                 <a href="?year=<?=$year?>&month=<?=$month-1?>" class="btn btn-primary btn-large btn-block">Last Month</a>
             </div>
