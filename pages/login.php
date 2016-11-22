@@ -24,7 +24,7 @@ if (isset($request->post['submitted'])) { // Check if the form has been submitte
         }
         // Add the page.
         $url .= '/calendar.php';
-        
+
         ob_end_clean(); // Delete the buffer.
         header("Location: $url");
         exit(); // Quit the script.
@@ -32,20 +32,42 @@ if (isset($request->post['submitted'])) { // Check if the form has been submitte
 
     // Failure
     echo '<p><font color="red" size="+1">'.implode('<br />', $authTransactions->getErrors()).'</font></p>';
-	
+
 } // End of SUBMIT conditional.
 ?>
 
-<h1>Login-Update</h1>
-<p>Your browser must allow cookies in order to log in.</p>
-<form action="login.php" method="post">
-	<fieldset>
-	<p><b>Email Address:</b> <input type="text" name="email" size="20" maxlength="40" value="<?php if (isset($request->post['email'])) echo $request->post['email']; ?>" /></p>
-	<p><b>Password:</b> <input type="password" name="pass" size="20" maxlength="20" /></p>
-	<p><a href="forgot_password.php">forget password? </a></p>
-	<div align="center"><input type="submit" name="submit" value="Login" /></div>
-	<input type="hidden" name="submitted" value="TRUE" />
-	</fieldset>
+<div class="page-header">
+    <h1>Login-Update</h1>
+</div>
+
+<form action="login.php" method="post" class="form-horizontal">
+    <input type="hidden" name="submitted" value="TRUE" />
+
+    <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">Email Address</label>
+        <div class="col-sm-4">
+            <input type="text" name="email" size="20" maxlength="40" class="form-control" value="<?php if (isset($request->post['email'])) echo $request->post['email']; ?>" />
+            <div class="help-block">
+                <small><i>Your browser must allow cookies in order to log in.</i></small>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-4">
+            <input type="password" name="pass" class="form-control" id="password" value="" />
+            <span id="helpBlock" class="help-block">
+                <a href="forgot_password.php">Forgot password?</a>
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button type="submit" name="submit" class="btn btn-primary">Login</button>
+        </div>
+    </div>
 </form>
 
 <?php // Include the HTML footer.

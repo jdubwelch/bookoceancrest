@@ -1,2 +1,2 @@
-<li><a href="login">login</a></li>
-<li><a href="register">register</a></li>
+<li><a href="login.php">Login</a></li>
+<li><a href="register.php">Register</a></li>

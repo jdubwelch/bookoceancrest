@@ -33,8 +33,10 @@ $page = substr($page, 1);
                     Ocean Crest
                 </a>
             </div>
-
+            <?php if ($auth): ?>
             <p class="navbar-text">Signed in as <?=$name?></p>
+            <?php endif; ?>
+
             <ul class="nav nav-pills navbar-right">
             <?php
             if ($auth) {

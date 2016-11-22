@@ -11,8 +11,17 @@ unset($request->session);
 session_destroy(); // Destroy the session itself.
 setcookie (session_name(), '', time()-300, '/', '', 0); // Destroy the cookie.
 
-// Print a customized message.
-echo "<h1>You are now logged out.</h1>";
 
-include (__DIR__.'/includes/footer.php');
+// Start defining the URL.
+$url = 'http://' . $di->request->server['HTTP_HOST'] . dirname($di->request->server['PHP_SELF']);
+// Check for a trailing slash.
+if ((substr($url, -1) == '/') OR (substr($url, -1) == '\\') ) {
+    $url = substr ($url, 0, -1); // Chop off the slash.
+}
+// Add the page.
+$url .= '/index.php';
+
+ob_end_clean(); // Delete the buffer.
+header("Location: $url");
+exit(); // Quit the script.
 ?>

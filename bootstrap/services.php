@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $di = new Mlaphp\Di($GLOBALS);
 
@@ -24,8 +24,8 @@ $di->set('router', function() {
 $di->set('OceanCrest\Controllers\CalendarController', function() use ($di) {
     $di->get('middleware');
     return new OceanCrest\Controllers\CalendarController(
-        $di->request, 
-        $di->newInstance('OceanCrest\EventGateway'), 
+        $di->request,
+        $di->newInstance('OceanCrest\EventGateway'),
         $di->newInstance('response')
     );
 });
@@ -80,7 +80,7 @@ $di->set('middleware', function() use ($di) {
         }
         // Add the page.
         $url .= '/index.php';
-        
+
         ob_end_clean(); // Delete the buffer.
         header("Location: $url");
         exit(); // Quit the script.
