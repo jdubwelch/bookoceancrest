@@ -12,12 +12,12 @@ $di->set('response', function() {
 
 $di->set('router', function() {
     $router = new Mlaphp\Router(dirname(__DIR__).'/pages');
-    $router->setRoutes([
-        '/calendar.php' => 'OceanCrest\Controllers\CalendarController',
-        '/calendar' => 'OceanCrest\Controllers\CalendarController',
+    $router->setRoutes(array(
+        '/calendar.php'  => 'OceanCrest\Controllers\CalendarController',
+        '/calendar'      => 'OceanCrest\Controllers\CalendarController',
         '/add_event.php' => 'OceanCrest\Controllers\CreateEventController',
-        '/details.php' => 'OceanCrest\Controllers\ReservedEventController',
-    ]);
+        '/details.php'   => 'OceanCrest\Controllers\ReservedEventController'
+    ));
     return $router;
 });
 

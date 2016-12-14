@@ -3,7 +3,7 @@ include (__DIR__.'/../views/partials/header.php');
 ?>
 
 <h1>Reserve the Cabin</h1>
-<form name="form1" method="post" action="<?=$action?>" class="form-horizontal">
+<form name="form1" method="post" action="/add_event.php" class="form-horizontal">
     <input name="action" type="hidden" id="action" value="add">
     <div class="form-group">
         <label for="arrivalDate" class="col-sm-2 control-label">Arrival Date</label>

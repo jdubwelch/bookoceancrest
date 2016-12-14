@@ -47,7 +47,6 @@ class CreateEventController
         $this->response->setVars([
             'request'      => $this->request,
             'name'         => $this->request->session['name'],
-            'action'       => $this->request->server['PHP_SELF'],
             'day'          => $this->request->get['day'],
             'arrival_date' => "$month/$day/$year",
         ]);
