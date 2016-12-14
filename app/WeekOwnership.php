@@ -7,8 +7,8 @@
 |
 | This class is responsible for determining the ownership for the cabin
 | for given dates. The rules are as follows:
-| * Welch's get even weeks during even years. 
-| * Schu's get odd weeks during event years.
+| * Schu's get even weeks during even years. 
+| * Welch's get odd weeks during event years.
 | * Each each odd/even weeks swap sides. 
 | ** This means usually, side that ends the year, starts the year.
 | ** So a side gets two weeks there, but that will rotate each year.
@@ -52,12 +52,12 @@ class WeekOwnership {
         |--------------------------------------------------------------------------
         |
         | Whoever didn't have New Year's gets Fouth of July.
-        | Welch's get Fourth of July on even years.
-        | Schu's  get Fourth of July on odd years.
+        | Schu's get Fourth of July on even years.
+        | Welch's  get Fourth of July on odd years.
         |
         */
         if ($this->isFourthOfJulyWeek($weekNumber, $year)) {
-            return ($this->even($year)) ? 'welch' : 'schu';
+            return ($this->even($year)) ? 'schu' : 'welch';
         }
 
         /*
@@ -66,12 +66,12 @@ class WeekOwnership {
         |--------------------------------------------------------------------------
         |
         | Whoever had New Year's, gets Memorial Day Weekend.
-        | Welch's get New Year's during odd years.
-        | Schu's  get New Year's during even years.
+        | Schu's get New Year's during odd years.
+        | Welch's  get New Year's during even years.
         |
         */
         if ($this->isMemorialDayWeek($weekNumber, $year)) {
-            return ($this->odd($year)) ? 'welch' : 'schu';
+            return ($this->odd($year)) ? 'schu' : 'welch';
         }
 
         /*
@@ -80,12 +80,12 @@ class WeekOwnership {
         |--------------------------------------------------------------------------
         |
         | Whoever didn't have New Year's gets Labor Day Weekend.
-        | Welch's get New Year's during odd years.
-        | Schu's  get New Year's during even years.
+        | Schu's get New Year's during odd years.
+        | Welch's  get New Year's during even years.
         |
         */
         if ($this->isLaborDayWeek($weekNumber, $year)) {
-            return ($this->even($year)) ? 'welch' : 'schu';
+            return ($this->even($year)) ? 'schu' : 'welch';
         }
 
         /**
@@ -110,19 +110,19 @@ class WeekOwnership {
      */
     public function evenOddAssignment($weekNumber, $year)
     {
-        // odd years, welch's get odd weeks
+        // odd years, schu's get odd weeks
         if ($this->odd($year) && $this->odd($weekNumber)) {
-            return 'welch';
+            return 'schu';
         }
 
-        // even year, welch's get even weeks
+        // even year, schu's get even weeks
         if ($this->even($year) && $this->even($weekNumber)) {
-            return 'welch';
+            return 'schu';
         }
 
-        // odd  year, schu's get even weeks
-        // even year, schu's get odd weeks
-        return 'schu';
+        // odd  year, welch's get even weeks
+        // even year, welch's get odd weeks
+        return 'welch';
     }
 
     /**
