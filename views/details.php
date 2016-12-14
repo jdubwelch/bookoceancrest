@@ -11,7 +11,7 @@ if(strlen($event['family']) > 0) {
     if ($event['owned']) {
         echo '<form action="" method="post">
             <input name="id" type="hidden" value="'.$this->esc($event['id']).'">
-            <input name="delete" type="submit" class="btn btn-danger btn-large" value=" click if not staying anymore ">
+            <input name="delete" type="submit" class="btn btn-danger btn-large" value="Cancel Reservation">
         </form>';
     }
 } else { ?>
@@ -20,7 +20,7 @@ if(strlen($event['family']) > 0) {
 }
 ?>
   <p>&nbsp;</p>
-  <p><a class="btn btn-block btn-primary" href="calendar">Return to Calendar</a> </p>
+  <p><a class="btn btn-primary" href="calendar">Return to Calendar</a> </p>
 <?php
 include (__DIR__.'/../views/partials/footer.php');
 ?>
