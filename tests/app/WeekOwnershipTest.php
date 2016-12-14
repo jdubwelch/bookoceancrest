@@ -16,14 +16,14 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function it_assigns_welches_to_odd_weeks_in_odd_years()
+    function it_assigns_schu_to_odd_weeks_in_odd_years()
     {
         $expected = [
-            2017 => 'welch',
-            2019 => 'welch',
-            2021 => 'welch',
-            2023 => 'welch',
-            2025 => 'welch',
+            2017 => 'schu',
+            2019 => 'schu',
+            2021 => 'schu',
+            2023 => 'schu',
+            2025 => 'schu',
         ];
 
         $ownership = new WeekOwnership;
@@ -40,15 +40,15 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function it_assigns_schu_to_even_weeks_in_odd_years()
+    function it_assigns_welch_to_even_weeks_in_odd_years()
     {
         // Odd years
         $expected = [
-            2017 => 'schu',
-            2019 => 'schu',
-            2021 => 'schu',
-            2023 => 'schu',
-            2025 => 'schu',
+            2017 => 'welch',
+            2019 => 'welch',
+            2021 => 'welch',
+            2023 => 'welch',
+            2025 => 'welch',
         ];
 
         $ownership = new WeekOwnership;
@@ -66,15 +66,15 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function it_assigns_welches_to_even_weeks_in_even_years()
+    function it_assigns_schu_to_even_weeks_in_even_years()
     {
         // even years
         $expected = [
-            2018 => 'welch',
-            2020 => 'welch',
-            2022 => 'welch',
-            2024 => 'welch',
-            2026 => 'welch'
+            2018 => 'schu',
+            2020 => 'schu',
+            2022 => 'schu',
+            2024 => 'schu',
+            2026 => 'schu'
         ];
 
         $ownership = new WeekOwnership;
@@ -91,15 +91,15 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    function it_assigns_schu_to_odd_weeks_in_even_years()
+    function it_assigns_welch_to_odd_weeks_in_even_years()
     {
         // even years
         $expected = [
-            2018 => 'schu',
-            2020 => 'schu',
-            2022 => 'schu',
-            2024 => 'schu',
-            2026 => 'schu'
+            2018 => 'welch',
+            2020 => 'welch',
+            2022 => 'welch',
+            2024 => 'welch',
+            2026 => 'welch'
         ];
 
         $ownership = new WeekOwnership;
@@ -119,16 +119,16 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
     function it_alternates_new_years_each_year()
     {
         $expected = [
-            2017 => 'welch',
-            2018 => 'schu',
-            2019 => 'welch',
-            2020 => 'schu',
-            2021 => 'welch',
-            2022 => 'schu',
-            2023 => 'welch',
-            2024 => 'schu',
-            2025 => 'welch',
-            2026 => 'schu'
+            2017 => 'schu',
+            2018 => 'welch',
+            2019 => 'schu',
+            2020 => 'welch',
+            2021 => 'schu',
+            2022 => 'welch',
+            2023 => 'schu',
+            2024 => 'welch',
+            2025 => 'schu',
+            2026 => 'welch'
         ];
 
         $ownership = new WeekOwnership;
@@ -148,16 +148,16 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
     function it_assigns_independence_day_to_the_opposite_of_who_had_new_years()
     {
         $expected = [
-            2017 => 'schu',
-            2018 => 'welch',
-            2019 => 'schu',
-            2020 => 'welch',
-            2021 => 'schu',
-            2022 => 'welch',
-            2023 => 'schu',
-            2024 => 'welch',
-            2025 => 'schu',
-            2026 => 'welch'
+            2017 => 'welch',
+            2018 => 'schu',
+            2019 => 'welch',
+            2020 => 'schu',
+            2021 => 'welch',
+            2022 => 'schu',
+            2023 => 'welch',
+            2024 => 'schu',
+            2025 => 'welch',
+            2026 => 'schu'
         ];
 
         $ownership = new WeekOwnership;
@@ -177,16 +177,16 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
     function it_assigns_memorial_day_to_the_same_side_that_had_new_years()
     {
         $expected = [
-            2017 => 'welch',
-            2018 => 'schu',
-            2019 => 'welch',
-            2020 => 'schu',
-            2021 => 'welch',
-            2022 => 'schu',
-            2023 => 'welch',
-            2024 => 'schu',
-            2025 => 'welch',
-            2026 => 'schu'
+            2017 => 'schu',
+            2018 => 'welch',
+            2019 => 'schu',
+            2020 => 'welch',
+            2021 => 'schu',
+            2022 => 'welch',
+            2023 => 'schu',
+            2024 => 'welch',
+            2025 => 'schu',
+            2026 => 'welch'
         ];
 
         $ownership = new WeekOwnership;
@@ -206,16 +206,16 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
     function it_assigns_labor_day_to_the_opposite_side_that_had_new_years()
     {
         $expected = [
-            2017 => 'schu',
-            2018 => 'welch',
-            2019 => 'schu',
-            2020 => 'welch',
-            2021 => 'schu',
-            2022 => 'welch',
-            2023 => 'schu',
-            2024 => 'welch',
-            2025 => 'schu',
-            2026 => 'welch'
+            2017 => 'welch',
+            2018 => 'schu',
+            2019 => 'welch',
+            2020 => 'schu',
+            2021 => 'welch',
+            2022 => 'schu',
+            2023 => 'welch',
+            2024 => 'schu',
+            2025 => 'welch',
+            2026 => 'schu'
         ];
 
         $ownership = new WeekOwnership;
@@ -238,19 +238,18 @@ class WeekOwnershipTest extends \PHPUnit_Framework_TestCase
 
         // according to the calendar-list,
         // wk1 in 2017 starts 12/30
-        // welches get odd weeks in odd years, so it should be welch
+        // schu get odd weeks in odd years, so it should be welch
         $side = $ownership->determine(31, 12, 2016);
-        $this->assertSame('welch', $side);
-
+        $this->assertSame('schu', $side);
 
         // A year when the last day of the week is 12/30,
-        // and that week belongs to the schu's. The next
+        // and that week belongs to the welch's. The next
         // week starts on 12/31 and that year is even so 
-        // the schu's get that. They should have two weeks there then.
+        // the welch's get that. They should have two weeks there then.
         $side = $ownership->determine(30, 12, 2021);
-        $this->assertSame('schu', $side);
+        $this->assertSame('welch', $side);
         $side = $ownership->determine(31, 12, 2021);
-        $this->assertSame('schu', $side);
+        $this->assertSame('welch', $side);
 
 
     }
