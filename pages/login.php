@@ -37,7 +37,7 @@ if (isset($request->post['submitted'])) { // Check if the form has been submitte
 ?>
 
 <div class="page-header">
-    <h1>Login-Update</h1>
+    <h1>Login</h1>
 </div>
 
 <form action="login.php" method="post" class="form-horizontal">

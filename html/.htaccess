@@ -3,6 +3,8 @@
         Options -MultiViews
     </IfModule>
 
+    DirectoryIndex front.php
+
     RewriteEngine On
 
     # Redirect Trailing Slashes If Not A Folder...
