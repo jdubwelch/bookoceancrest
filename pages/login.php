@@ -48,7 +48,7 @@ if (isset($request->post['submitted'])) { // Check if the form has been submitte
         <div class="col-sm-4">
             <input type="text" name="email" size="20" maxlength="40" class="form-control" value="<?php if (isset($request->post['email'])) echo $request->post['email']; ?>" />
             <div class="help-block">
-                <small><i>Your browser must allow cookies in order to log in.</i></small>
+                <!-- <small><i>Your browser must allow cookies in order to log in.</i></small> -->
             </div>
         </div>
     </div>

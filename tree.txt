@@ -1,0 +1,90 @@
+.
+├── README.md
+├── app
+│   ├── AuthGateway.php
+│   ├── AuthTransactions.php
+│   ├── CalendarPresenter.php
+│   ├── Controllers
+│   │   ├── CalendarController.php
+│   │   └── EventController.php
+│   ├── DB.php
+│   ├── EventGateway.php
+│   ├── EventTransaction.php
+│   ├── User.php
+│   ├── UserGateway.php
+│   ├── UserTransactions.php
+│   ├── WeekOwnership.php
+│   ├── WeekOwnershipOriginal.php
+│   └── WeekOwnershipSwap.php
+├── bootstrap
+│   └── start.php
+├── composer.json
+├── composer.lock
+├── config
+│   ├── database.php
+│   └── live.database.php
+├── html
+│   ├── activate.php
+│   ├── add_event.php
+│   ├── calendar.php
+│   ├── change_password.php
+│   ├── css
+│   │   └── first.css
+│   ├── details.php
+│   ├── forgot_password.php
+│   ├── images
+│   │   ├── OceantCrest.jpg
+│   │   └── header.jpg
+│   ├── includes
+│   │   ├── footer.html
+│   │   ├── footer.php
+│   │   ├── header.html
+│   │   ├── header.php
+│   │   └── register_form.html
+│   ├── index.php
+│   ├── login.php
+│   ├── logout.php
+│   └── register.php
+├── packages
+│   ├── AYAH.php
+│   ├── ayah_config.php
+│   └── json.php
+├── phpunit.xml
+├── tests
+│   ├── TestCase.php
+│   ├── app
+│   │   ├── AuthGatewayTest.php
+│   │   ├── AuthTransactionsTest.php
+│   │   ├── CalendarPresenterTest.php
+│   │   ├── Controllers
+│   │   │   ├── CalendarControllerTest.php
+│   │   │   └── EventControllerTest.php
+│   │   ├── EventGatewayTest.php
+│   │   ├── EventTransactionsTest.php
+│   │   ├── GatewayTester.php
+│   │   ├── UserGatewayTest.php
+│   │   ├── UserTransactionsTest.php
+│   │   ├── WeekOwnershipSwapTest.php
+│   │   └── WeekOwnershipTest.php
+│   ├── bootstrap.php
+│   ├── sbx
+│   │   ├── calendar-list.txt
+│   │   ├── calendar_math.php
+│   │   ├── dateWithEvenWeekEachYear.php
+│   │   ├── dateWithOddWeekEachYear.php
+│   │   └── weekOwnershipList.php
+│   └── views
+│       ├── AddEventHtmlTest.php
+│       ├── CalendarHtmlTest.php
+│       └── DetailsHtmlTest.php
+├── tree.txt
+└── views
+    ├── add_event.php
+    ├── calendar.php
+    ├── details.php
+    ├── partials
+    │   ├── footer.php
+    │   └── header.php
+    └── register.php
+
+16 directories, 71 files
